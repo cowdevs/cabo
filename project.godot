@@ -1,0 +1,35 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Cabo"
+run/main_scene="res://scenes/title_screen.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
+
+[aseprite_importers]
+
+aseprite_executable_path="C:/aseprite/build/bin/aseprite.exe"
+
+[autoload]
+
+Cards="*res://card_lists.gd"
+TurnSystem="*res://turn_system.gd"
+ActionSystem="*res://action_system.gd"
+
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=1200
+mouse_cursor/custom_image="res://assets/ui/cursors/normal.png"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/nklbdev.aseprite_importers/plugin.cfg")

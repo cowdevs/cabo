@@ -1,0 +1,79 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqm4nc6bhaexr"]
+
+[ext_resource type="Script" path="res://computer.gd" id="1_32gng"]
+[ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/selection.tres" id="2_4cy5a"]
+[ext_resource type="Script" path="res://CardDisplay.gd" id="2_xt3rd"]
+
+[node name="Computer" type="Node2D"]
+script = ExtResource("1_32gng")
+
+[node name="CardDisplay" type="Node2D" parent="."]
+script = ExtResource("2_xt3rd")
+
+[node name="Slots" type="Node2D" parent="."]
+
+[node name="Slot1" type="Marker2D" parent="Slots"]
+texture_filter = 1
+position = Vector2(-262.5, 0)
+scale = Vector2(2.5, 2.5)
+
+[node name="Slot2" type="Marker2D" parent="Slots"]
+texture_filter = 1
+position = Vector2(-87.5, 0)
+scale = Vector2(2.5, 2.5)
+
+[node name="Slot3" type="Marker2D" parent="Slots"]
+texture_filter = 1
+position = Vector2(87.5, 0)
+scale = Vector2(2.5, 2.5)
+
+[node name="Slot4" type="Marker2D" parent="Slots"]
+texture_filter = 1
+position = Vector2(262.5, 0)
+scale = Vector2(2.5, 2.5)
+
+[node name="NewCard" type="Marker2D" parent="Slots"]
+position = Vector2(0, -225)
+
+[node name="Buttons" type="Node2D" parent="."]
+
+[node name="Button1" type="TextureButton" parent="Buttons"]
+texture_filter = 1
+offset_left = -345.0
+offset_top = -112.5
+offset_right = -279.0
+offset_bottom = -22.5
+scale = Vector2(2.5, 2.5)
+disabled = true
+texture_hover = ExtResource("2_4cy5a")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button2" type="TextureButton" parent="Buttons"]
+texture_filter = 1
+offset_left = -170.0
+offset_top = -112.5
+offset_right = -104.0
+offset_bottom = -22.5
+scale = Vector2(2.5, 2.5)
+texture_hover = ExtResource("2_4cy5a")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button3" type="TextureButton" parent="Buttons"]
+texture_filter = 1
+offset_left = 5.0
+offset_top = -112.5
+offset_right = 71.0
+offset_bottom = -22.5
+scale = Vector2(2.5, 2.5)
+texture_hover = ExtResource("2_4cy5a")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button4" type="TextureButton" parent="Buttons"]
+texture_filter = 1
+offset_left = 180.0
+offset_top = -112.5
+offset_right = 246.0
+offset_bottom = -22.5
+scale = Vector2(2.5, 2.5)
+texture_hover = ExtResource("2_4cy5a")
+metadata/_edit_use_anchors_ = true

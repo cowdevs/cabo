@@ -1,0 +1,88 @@
+[gd_scene load_steps=12 format=3 uid="uid://dcbclwsjjgdkg"]
+
+[ext_resource type="Script" path="res://deck.gd" id="1_fjbb1"]
+[ext_resource type="Texture2D" uid="uid://bkxpsa48qeimu" path="res://assets/deck_stages.png" id="1_nm62k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvtne"]
+atlas = ExtResource("1_nm62k")
+region = Rect2(420, 0, 60, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6h3i"]
+atlas = ExtResource("1_nm62k")
+region = Rect2(360, 0, 60, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kuyuj"]
+atlas = ExtResource("1_nm62k")
+region = Rect2(300, 0, 60, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cm06"]
+atlas = ExtResource("1_nm62k")
+region = Rect2(240, 0, 60, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umlst"]
+atlas = ExtResource("1_nm62k")
+region = Rect2(180, 0, 60, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlcie"]
+atlas = ExtResource("1_nm62k")
+region = Rect2(120, 0, 60, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rr518"]
+atlas = ExtResource("1_nm62k")
+region = Rect2(60, 0, 60, 105)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjjod"]
+atlas = ExtResource("1_nm62k")
+region = Rect2(0, 0, 60, 105)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qt403"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvtne")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6h3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kuyuj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cm06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umlst")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlcie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rr518")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjjod")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Deck" type="Node2D"]
+scale = Vector2(2.5, 2.5)
+script = ExtResource("1_fjbb1")
+
+[node name="DeckTexture" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_qt403")
+frame = 8
+
+[node name="Button" type="TextureButton" parent="."]
+offset_left = -30.0
+offset_top = -52.0
+offset_right = 30.0
+offset_bottom = 52.5
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
