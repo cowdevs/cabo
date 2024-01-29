@@ -36,3 +36,7 @@ func set_player_positions():
 	for player in TurnSystem.player_list:
 		player.position = positions[TurnSystem.player_list.find(player)]
 		player.rotation = rotations[TurnSystem.player_list.find(player)]
+		
+func _process(_delta):
+	for player in TurnSystem.player_list:
+		print(str(player) + ': ' + str(player.hand))
