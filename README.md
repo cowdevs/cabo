@@ -1,2 +1,2 @@
 # cabo
- the elusive unicorn card game
+The Elusive Unicorn Card Game
