@@ -1,6 +1,6 @@
 extends Node2D
 
-var card_scene = preload("res://card.tscn")
+var card_scene = preload("res://scenes/card/card.tscn")
 
 func _ready():
 	await $"..".hand.is_empty() == false
@@ -25,10 +25,4 @@ func update_display():
 		get_children()[4].value = TurnSystem.new_cards[$".."].value
 	else:
 		get_children()[4].hide()
-	
-	for button in $"../Buttons".get_children():
-		var card = $"..".hand[button.get_index()]
-		if card.can_select == false:
-			button.disabled = true
-		else:
-			button.disabled = false
+

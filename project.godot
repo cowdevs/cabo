@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Cabo"
-run/main_scene="res://scenes/title_screen.tscn"
+run/main_scene="res://scenes/title/title_screen.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 
 [aseprite_importers]
@@ -20,9 +20,9 @@ aseprite_executable_path="C:/aseprite/build/bin/aseprite.exe"
 
 [autoload]
 
-Cards="*res://card_lists.gd"
-TurnSystem="*res://turn_system.gd"
-ActionSystem="*res://action_system.gd"
+CardSystem="*res://scenes/global/card_system.gd"
+TurnSystem="*res://scenes/global/turn_system.gd"
+ActionSystem="*res://scenes/global/action_system.gd"
 
 [display]
 

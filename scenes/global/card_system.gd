@@ -3,6 +3,7 @@ extends Node
 var deck = []
 var pile = []
 
+
 func get_card(list):
 	if list.size() > 0:
 		return list.back()
@@ -19,8 +20,8 @@ func deal_card(list, player):
 	if list.size() > 0:
 		var new_card = get_pop_card(list)
 		TurnSystem.new_cards[player] = new_card
-		for card in player.hand:
-			card.can_select = true
+		if player.is_player:
+			player.has_new_card = true
 
 func get_sum(list):
 	var total = 0
@@ -38,9 +39,13 @@ func get_best_card(list, player):
 	else:
 		return null
 
+func update_deck_display():
+	get_node('/root/GameScreen/Deck/DeckTexture').frame = ceil(2.0 * type_convert(len(deck), TYPE_FLOAT) / 13.0)
+
+func update_pile_display():
+	get_node('/root/GameScreen/Pile/PileTexture').frame = get_card(pile).value if pile.size() > 0 else 15
+	
 func _process(_delta):
-	print(deck)
-	print(pile)
 	if deck.size() == 0:
 		deck.append_array(pile)
 		pile = pile.slice(-1)

@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://bm8fqdf5no5i2"]
 
-[ext_resource type="Script" path="res://card.gd" id="1_31qri"]
-[ext_resource type="Texture2D" uid="uid://dighr41xbca1k" path="res://assets/card_back.png" id="1_vbq8h"]
-[ext_resource type="Script" path="res://CardTexture.gd" id="3_ea2wu"]
-[ext_resource type="SpriteFrames" uid="uid://dj0gy4h2owm8e" path="res://assets/card_frames.tres" id="3_jncjp"]
+[ext_resource type="Script" path="res://scenes/card/card.gd" id="1_aau00"]
+[ext_resource type="Texture2D" uid="uid://dighr41xbca1k" path="res://assets/textures/card_back.png" id="2_tmp3q"]
+[ext_resource type="SpriteFrames" uid="uid://dj0gy4h2owm8e" path="res://assets/textures/card_frames.tres" id="3_0gi1s"]
+[ext_resource type="Script" path="res://scenes/card/card_texture.gd" id="4_gmqd8"]
 
 [sub_resource type="Animation" id="Animation_qwqef"]
 length = 0.001
@@ -48,16 +48,16 @@ size = Vector2(60, 84)
 
 [node name="Card" type="Node2D"]
 scale = Vector2(2.5, 2.5)
-script = ExtResource("1_31qri")
+script = ExtResource("1_aau00")
 
 [node name="CardBack" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("1_vbq8h")
+texture = ExtResource("2_tmp3q")
 
 [node name="CardFront" type="AnimatedSprite2D" parent="CardBack"]
 texture_filter = 1
-sprite_frames = ExtResource("3_jncjp")
-script = ExtResource("3_ea2wu")
+sprite_frames = ExtResource("3_0gi1s")
+script = ExtResource("4_gmqd8")
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 libraries = {

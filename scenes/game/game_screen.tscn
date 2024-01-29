@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://c32hx6uv3o45"]
+
+[ext_resource type="Script" path="res://scenes/game/game_screen.gd" id="1_uyb8f"]
+[ext_resource type="PackedScene" uid="uid://e5m4bhuc5ogf" path="res://scenes/background/background.tscn" id="2_7qaqp"]
+[ext_resource type="PackedScene" uid="uid://dcbclwsjjgdkg" path="res://scenes/game/deck/deck.tscn" id="3_0rmcb"]
+[ext_resource type="PackedScene" uid="uid://obslegcoymti" path="res://scenes/game/pile/pile.tscn" id="4_0s1po"]
+
+[node name="GameScreen" type="Node2D"]
+script = ExtResource("1_uyb8f")
+
+[node name="Background" parent="." instance=ExtResource("2_7qaqp")]
+
+[node name="Deck" parent="." instance=ExtResource("3_0rmcb")]
+position = Vector2(975, 574)
+
+[node name="Pile" parent="." instance=ExtResource("4_0s1po")]
+position = Vector2(800, 600)
+scale = Vector2(2.5, 2.5)

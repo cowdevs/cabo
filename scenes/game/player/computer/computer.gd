@@ -1,26 +1,31 @@
 extends Node2D
 
+const is_player = false
+
 var hand = []
 var memory = []
 var can_draw := false
 
 func _to_string():
 	return 'Computer' + str(TurnSystem.player_list.find(self) + 1)
+	
+func _process(_delta):
+	for button in $Buttons.get_children():
+		button.disabled = true
 
 func start_turn():
 	can_draw = true
-	if Cards.get_card(Cards.pile).value == 0:
-		Cards.deal_card(Cards.pile, self)
+	if CardSystem.get_card(CardSystem.pile).value == 0:
+		CardSystem.deal_card(CardSystem.pile, self)
 	else:
-		Cards.deal_card(Cards.deck, self)
+		CardSystem.deal_card(CardSystem.deck, self)
 
-	await get_tree().create_timer(0.25).timeout
+	await get_tree().create_timer(2).timeout
 	
-	if Cards.get_best_card(hand, self) != null:
-		var card = Cards.get_best_card(hand, self)
+	if CardSystem.get_best_card(hand, self) != null:
+		var card = CardSystem.get_best_card(hand, self)
 		hand[hand.find(card)] = TurnSystem.new_cards[self]
 		TurnSystem.new_cards[self] = null
-		card.can_discard = true
 		card.discard()
 		TurnSystem.end_turn()
 	else:
@@ -39,6 +44,4 @@ func start_turn():
 			TurnSystem.end_turn()
 	
 func end_turn():
-	for card in hand:
-		card.can_select = false
 	can_draw = false
