@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://csa3o368n80y4"]
+[gd_scene load_steps=5 format=3 uid="uid://csa3o368n80y4"]
 
 [ext_resource type="Script" path="res://scenes/game/player/player/player.gd" id="1_dwlgc"]
 [ext_resource type="Script" path="res://scenes/game/player/card_display.gd" id="2_f6d41"]
 [ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/ui/selection/selection.tres" id="3_gjtjn"]
+[ext_resource type="Script" path="res://scenes/game/player/player/player_button.gd" id="4_jqql3"]
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_dwlgc")
@@ -46,6 +47,7 @@ offset_bottom = -22.5
 scale = Vector2(2.5, 2.5)
 disabled = true
 texture_hover = ExtResource("3_gjtjn")
+script = ExtResource("4_jqql3")
 metadata/_edit_use_anchors_ = true
 
 [node name="Button2" type="TextureButton" parent="Buttons"]
@@ -56,6 +58,7 @@ offset_right = -104.0
 offset_bottom = -22.5
 scale = Vector2(2.5, 2.5)
 texture_hover = ExtResource("3_gjtjn")
+script = ExtResource("4_jqql3")
 metadata/_edit_use_anchors_ = true
 
 [node name="Button3" type="TextureButton" parent="Buttons"]
@@ -66,6 +69,7 @@ offset_right = 71.0
 offset_bottom = -22.5
 scale = Vector2(2.5, 2.5)
 texture_hover = ExtResource("3_gjtjn")
+script = ExtResource("4_jqql3")
 metadata/_edit_use_anchors_ = true
 
 [node name="Button4" type="TextureButton" parent="Buttons"]
@@ -76,9 +80,5 @@ offset_right = 246.0
 offset_bottom = -22.5
 scale = Vector2(2.5, 2.5)
 texture_hover = ExtResource("3_gjtjn")
+script = ExtResource("4_jqql3")
 metadata/_edit_use_anchors_ = true
-
-[connection signal="pressed" from="Buttons/Button1" to="." method="_on_button_1_pressed"]
-[connection signal="pressed" from="Buttons/Button2" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="Buttons/Button3" to="." method="_on_button_3_pressed"]
-[connection signal="pressed" from="Buttons/Button4" to="." method="_on_button_4_pressed"]

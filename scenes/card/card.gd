@@ -7,11 +7,14 @@ func _to_string():
 	return str(value)
 	
 func flip():
-	if self.face == 'Front':
+	if face == 'Front':
 		$Animation.play('flip')
+		face = 'Back'
 	else:	
-		$Animation.play_backwards('flip')
+		$Animation.play('flip')
+		face = 'Front'
 
 func discard():
-	self.face = 'Front'
+	face = 'Front'
 	CardSystem.pile.append(self)
+	CardSystem.update(CardSystem.pile)

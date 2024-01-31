@@ -2,12 +2,10 @@ extends Node2D
 
 var Player = preload("res://scenes/game/player/player/player.tscn")
 var Computer = preload("res://scenes/game/player/computer/computer.tscn")
-var player1 = Player.instantiate()
-var player2 = Computer.instantiate()
 
 func _ready():
-	TurnSystem.add_player(player1)
-	TurnSystem.add_player(player2)
+	TurnSystem.add_player(Player.instantiate())
+	TurnSystem.add_player(Computer.instantiate())
 	
 	for i in range(TurnSystem.player_list.size()):
 		TurnSystem.new_cards[TurnSystem.player_list[i]] = null
@@ -22,11 +20,13 @@ func _ready():
 	for player in TurnSystem.player_list:
 		$Deck.first_hand(player)
 	
-	var first_card = CardSystem.get_pop_card(CardSystem.deck) 
+	var first_card = CardSystem.pop_card(CardSystem.deck) 
 	first_card.discard()
 
-	CardSystem.update_deck_display()
-	CardSystem.update_pile_display()
+	CardSystem.update(CardSystem.deck)
+	CardSystem.update(CardSystem.pile)
+	
+	$ActionButtons.hide_buttons()
 	
 	TurnSystem.start_game()
 
@@ -36,7 +36,3 @@ func set_player_positions():
 	for player in TurnSystem.player_list:
 		player.position = positions[TurnSystem.player_list.find(player)]
 		player.rotation = rotations[TurnSystem.player_list.find(player)]
-		
-func _process(_delta):
-	for player in TurnSystem.player_list:
-		print(str(player) + ': ' + str(player.hand))

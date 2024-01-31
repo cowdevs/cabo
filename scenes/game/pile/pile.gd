@@ -1,25 +1,26 @@
 extends Node2D
 
+signal action_confirm(action)
 
 func _on_button_pressed():
 	for player in TurnSystem.player_list:
 		if player.can_draw:
 			CardSystem.deal_card(CardSystem.pile, player)
-			CardSystem.update_pile_display()
 			player.can_draw = false
 			break
 		if player.is_player and player.has_new_card:
 			TurnSystem.new_cards[player].discard()
-			CardSystem.update_pile_display()
 			if TurnSystem.new_cards[player].value in range(7, 13):
-				player.doing_action = true
 				if TurnSystem.new_cards[player].value in [7, 8]:
-					print('PEEK ACTION')
+					emit_signal('action_confirm', 'peek')
 				elif TurnSystem.new_cards[player].value in [9, 10]:
-					print('SPY ACTION')
+					emit_signal('action_confirm', 'spy')
 				elif TurnSystem.new_cards[player].value in [11, 12]:
-					print('SWAP ACTION')
-			TurnSystem.new_cards[player] = null
-			player.has_new_card = false
-			TurnSystem.end_turn()
+					emit_signal('action_confirm', 'swap')
+				TurnSystem.new_cards[player] = null
+				player.has_new_card = false
+			else:
+				TurnSystem.new_cards[player] = null
+				player.has_new_card = false
+				TurnSystem.end_turn()
 			break

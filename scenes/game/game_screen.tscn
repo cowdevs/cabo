@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://c32hx6uv3o45"]
+[gd_scene load_steps=10 format=3 uid="uid://c32hx6uv3o45"]
 
 [ext_resource type="Script" path="res://scenes/game/game_screen.gd" id="1_uyb8f"]
 [ext_resource type="PackedScene" uid="uid://e5m4bhuc5ogf" path="res://scenes/background/background.tscn" id="2_7qaqp"]
 [ext_resource type="PackedScene" uid="uid://dcbclwsjjgdkg" path="res://scenes/game/deck/deck.tscn" id="3_0rmcb"]
 [ext_resource type="PackedScene" uid="uid://obslegcoymti" path="res://scenes/game/pile/pile.tscn" id="4_0s1po"]
+[ext_resource type="Script" path="res://scenes/game/action_buttons.gd" id="5_05gqn"]
+[ext_resource type="Texture2D" uid="uid://b1jqkmioyng5b" path="res://assets/ui/button/yes/normal.aseprite" id="5_vgxko"]
+[ext_resource type="Texture2D" uid="uid://cgc83gchnox3" path="res://assets/ui/button/yes/pressed.aseprite" id="6_so8tl"]
+[ext_resource type="Texture2D" uid="uid://duhafbw5o4ibm" path="res://assets/ui/button/no/normal.aseprite" id="7_xx5su"]
+[ext_resource type="Texture2D" uid="uid://cj8tfx4cfc2v6" path="res://assets/ui/button/no/pressed.aseprite" id="8_q5xjp"]
 
 [node name="GameScreen" type="Node2D"]
 script = ExtResource("1_uyb8f")
@@ -16,3 +21,29 @@ position = Vector2(975, 574)
 [node name="Pile" parent="." instance=ExtResource("4_0s1po")]
 position = Vector2(800, 600)
 scale = Vector2(2.5, 2.5)
+
+[node name="ActionButtons" type="Node2D" parent="."]
+script = ExtResource("5_05gqn")
+
+[node name="YesButton" type="TextureButton" parent="ActionButtons"]
+texture_filter = 1
+offset_left = 694.0
+offset_top = 720.0
+offset_right = 758.0
+offset_bottom = 760.0
+scale = Vector2(1.5, 1.5)
+texture_normal = ExtResource("5_vgxko")
+texture_pressed = ExtResource("6_so8tl")
+
+[node name="NoButton" type="TextureButton" parent="ActionButtons"]
+texture_filter = 1
+offset_left = 810.0
+offset_top = 720.0
+offset_right = 874.0
+offset_bottom = 760.0
+scale = Vector2(1.5, 1.5)
+texture_normal = ExtResource("7_xx5su")
+texture_pressed = ExtResource("8_q5xjp")
+
+[connection signal="pressed" from="ActionButtons/YesButton" to="ActionButtons" method="_on_yes_button_pressed"]
+[connection signal="pressed" from="ActionButtons/NoButton" to="ActionButtons" method="_on_no_button_pressed"]

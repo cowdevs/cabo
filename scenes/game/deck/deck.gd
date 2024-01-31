@@ -4,9 +4,7 @@ var card_scene = preload("res://scenes/card/card.tscn")
 
 func _ready():
 	create_deck()
-
-func _process(_delta):
-	CardSystem.update_deck_display()
+	CardSystem.update(CardSystem.deck)
 
 func create_deck():
 	for value in [0, 13]:
@@ -23,7 +21,7 @@ func create_deck():
 
 func first_hand(player):
 	for i in range(4):
-		var card = CardSystem.get_pop_card(CardSystem.deck)
+		var card = CardSystem.pop_card(CardSystem.deck)
 		player.hand.append(card)
 
 func _on_button_pressed():

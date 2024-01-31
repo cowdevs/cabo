@@ -22,7 +22,6 @@ aseprite_executable_path="C:/aseprite/build/bin/aseprite.exe"
 
 CardSystem="*res://scenes/global/card_system.gd"
 TurnSystem="*res://scenes/global/turn_system.gd"
-ActionSystem="*res://scenes/global/action_system.gd"
 
 [display]
 

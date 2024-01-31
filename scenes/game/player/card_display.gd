@@ -25,4 +25,3 @@ func update_display():
 		get_children()[4].value = TurnSystem.new_cards[$".."].value
 	else:
 		get_children()[4].hide()
-
