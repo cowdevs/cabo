@@ -6,6 +6,11 @@ func _ready():
 	create_deck()
 	CardSystem.update(CardSystem.deck)
 
+func _process(_delta):
+	for player in TurnSystem.player_list:
+		if player.is_player:
+			$DeckButton.disabled = false if not player.has_new_card and player.can_draw else true
+
 func create_deck():
 	for value in [0, 13]:
 		for i in range(2):

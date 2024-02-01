@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqm4nc6bhaexr"]
+[gd_scene load_steps=5 format=3 uid="uid://cqm4nc6bhaexr"]
 
 [ext_resource type="Script" path="res://scenes/game/player/computer/computer.gd" id="1_4f1ks"]
 [ext_resource type="Script" path="res://scenes/game/player/card_display.gd" id="2_ujtqn"]
 [ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/ui/selection/selection.tres" id="3_ilinj"]
+[ext_resource type="Script" path="res://scenes/game/player/card_button.gd" id="4_bvjs7"]
 
 [node name="Computer" type="Node2D"]
 script = ExtResource("1_4f1ks")
@@ -46,6 +47,7 @@ offset_bottom = -22.5
 scale = Vector2(2.5, 2.5)
 disabled = true
 texture_hover = ExtResource("3_ilinj")
+script = ExtResource("4_bvjs7")
 metadata/_edit_use_anchors_ = true
 
 [node name="Button2" type="TextureButton" parent="Buttons"]
@@ -56,6 +58,7 @@ offset_right = -104.0
 offset_bottom = -22.5
 scale = Vector2(2.5, 2.5)
 texture_hover = ExtResource("3_ilinj")
+script = ExtResource("4_bvjs7")
 metadata/_edit_use_anchors_ = true
 
 [node name="Button3" type="TextureButton" parent="Buttons"]
@@ -66,6 +69,7 @@ offset_right = 71.0
 offset_bottom = -22.5
 scale = Vector2(2.5, 2.5)
 texture_hover = ExtResource("3_ilinj")
+script = ExtResource("4_bvjs7")
 metadata/_edit_use_anchors_ = true
 
 [node name="Button4" type="TextureButton" parent="Buttons"]
@@ -76,4 +80,5 @@ offset_right = 246.0
 offset_bottom = -22.5
 scale = Vector2(2.5, 2.5)
 texture_hover = ExtResource("3_ilinj")
+script = ExtResource("4_bvjs7")
 metadata/_edit_use_anchors_ = true

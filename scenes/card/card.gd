@@ -9,12 +9,9 @@ func _to_string():
 func flip():
 	if face == 'Front':
 		$Animation.play('flip')
-		face = 'Back'
 	else:	
-		$Animation.play('flip')
-		face = 'Front'
+		$Animation.play_backwards('flip')
 
 func discard():
-	face = 'Front'
 	CardSystem.pile.append(self)
 	CardSystem.update(CardSystem.pile)

@@ -6,12 +6,14 @@ var hand = []
 var memory = []
 var can_draw := false
 
+func _ready():
+	$"../Pile".connect('action_confirm', _on_action_confirm)
+	for button in $Buttons.get_children():
+		button.connect('pressed_button', _on_button_pressed)
+		button.disabled = true
+
 func _to_string():
 	return 'Computer' + str(TurnSystem.player_list.find(self) + 1)
-	
-func _process(_delta):
-	for button in $Buttons.get_children():
-		button.disabled = true
 
 func start_turn():
 	can_draw = true
@@ -36,23 +38,34 @@ func start_turn():
 			TurnSystem.new_cards[self].discard()
 			if TurnSystem.new_cards[self].value in range(7, 13):
 				if TurnSystem.new_cards[self].value in [7, 8]:
-					_on_peek_action()
+					pass
 				elif TurnSystem.new_cards[self].value in [9, 10]:
-					_on_spy_action()
+					pass
 				elif TurnSystem.new_cards[self].value in [11, 12]:
-					_on_swap_action()
+					pass
 			TurnSystem.new_cards[self] = null
 			TurnSystem.end_turn()
 	
 func end_turn():
 	can_draw = false
 
-func _on_peek_action():
-	print('PEEK WORKING FOR COMPUTER!')
-	
-func _on_spy_action():
-	print('SPY WORKING FOR COMPUTER!')
-	
-func _on_swap_action():
-	print('SWAP WORKING FOR COMPUTER!')
-	
+func _on_action_confirm(action):
+	await $"../ActionButtons/YesButton".pressed
+	if action != 'peek':
+		for button in $Buttons.get_children():
+			button.disabled = false
+
+func _on_button_pressed(i):
+	for player in TurnSystem.player_list:
+		if player.is_player and player.doing_action:
+			for button in $Buttons.get_children():
+				button.disabled = true
+			if player.store_action == 'spy':
+				$CardDisplay.get_children()[i].flip()
+				await get_tree().create_timer(3).timeout
+				$CardDisplay.get_children()[i].flip()
+			elif player.store_action == 'swap':
+				pass
+			player.store_action = null
+			TurnSystem.end_turn()
+

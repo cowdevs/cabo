@@ -24,6 +24,8 @@ func deal_card(list, player):
 		TurnSystem.new_cards[player] = new_card
 		if player.is_player:
 			player.has_new_card = true
+			for button in player.get_node('Buttons').get_children():
+				button.disabled = false
 
 func get_sum(list):
 	var total = 0
