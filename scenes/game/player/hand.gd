@@ -3,21 +3,21 @@ extends Node2D
 var card_scene = preload("res://scenes/card/card.tscn")
 
 func _ready():
-	await $"..".hand.is_empty() == false
 	for marker in $"../Slots".get_children():
 		var card_instance = card_scene.instantiate()
 		card_instance.position = marker.position
 		add_child(card_instance)
-	get_children()[4].face = 'Front'
+	if $"..".is_player:
+		get_children()[4].face = 'Front'
 
 func _process(_delta):
 	update_display()
 	
 func update_display():
 	# hand
-	for card in $"..".hand:
-		var card_display = get_children()[$"..".hand.find(card)]
-		card_display.value = card.value
+	for i in range(len($"..".hand)):
+		var card_display = $"..".find_in_hand(i)
+		card_display.value = $"..".hand[i].value
 	
 	# new card
 	if TurnSystem.new_cards[$".."] != null:
@@ -25,3 +25,5 @@ func update_display():
 		get_children()[4].value = TurnSystem.new_cards[$".."].value
 	else:
 		get_children()[4].hide()
+	
+	print(str($"..") + str($"..".hand))

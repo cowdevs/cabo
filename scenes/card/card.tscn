@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bm8fqdf5no5i2"]
+[gd_scene load_steps=8 format=3 uid="uid://bm8fqdf5no5i2"]
 
 [ext_resource type="Script" path="res://scenes/card/card.gd" id="1_aau00"]
 [ext_resource type="Texture2D" uid="uid://dighr41xbca1k" path="res://assets/textures/card_back.png" id="2_tmp3q"]
@@ -91,12 +91,10 @@ _data = {
 "flip": SubResource("Animation_wr0nj")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3wlbi"]
-size = Vector2(60, 84)
-
 [node name="Card" type="Node2D"]
 scale = Vector2(2.5, 2.5)
 script = ExtResource("1_aau00")
+face = "Back"
 
 [node name="CardBack" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -111,9 +109,3 @@ script = ExtResource("4_gmqd8")
 libraries = {
 "": SubResource("AnimationLibrary_y0ul4")
 }
-
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(1.62125e-06, 2.6226e-06)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_3wlbi")

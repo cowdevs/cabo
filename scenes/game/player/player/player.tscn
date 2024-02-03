@@ -1,15 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://csa3o368n80y4"]
+[gd_scene load_steps=6 format=3 uid="uid://csa3o368n80y4"]
 
 [ext_resource type="Script" path="res://scenes/game/player/player/player.gd" id="1_dwlgc"]
-[ext_resource type="Script" path="res://scenes/game/player/card_display.gd" id="2_f6d41"]
+[ext_resource type="Script" path="res://scenes/game/player/hand.gd" id="2_b8xro"]
 [ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/ui/selection/selection.tres" id="3_gjtjn"]
 [ext_resource type="Script" path="res://scenes/game/player/card_button.gd" id="4_d0gna"]
+[ext_resource type="Texture2D" uid="uid://dighr41xbca1k" path="res://assets/textures/card_back.png" id="5_eqnxg"]
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_dwlgc")
 
-[node name="CardDisplay" type="Node2D" parent="."]
-script = ExtResource("2_f6d41")
+[node name="Hand" type="Node2D" parent="."]
+script = ExtResource("2_b8xro")
 
 [node name="Slots" type="Node2D" parent="."]
 
@@ -82,3 +83,29 @@ scale = Vector2(2.5, 2.5)
 texture_hover = ExtResource("3_gjtjn")
 script = ExtResource("4_d0gna")
 metadata/_edit_use_anchors_ = true
+
+[node name="FakeCards" type="Node2D" parent="."]
+
+[node name="FakeCard1" type="Sprite2D" parent="FakeCards"]
+texture_filter = 1
+position = Vector2(-262.5, 0)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("5_eqnxg")
+
+[node name="FakeCard2" type="Sprite2D" parent="FakeCards"]
+texture_filter = 1
+position = Vector2(-87.5, 0)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("5_eqnxg")
+
+[node name="FakeCard3" type="Sprite2D" parent="FakeCards"]
+texture_filter = 1
+position = Vector2(87.5, 0)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("5_eqnxg")
+
+[node name="FakeCard4" type="Sprite2D" parent="FakeCards"]
+texture_filter = 1
+position = Vector2(262.5, 0)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("5_eqnxg")

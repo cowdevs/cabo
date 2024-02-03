@@ -20,12 +20,8 @@ func pop_card(list):
 
 func deal_card(list, player):
 	if list.size() > 0:
-		var new_card = pop_card(list)
-		TurnSystem.new_cards[player] = new_card
-		if player.is_player:
-			player.has_new_card = true
-			for button in player.get_node('Buttons').get_children():
-				button.disabled = false
+		TurnSystem.set_new_card(player, pop_card(list))
+		player.can_draw = false
 
 func get_sum(list):
 	var total = 0

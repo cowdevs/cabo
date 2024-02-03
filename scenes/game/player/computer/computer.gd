@@ -7,13 +7,18 @@ var memory = []
 var can_draw := false
 
 func _ready():
-	$"../Pile".connect('action_confirm', _on_action_confirm)
+	$"../../Pile".connect('action_confirm', _on_action_confirm)
 	for button in $Buttons.get_children():
 		button.connect('pressed_button', _on_button_pressed)
 		button.disabled = true
+	for card in $FakeCards.get_children():
+		card.visible = false
 
 func _to_string():
 	return 'Computer' + str(TurnSystem.player_list.find(self) + 1)
+
+func find_in_hand(i):
+	return $Hand.get_children()[hand.find(hand[i])]
 
 func start_turn():
 	can_draw = true
@@ -30,27 +35,25 @@ func start_turn():
 	if CardSystem.get_best_card(hand, self) != null:
 		var card = CardSystem.get_best_card(hand, self)
 		hand[hand.find(card)] = TurnSystem.new_cards[self]
-		TurnSystem.new_cards[self] = null
+		TurnSystem.clear_new_card(self)
 		card.discard()
 		TurnSystem.end_turn()
 	else:
 		if TurnSystem.new_cards[self] != null:
-			TurnSystem.new_cards[self].discard()
-			if TurnSystem.new_cards[self].value in range(7, 13):
-				if TurnSystem.new_cards[self].value in [7, 8]:
+			var card = TurnSystem.new_cards[self]
+			card.discard()
+			if card.value in range(7, 13):
+				if card.value in [7, 8]:
 					pass
-				elif TurnSystem.new_cards[self].value in [9, 10]:
+				elif card.value in [9, 10]:
 					pass
-				elif TurnSystem.new_cards[self].value in [11, 12]:
+				elif card.value in [11, 12]:
 					pass
-			TurnSystem.new_cards[self] = null
+			TurnSystem.clear_new_card(self)
 			TurnSystem.end_turn()
-	
-func end_turn():
-	can_draw = false
 
 func _on_action_confirm(action):
-	await $"../ActionButtons/YesButton".pressed
+	await $"../../ActionButtons/YesButton".pressed
 	if action != 'peek':
 		for button in $Buttons.get_children():
 			button.disabled = false
@@ -61,11 +64,26 @@ func _on_button_pressed(i):
 			for button in $Buttons.get_children():
 				button.disabled = true
 			if player.store_action == 'spy':
-				$CardDisplay.get_children()[i].flip()
+				var flipping_card = find_in_hand(i)
+				flipping_card.flip()
 				await get_tree().create_timer(3).timeout
-				$CardDisplay.get_children()[i].flip()
+				flipping_card.flip()
+				player.store_action = null
+				TurnSystem.end_turn()
 			elif player.store_action == 'swap':
-				pass
-			player.store_action = null
-			TurnSystem.end_turn()
-
+				var card = find_in_hand(i)
+				card.hide()
+				var fake_card = $FakeCards.get_children()[i]
+				fake_card.show()
+				fake_card.translate(Vector2(0, -225))
+				for button in player.get_node('Buttons').get_children():
+					button.disabled = false
+				var index = await player.swap_action
+				var temp = hand[i]
+				hand[i] = player.hand[index]
+				player.hand[index] = temp
+				fake_card.translate(Vector2(0, 225))
+				fake_card.hide()
+				card.show()
+				player.store_action = null
+				TurnSystem.end_turn()

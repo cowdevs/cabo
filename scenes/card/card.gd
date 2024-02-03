@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var value: int
-@export var face = 'Back'
+@export var face = 'Front'
 
 func _to_string():
 	return str(value)
@@ -9,7 +9,7 @@ func _to_string():
 func flip():
 	if face == 'Front':
 		$Animation.play('flip')
-	else:	
+	else:
 		$Animation.play_backwards('flip')
 
 func discard():

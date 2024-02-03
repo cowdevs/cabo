@@ -13,7 +13,7 @@ func _ready():
 	set_player_positions()
 	
 	for player in TurnSystem.player_list:
-		add_child(player)
+		$Players.add_child(player)
 
 	CardSystem.deck.shuffle()
 	

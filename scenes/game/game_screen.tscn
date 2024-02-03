@@ -22,6 +22,8 @@ position = Vector2(975, 574)
 position = Vector2(800, 600)
 scale = Vector2(2.5, 2.5)
 
+[node name="Players" type="Node2D" parent="."]
+
 [node name="ActionButtons" type="Node2D" parent="."]
 script = ExtResource("5_05gqn")
 
