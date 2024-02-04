@@ -2,11 +2,16 @@ extends Node2D
 
 const is_player = false
 
-var hand = []
-var memory = []
-var can_draw := false
+var arrow_cursor = load("res://assets/ui/cursors/normal.png")
+var lens_cursor = load("res://assets/ui/cursors/magnifying_glass.png")
+var swap_cursor = load("res://assets/ui/cursors/swap.png")
+
+var hand
+var can_draw: bool
 
 func _ready():
+	hand = []
+	can_draw = false
 	$"../../Pile".connect('action_confirm', _on_action_confirm)
 	for button in $Buttons.get_children():
 		button.connect('pressed_button', _on_button_pressed)
@@ -15,7 +20,7 @@ func _ready():
 		card.visible = false
 
 func _to_string():
-	return 'Computer' + str(TurnSystem.player_list.find(self) + 1)
+	return 'Computer' + str($"..".get_children().find(self) + 1)
 
 func find_in_hand(i):
 	return $Hand.get_children()[hand.find(hand[i])]
@@ -54,12 +59,13 @@ func start_turn():
 
 func _on_action_confirm(action):
 	await $"../../ActionButtons/YesButton".pressed
+	
 	if action != 'peek':
 		for button in $Buttons.get_children():
 			button.disabled = false
 
 func _on_button_pressed(i):
-	for player in TurnSystem.player_list:
+	for player in $"..".get_children():
 		if player.is_player and player.doing_action:
 			for button in $Buttons.get_children():
 				button.disabled = true
@@ -68,8 +74,6 @@ func _on_button_pressed(i):
 				flipping_card.flip()
 				await get_tree().create_timer(3).timeout
 				flipping_card.flip()
-				player.store_action = null
-				TurnSystem.end_turn()
 			elif player.store_action == 'swap':
 				var card = find_in_hand(i)
 				card.hide()
@@ -85,5 +89,6 @@ func _on_button_pressed(i):
 				fake_card.translate(Vector2(0, 225))
 				fake_card.hide()
 				card.show()
-				player.store_action = null
-				TurnSystem.end_turn()
+			player.store_action = null
+			Input.set_custom_mouse_cursor(arrow_cursor)
+			TurnSystem.end_turn()

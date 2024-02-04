@@ -3,12 +3,12 @@ extends Node2D
 signal action_confirm(action)
 
 func _process(_delta):
-	for player in TurnSystem.player_list:
+	for player in $"../Players".get_children():
 		if player.is_player:
 			$PileButton.disabled = false if player.has_new_card or player.can_draw else true
 
 func _on_button_pressed():
-	for player in TurnSystem.player_list:
+	for player in $"../Players".get_children():
 		if player.can_draw:
 			CardSystem.deal_card(CardSystem.pile, player)
 		elif player.is_player and player.has_new_card:

@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" path="res://scenes/title/title_screen.gd" id="1_mvwqm"]
 [ext_resource type="Texture2D" uid="uid://dphp774biethy" path="res://assets/ui/title.png" id="1_tt2f7"]
-[ext_resource type="Texture2D" uid="uid://do8gpyhfvvaiq" path="res://assets/ui/subtitle.png" id="2_5jvt1"]
 [ext_resource type="PackedScene" uid="uid://e5m4bhuc5ogf" path="res://scenes/background/background.tscn" id="3_5asma"]
+[ext_resource type="Texture2D" uid="uid://do8gpyhfvvaiq" path="res://assets/ui/subtitle.png" id="3_16lwl"]
 [ext_resource type="Texture2D" uid="uid://d3t1qg48ixsvt" path="res://assets/ui/button/play/normal.aseprite" id="4_q1nvm"]
 [ext_resource type="Texture2D" uid="uid://c0qfhbbrrhxfw" path="res://assets/ui/button/play/pressed.aseprite" id="5_a3eye"]
-[ext_resource type="Texture2D" uid="uid://c8kcs213nofa8" path="res://assets/ui/button/quit/normal.aseprite" id="6_4uyld"]
-[ext_resource type="Texture2D" uid="uid://c3vgwysvmo1jt" path="res://assets/ui/button/quit/pressed.aseprite" id="7_d2kyt"]
+[ext_resource type="Texture2D" uid="uid://c8kcs213nofa8" path="res://assets/ui/button/quit/normal.aseprite" id="7_yw68t"]
+[ext_resource type="Texture2D" uid="uid://c3vgwysvmo1jt" path="res://assets/ui/button/quit/pressed.aseprite" id="8_exeyi"]
 
-[node name="TitleScreen" type="Node"]
+[node name="TitleScreen" type="Node2D"]
 script = ExtResource("1_mvwqm")
 
 [node name="Title" type="Sprite2D" parent="."]
@@ -19,18 +19,17 @@ scale = Vector2(12, 12)
 texture = ExtResource("1_tt2f7")
 
 [node name="Subtitle" type="Sprite2D" parent="Title"]
-texture_filter = 1
 position = Vector2(0, 12)
-scale = Vector2(0.354167, 0.354167)
-texture = ExtResource("2_5jvt1")
+scale = Vector2(0.375, 0.375)
+texture = ExtResource("3_16lwl")
 
 [node name="Background" parent="." instance=ExtResource("3_5asma")]
 
-[node name="StartButton" type="TextureButton" parent="."]
+[node name="PlayButton" type="TextureButton" parent="."]
 texture_filter = 1
 offset_left = 700.0
 offset_top = 700.0
-offset_right = 780.0
+offset_right = 778.0
 offset_bottom = 740.0
 scale = Vector2(2.5, 2.5)
 texture_normal = ExtResource("4_q1nvm")
@@ -44,8 +43,8 @@ offset_right = 780.0
 offset_bottom = 890.0
 scale = Vector2(2.5, 2.5)
 action_mode = 0
-texture_normal = ExtResource("6_4uyld")
-texture_pressed = ExtResource("7_d2kyt")
+texture_normal = ExtResource("7_yw68t")
+texture_pressed = ExtResource("8_exeyi")
 
-[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="PlayButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]

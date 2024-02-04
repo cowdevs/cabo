@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/game/pile/pile.gd" id="1_od0lv"]
 [ext_resource type="SpriteFrames" uid="uid://dj0gy4h2owm8e" path="res://assets/textures/card_frames.tres" id="2_ce5m7"]
-[ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/ui/selection/selection.tres" id="3_cm3ni"]
+[ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/ui/button/selection/selection.tres" id="3_v6a46"]
 
 [node name="Pile" type="Node2D"]
 script = ExtResource("1_od0lv")
@@ -16,6 +16,6 @@ offset_left = -33.0
 offset_top = -45.0
 offset_right = 33.0
 offset_bottom = 45.0
-texture_hover = ExtResource("3_cm3ni")
+texture_hover = ExtResource("3_v6a46")
 
 [connection signal="pressed" from="PileButton" to="." method="_on_button_pressed"]

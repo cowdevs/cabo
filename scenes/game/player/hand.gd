@@ -26,4 +26,4 @@ func update_display():
 	else:
 		get_children()[4].hide()
 	
-	print(str($"..") + str($"..".hand))
+	#print(str($"..") + str($"..".hand))

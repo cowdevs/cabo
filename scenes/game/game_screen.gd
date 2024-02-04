@@ -4,20 +4,20 @@ var Player = preload("res://scenes/game/player/player/player.tscn")
 var Computer = preload("res://scenes/game/player/computer/computer.tscn")
 
 func _ready():
-	TurnSystem.add_player(Player.instantiate())
-	TurnSystem.add_player(Computer.instantiate())
+	$Players.add_child(Player.instantiate())
+	$Players.add_child(Computer.instantiate())
 	
-	for i in range(TurnSystem.player_list.size()):
-		TurnSystem.new_cards[TurnSystem.player_list[i]] = null
+	for i in range($Players.get_child_count()):
+		TurnSystem.new_cards[$Players.get_child(i)] = null
 	
 	set_player_positions()
 	
-	for player in TurnSystem.player_list:
-		$Players.add_child(player)
+	for player in $Players.get_children():
+		TurnSystem.add_player(player)
 
 	CardSystem.deck.shuffle()
 	
-	for player in TurnSystem.player_list:
+	for player in $Players.get_children():
 		$Deck.first_hand(player)
 	
 	var first_card = CardSystem.pop_card(CardSystem.deck) 
@@ -33,6 +33,6 @@ func _ready():
 func set_player_positions():
 	var positions = [Vector2(800, 1050), Vector2(800, 150), Vector2(150, 600), Vector2(1450, 600)]
 	var rotations = [0, PI, PI / 2, -(PI / 2)]
-	for player in TurnSystem.player_list:
-		player.position = positions[TurnSystem.player_list.find(player)]
-		player.rotation = rotations[TurnSystem.player_list.find(player)]
+	for player in $Players.get_children():
+		player.position = positions[$Players.get_children().find(player)]
+		player.rotation = rotations[$Players.get_children().find(player)]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/game/deck/deck.gd" id="1_fjbb1"]
 [ext_resource type="Texture2D" uid="uid://bkxpsa48qeimu" path="res://assets/textures/deck_stages.png" id="1_nm62k"]
-[ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/ui/selection/selection.tres" id="3_5g8sc"]
+[ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/ui/button/selection/selection.tres" id="3_kwxe1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pvtne"]
 atlas = ExtResource("1_nm62k")
@@ -85,6 +85,6 @@ offset_left = -33.2
 offset_top = -52.4
 offset_right = 32.8
 offset_bottom = 52.1
-texture_hover = ExtResource("3_5g8sc")
+texture_hover = ExtResource("3_kwxe1")
 
 [connection signal="pressed" from="DeckButton" to="." method="_on_button_pressed"]

@@ -15,13 +15,12 @@ func _on_no_button_pressed():
 		
 func hide_buttons():
 	for button in get_children():
-		button.hide()
-		button.disabled = true
+		if button != $CaboButton:
+			button.hide()
+			button.disabled = true
 
 func show_buttons():
 	for button in get_children():
-		button.show()
-		button.disabled = false
-
-
-
+		if button != $CaboButton:
+			button.show()
+			button.disabled = false

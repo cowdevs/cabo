@@ -1,8 +1,11 @@
 extends Node
 
-var deck = []
-var pile = []
+var deck
+var pile
 
+func _ready():
+	deck = []
+	pile = []
 
 func get_card(list):
 	if list.size() > 0:
@@ -21,6 +24,8 @@ func pop_card(list):
 func deal_card(list, player):
 	if list.size() > 0:
 		TurnSystem.set_new_card(player, pop_card(list))
+		if player.is_player:
+			get_node('/root/GameScreen/ActionButtons/CaboButton').disabled = true
 		player.can_draw = false
 
 func get_sum(list):

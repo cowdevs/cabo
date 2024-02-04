@@ -27,6 +27,7 @@ TurnSystem="*res://scenes/global/turn_system.gd"
 
 window/size/viewport_width=1600
 window/size/viewport_height=1200
+window/size/resizable=false
 mouse_cursor/custom_image="res://assets/ui/cursors/normal.png"
 
 [editor_plugins]

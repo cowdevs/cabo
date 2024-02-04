@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/game/player/player/player.gd" id="1_dwlgc"]
 [ext_resource type="Script" path="res://scenes/game/player/hand.gd" id="2_b8xro"]
-[ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/ui/selection/selection.tres" id="3_gjtjn"]
+[ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/ui/button/selection/selection.tres" id="3_gjao3"]
 [ext_resource type="Script" path="res://scenes/game/player/card_button.gd" id="4_d0gna"]
 [ext_resource type="Texture2D" uid="uid://dighr41xbca1k" path="res://assets/textures/card_back.png" id="5_eqnxg"]
 
@@ -47,7 +47,7 @@ offset_right = -279.0
 offset_bottom = -22.5
 scale = Vector2(2.5, 2.5)
 disabled = true
-texture_hover = ExtResource("3_gjtjn")
+texture_hover = ExtResource("3_gjao3")
 script = ExtResource("4_d0gna")
 metadata/_edit_use_anchors_ = true
 
@@ -58,7 +58,7 @@ offset_top = -112.5
 offset_right = -104.0
 offset_bottom = -22.5
 scale = Vector2(2.5, 2.5)
-texture_hover = ExtResource("3_gjtjn")
+texture_hover = ExtResource("3_gjao3")
 script = ExtResource("4_d0gna")
 metadata/_edit_use_anchors_ = true
 
@@ -69,7 +69,7 @@ offset_top = -112.5
 offset_right = 71.0
 offset_bottom = -22.5
 scale = Vector2(2.5, 2.5)
-texture_hover = ExtResource("3_gjtjn")
+texture_hover = ExtResource("3_gjao3")
 script = ExtResource("4_d0gna")
 metadata/_edit_use_anchors_ = true
 
@@ -80,7 +80,7 @@ offset_top = -112.5
 offset_right = 246.0
 offset_bottom = -22.5
 scale = Vector2(2.5, 2.5)
-texture_hover = ExtResource("3_gjtjn")
+texture_hover = ExtResource("3_gjao3")
 script = ExtResource("4_d0gna")
 metadata/_edit_use_anchors_ = true
 

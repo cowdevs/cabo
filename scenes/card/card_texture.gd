@@ -1,6 +1,5 @@
 extends AnimatedSprite2D
 
-
 func _process(_delta):
 	if $"../..".face == 'Front':
 		z_index = 0

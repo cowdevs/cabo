@@ -7,7 +7,7 @@ func _ready():
 	CardSystem.update(CardSystem.deck)
 
 func _process(_delta):
-	for player in TurnSystem.player_list:
+	for player in $"../Players".get_children():
 		if player.is_player:
 			$DeckButton.disabled = false if not player.has_new_card and player.can_draw else true
 
@@ -30,7 +30,7 @@ func first_hand(player):
 		player.hand.append(card)
 
 func _on_button_pressed():
-	for player in TurnSystem.player_list:
+	for player in $"../Players".get_children():
 		if player.can_draw:
 			CardSystem.deal_card(CardSystem.deck, player)
 			player.can_draw = false
