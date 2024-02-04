@@ -2,9 +2,9 @@ extends Node2D
 
 const is_player = false
 
-var arrow_cursor = load("res://assets/ui/cursors/normal.png")
-var lens_cursor = load("res://assets/ui/cursors/magnifying_glass.png")
-var swap_cursor = load("res://assets/ui/cursors/swap.png")
+var arrow_cursor = load("res://assets/textures/ui/cursors/normal.png")
+var lens_cursor = load("res://assets/textures/ui/cursors/magnifying_glass.png")
+var swap_cursor = load("res://assets/textures/ui/cursors/swap.png")
 
 var hand
 var can_draw: bool

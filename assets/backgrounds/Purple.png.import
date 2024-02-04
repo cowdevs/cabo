@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5h166h87kraa"
-path="res://.godot/imported/Purple.png-ba6d7d2c82d44427d0842e08e351bb04.ctex"
+uid="uid://idtvrean277f"
+path="res://.godot/imported/purple.png-dcb07bf1a12797c3f5791863023342d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/backgrounds/Purple.png"
-dest_files=["res://.godot/imported/Purple.png-ba6d7d2c82d44427d0842e08e351bb04.ctex"]
+source_file="res://assets/backgrounds/purple.png"
+dest_files=["res://.godot/imported/purple.png-dcb07bf1a12797c3f5791863023342d6.ctex"]
 
 [params]
 

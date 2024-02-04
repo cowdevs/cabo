@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://37c3lf0ei0vt"
-path="res://.godot/imported/Navy.png-8c4ee2ec7e94503fcc5644e4b113182a.ctex"
+path="res://.godot/imported/navy.png-475745d15a2db27b63e7a439314b79fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/backgrounds/Navy.png"
-dest_files=["res://.godot/imported/Navy.png-8c4ee2ec7e94503fcc5644e4b113182a.ctex"]
+source_file="res://assets/backgrounds/navy.png"
+dest_files=["res://.godot/imported/navy.png-475745d15a2db27b63e7a439314b79fc.ctex"]
 
 [params]
 

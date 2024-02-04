@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4fguuuxn225b"
-path="res://.godot/imported/pink.png-b049528c2484471c8622a4c6da7fe40b.ctex"
+uid="uid://w618ah1j82lh"
+path="res://.godot/imported/card_front.png-2e8b38775600c3c16df570c5f1a5afcb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/backgrounds/pink.png"
-dest_files=["res://.godot/imported/pink.png-b049528c2484471c8622a4c6da7fe40b.ctex"]
+source_file="res://assets/textures/card/card_front.png"
+dest_files=["res://.godot/imported/card_front.png-2e8b38775600c3c16df570c5f1a5afcb.ctex"]
 
 [params]
 

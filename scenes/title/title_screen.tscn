@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://c2acmuwthr7g8"]
 
 [ext_resource type="Script" path="res://scenes/title/title_screen.gd" id="1_mvwqm"]
-[ext_resource type="Texture2D" uid="uid://dphp774biethy" path="res://assets/ui/title.png" id="1_tt2f7"]
+[ext_resource type="Texture2D" uid="uid://dphp774biethy" path="res://assets/textures/ui/title/title.png" id="1_tt2f7"]
 [ext_resource type="PackedScene" uid="uid://e5m4bhuc5ogf" path="res://scenes/background/background.tscn" id="3_5asma"]
-[ext_resource type="Texture2D" uid="uid://do8gpyhfvvaiq" path="res://assets/ui/subtitle.png" id="3_16lwl"]
-[ext_resource type="Texture2D" uid="uid://d3t1qg48ixsvt" path="res://assets/ui/button/play/normal.aseprite" id="4_q1nvm"]
-[ext_resource type="Texture2D" uid="uid://c0qfhbbrrhxfw" path="res://assets/ui/button/play/pressed.aseprite" id="5_a3eye"]
-[ext_resource type="Texture2D" uid="uid://c8kcs213nofa8" path="res://assets/ui/button/quit/normal.aseprite" id="7_yw68t"]
-[ext_resource type="Texture2D" uid="uid://c3vgwysvmo1jt" path="res://assets/ui/button/quit/pressed.aseprite" id="8_exeyi"]
+[ext_resource type="Texture2D" uid="uid://do8gpyhfvvaiq" path="res://assets/textures/ui/title/subtitle.png" id="3_16lwl"]
+[ext_resource type="Texture2D" uid="uid://d3t1qg48ixsvt" path="res://assets/textures/ui/buttons/play/normal.aseprite" id="4_q1nvm"]
+[ext_resource type="Texture2D" uid="uid://c0qfhbbrrhxfw" path="res://assets/textures/ui/buttons/play/pressed.aseprite" id="5_a3eye"]
+[ext_resource type="Texture2D" uid="uid://c8kcs213nofa8" path="res://assets/textures/ui/buttons/quit/normal.aseprite" id="7_yw68t"]
+[ext_resource type="Texture2D" uid="uid://c3vgwysvmo1jt" path="res://assets/textures/ui/buttons/quit/pressed.aseprite" id="8_exeyi"]
 
 [node name="TitleScreen" type="Node2D"]
 script = ExtResource("1_mvwqm")

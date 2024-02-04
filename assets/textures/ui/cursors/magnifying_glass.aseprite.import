@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4fguuuxn225b"
-path="res://.godot/imported/pink.png-b049528c2484471c8622a4c6da7fe40b.ctex"
+uid="uid://cgyf0s5evytis"
+path="res://.godot/imported/magnifying_glass.aseprite-6d0d5b1b7caeea2be14128584edafa9c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/backgrounds/pink.png"
-dest_files=["res://.godot/imported/pink.png-b049528c2484471c8622a4c6da7fe40b.ctex"]
+source_file="res://assets/textures/ui/cursors/magnifying_glass.aseprite"
+dest_files=["res://.godot/imported/magnifying_glass.aseprite-6d0d5b1b7caeea2be14128584edafa9c.ctex"]
 
 [params]
 

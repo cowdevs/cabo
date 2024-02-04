@@ -3,7 +3,7 @@ extends Node2D
 func _ready():
 	$"../Pile".connect('action_confirm', _on_action_confirm)
 
-func _on_action_confirm(action):
+func _on_action_confirm(_action):
 	show_buttons()
 	
 func _on_yes_button_pressed():

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://e5m4bhuc5ogf"]
 
 [ext_resource type="Script" path="res://scenes/background/background.gd" id="1_a3wlq"]
-[ext_resource type="Texture2D" uid="uid://37c3lf0ei0vt" path="res://assets/backgrounds/Navy.png" id="2_gibht"]
+[ext_resource type="Texture2D" uid="uid://37c3lf0ei0vt" path="res://assets/backgrounds/navy.png" id="2_gibht"]
 
 [node name="Background" type="ParallaxBackground"]
 

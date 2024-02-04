@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=3 uid="uid://dcbclwsjjgdkg"]
 
 [ext_resource type="Script" path="res://scenes/game/deck/deck.gd" id="1_fjbb1"]
-[ext_resource type="Texture2D" uid="uid://bkxpsa48qeimu" path="res://assets/textures/deck_stages.png" id="1_nm62k"]
-[ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/ui/button/selection/selection.tres" id="3_kwxe1"]
+[ext_resource type="Texture2D" uid="uid://bkxpsa48qeimu" path="res://assets/textures/card/deck_stages.png" id="1_nm62k"]
+[ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/textures/ui/buttons/selection/selection.tres" id="3_kwxe1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pvtne"]
 atlas = ExtResource("1_nm62k")

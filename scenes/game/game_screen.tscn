@@ -5,12 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://dcbclwsjjgdkg" path="res://scenes/game/deck/deck.tscn" id="3_0rmcb"]
 [ext_resource type="PackedScene" uid="uid://obslegcoymti" path="res://scenes/game/pile/pile.tscn" id="4_0s1po"]
 [ext_resource type="Script" path="res://scenes/game/action_buttons.gd" id="5_05gqn"]
-[ext_resource type="Texture2D" uid="uid://b1jqkmioyng5b" path="res://assets/ui/button/yes/normal.aseprite" id="6_5n54m"]
-[ext_resource type="Texture2D" uid="uid://cgc83gchnox3" path="res://assets/ui/button/yes/pressed.aseprite" id="7_8haiy"]
-[ext_resource type="Texture2D" uid="uid://duhafbw5o4ibm" path="res://assets/ui/button/no/normal.aseprite" id="8_xudfk"]
-[ext_resource type="Texture2D" uid="uid://cj8tfx4cfc2v6" path="res://assets/ui/button/no/pressed.aseprite" id="9_vdw0o"]
-[ext_resource type="Texture2D" uid="uid://bab772x65xkn6" path="res://assets/ui/button/cabo/normal.aseprite" id="10_60k43"]
-[ext_resource type="Texture2D" uid="uid://cik14txembm87" path="res://assets/ui/button/cabo/pressed.aseprite" id="11_ms7bw"]
+[ext_resource type="Texture2D" uid="uid://b1jqkmioyng5b" path="res://assets/textures/ui/buttons/yes/normal.aseprite" id="6_5n54m"]
+[ext_resource type="Texture2D" uid="uid://cgc83gchnox3" path="res://assets/textures/ui/buttons/yes/pressed.aseprite" id="7_8haiy"]
+[ext_resource type="Texture2D" uid="uid://duhafbw5o4ibm" path="res://assets/textures/ui/buttons/no/normal.aseprite" id="8_xudfk"]
+[ext_resource type="Texture2D" uid="uid://cj8tfx4cfc2v6" path="res://assets/textures/ui/buttons/no/pressed.aseprite" id="9_vdw0o"]
+[ext_resource type="Texture2D" uid="uid://bab772x65xkn6" path="res://assets/textures/ui/buttons/cabo/normal.aseprite" id="10_60k43"]
+[ext_resource type="Texture2D" uid="uid://cik14txembm87" path="res://assets/textures/ui/buttons/cabo/pressed.aseprite" id="11_ms7bw"]
 
 [node name="GameScreen" type="Node2D"]
 script = ExtResource("1_uyb8f")

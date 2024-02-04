@@ -4,9 +4,9 @@ signal swap_action(index)
 
 const is_player = true
 
-var arrow_cursor = load("res://assets/ui/cursors/normal.png")
-var lens_cursor = load("res://assets/ui/cursors/magnifying_glass.png")
-var swap_cursor = load("res://assets/ui/cursors/swap.png")
+var arrow_cursor = load("res://assets/textures/ui/cursors/normal.png")
+var lens_cursor = load("res://assets/textures/ui/cursors/magnifying_glass.png")
+var swap_cursor = load("res://assets/textures/ui/cursors/swap.png")
 
 var hand
 var can_draw: bool
