@@ -23,9 +23,9 @@ func pop_card(list):
 
 func deal_card(list, player):
 	if list.size() > 0:
-		get_node('/root/GameScreen').set_new_card(player, pop_card(list))
+		get_node('/root/Main').set_new_card(player, pop_card(list))
 		if player.is_human:
-			get_node('/root/GameScreen/ActionButtons/CaboButton').disabled = true
+			get_node('/root/Main/ActionButtons/CaboButton').disabled = true
 		player.can_draw = false
 
 func get_sum(list):
@@ -39,7 +39,7 @@ func get_best_card(list, player):
 	var sums = []
 	for i in range(len(list)):
 		if list[i] != null:
-			sums.append(get_sum(list) - list[i].value + get_node('/root/GameScreen').new_cards[player].value)
+			sums.append(get_sum(list) - list[i].value + get_node('/root/Main').new_cards[player].value)
 
 	if sums.min() < get_sum(list):
 		return list[sums.find(sums.min())]
@@ -54,9 +54,9 @@ func all_int(list):
 
 func update(list):
 	if list == deck:
-		get_node('/root/GameScreen/Deck/DeckTexture').frame = ceil(2.0 * type_convert(len(deck), TYPE_FLOAT) / 13.0)
+		get_node('/root/Main/Deck/DeckTexture').frame = ceil(2.0 * type_convert(len(deck), TYPE_FLOAT) / 13.0)
 	if list == pile:
-		get_node('/root/GameScreen/Pile/PileTexture').frame = get_card(pile).value if pile.size() > 0 else 15
+		get_node('/root/Main/Pile/PileTexture').frame = get_card(pile).value if pile.size() > 0 else 15
 	
 func _process(_delta):
 	if deck.size() == 0:

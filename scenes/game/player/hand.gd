@@ -20,9 +20,9 @@ func update_display():
 		card_display.value = $"..".hand[i].value
 	
 	# new card
-	if get_node('/root/GameScreen').new_cards[$".."] != null:
+	if get_node('/root/Main').new_cards[$".."] != null:
 		get_children()[4].show()
-		get_children()[4].value = get_node('/root/GameScreen').new_cards[$".."].value
+		get_children()[4].value = get_node('/root/Main').new_cards[$".."].value
 	else:
 		get_children()[4].hide()
 	

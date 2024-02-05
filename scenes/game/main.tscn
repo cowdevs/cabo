@@ -1,0 +1,93 @@
+[gd_scene load_steps=11 format=3 uid="uid://c32hx6uv3o45"]
+
+[ext_resource type="Script" path="res://scenes/game/main.gd" id="1_p6g4n"]
+[ext_resource type="PackedScene" uid="uid://e5m4bhuc5ogf" path="res://scenes/background/background.tscn" id="2_0fwjb"]
+[ext_resource type="PackedScene" uid="uid://dcbclwsjjgdkg" path="res://scenes/game/deck/deck.tscn" id="3_obhdc"]
+[ext_resource type="PackedScene" uid="uid://obslegcoymti" path="res://scenes/game/pile/pile.tscn" id="4_7xvpd"]
+[ext_resource type="Script" path="res://scenes/game/action_buttons.gd" id="5_mou70"]
+[ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/textures/ui/buttons/button.tres" id="6_tjule"]
+[ext_resource type="Texture2D" uid="uid://bab772x65xkn6" path="res://assets/textures/ui/buttons/speech/normal_speech.aseprite" id="10_uw1tn"]
+[ext_resource type="Texture2D" uid="uid://cik14txembm87" path="res://assets/textures/ui/buttons/speech/pressed_speech.aseprite" id="11_0gf6m"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s7shq"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 16.0
+content_margin_bottom = 40.0
+texture = ExtResource("10_uw1tn")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 47.8096
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_70o37"]
+content_margin_left = 20.0
+content_margin_top = 24.0
+content_margin_right = 16.0
+content_margin_bottom = 36.0
+texture = ExtResource("11_0gf6m")
+texture_margin_left = 12.0
+texture_margin_top = 15.9188
+texture_margin_right = 12.0
+texture_margin_bottom = 44.0259
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_p6g4n")
+
+[node name="Background" parent="." instance=ExtResource("2_0fwjb")]
+
+[node name="Deck" parent="." instance=ExtResource("3_obhdc")]
+position = Vector2(975, 574)
+
+[node name="Pile" parent="." instance=ExtResource("4_7xvpd")]
+position = Vector2(800, 600)
+scale = Vector2(2.5, 2.5)
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="ActionButtons" type="Node2D" parent="."]
+script = ExtResource("5_mou70")
+
+[node name="YesButton" type="Button" parent="ActionButtons"]
+texture_filter = 1
+offset_left = 696.0
+offset_top = 721.0
+offset_right = 824.0
+offset_bottom = 801.0
+scale = Vector2(0.75, 0.75)
+theme = ExtResource("6_tjule")
+text = "YES"
+
+[node name="NoButton" type="Button" parent="ActionButtons"]
+texture_filter = 1
+offset_left = 808.0
+offset_top = 721.0
+offset_right = 936.0
+offset_bottom = 802.0
+scale = Vector2(0.75, 0.75)
+theme = ExtResource("6_tjule")
+text = "NO"
+
+[node name="CaboButton" type="Button" parent="ActionButtons"]
+texture_filter = 1
+offset_left = 1163.0
+offset_top = 1077.0
+offset_right = 1339.0
+offset_bottom = 1181.0
+scale = Vector2(0.75, 0.75)
+theme = ExtResource("6_tjule")
+theme_override_styles/normal = SubResource("StyleBoxTexture_s7shq")
+theme_override_styles/hover = SubResource("StyleBoxTexture_s7shq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_70o37")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_s7shq")
+text = "CABO!"
+
+[connection signal="button_down" from="ActionButtons/YesButton" to="ActionButtons/YesButton" method="_on_button_down"]
+[connection signal="button_up" from="ActionButtons/YesButton" to="ActionButtons/YesButton" method="_on_button_up"]
+[connection signal="pressed" from="ActionButtons/YesButton" to="ActionButtons" method="_on_yes_button_pressed"]
+[connection signal="button_down" from="ActionButtons/NoButton" to="ActionButtons/NoButton" method="_on_button_down"]
+[connection signal="button_up" from="ActionButtons/NoButton" to="ActionButtons/NoButton" method="_on_button_up"]
+[connection signal="pressed" from="ActionButtons/NoButton" to="ActionButtons" method="_on_no_button_pressed"]
+[connection signal="button_down" from="ActionButtons/CaboButton" to="ActionButtons/CaboButton" method="_on_button_down"]
+[connection signal="button_up" from="ActionButtons/CaboButton" to="ActionButtons/CaboButton" method="_on_button_up"]
+[connection signal="pressed" from="ActionButtons/CaboButton" to="." method="_on_cabo_button_pressed"]

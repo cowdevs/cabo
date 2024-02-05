@@ -53,12 +53,13 @@ func _on_action_confirm(action):
 			button.disabled = false
 
 func _on_button_pressed(i):
+	$"../../Pile".disable()
 	if not doing_action:
 		var card = find_in_hand(i)
-		hand[i] = get_node('/root/GameScreen').new_cards[self]
-		get_node('/root/GameScreen').clear_new_card(self)
+		hand[i] = get_node('/root/Main').new_cards[self]
+		get_node('/root/Main').clear_new_card(self)
 		card.discard()
-		get_node('/root/GameScreen').end_turn()
+		get_node('/root/Main').end_turn()
 	else:
 		doing_action = false
 		for button in $Buttons.get_children():
@@ -70,6 +71,6 @@ func _on_button_pressed(i):
 			flipping_card.flip()
 			store_action = null
 			Input.set_custom_mouse_cursor(arrow_cursor)
-			get_node('/root/GameScreen').end_turn()
+			get_node('/root/Main').end_turn()
 		elif store_action == 'swap':
 			swap_action.emit(i)

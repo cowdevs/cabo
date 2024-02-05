@@ -7,7 +7,7 @@ var arrow_cursor = load("res://assets/textures/ui/cursors/normal.png")
 var lens_cursor = load("res://assets/textures/ui/cursors/magnifying_glass.png")
 var swap_cursor = load("res://assets/textures/ui/cursors/swap.png")
 
-@onready var game = get_node('/root/GameScreen')
+@onready var main = get_node('/root/Main')
 
 var hand
 var memory
@@ -44,23 +44,23 @@ func start_turn():
 	await get_tree().create_timer(2).timeout
 	
 	# play best card
-	if game.new_cards[self].value == 0 and CardSystem.all_int(memory):
+	if main.new_cards[self].value == 0 and CardSystem.all_int(memory):
 		for i in range(hand.size()):
 			if memory[i] == null:
-				hand[i] = game.new_cards[self]
-				memory[i] = game.new_cards[self]
+				hand[i] = main.new_cards[self]
+				memory[i] = main.new_cards[self]
 				break
 	else:
 		var best_card = CardSystem.get_best_card(memory, self)
 		if best_card != null:
 			var best_card_index = hand.find(best_card)
-			hand[best_card_index] = game.new_cards[self]
-			memory[best_card_index] = game.new_cards[self]
-			game.clear_new_card(self)
+			hand[best_card_index] = main.new_cards[self]
+			memory[best_card_index] = main.new_cards[self]
+			main.clear_new_card(self)
 			best_card.discard()
 		else:
-			if game.new_cards[self] != null:
-				var card = game.new_cards[self]
+			if main.new_cards[self] != null:
+				var card = main.new_cards[self]
 				card.discard()
 				if card.value in range(7, 13):
 					if card.value in [7, 8]:
@@ -69,8 +69,8 @@ func start_turn():
 						pass
 					elif card.value in [11, 12]:
 						pass
-				game.clear_new_card(self)
-	game.end_turn()
+				main.clear_new_card(self)
+	main.end_turn()
 
 func _on_action_confirm(action):
 	await $"../../ActionButtons/YesButton".pressed
@@ -106,4 +106,4 @@ func _on_button_pressed(i):
 				card.show()
 			player.store_action = null
 			Input.set_custom_mouse_cursor(arrow_cursor)
-			game.end_turn()
+			main.end_turn()

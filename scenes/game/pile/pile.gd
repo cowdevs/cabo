@@ -12,7 +12,7 @@ func _on_button_pressed():
 			disable()
 		elif player.is_human and player.has_new_card:
 			disable()
-			var card = get_node('/root/GameScreen').new_cards[player]
+			var card = get_node('/root/Main').new_cards[player]
 			card.discard()
 			if card.value in range(7, 13):
 				if card.value in [7, 8]:
@@ -21,10 +21,10 @@ func _on_button_pressed():
 					emit_signal('action_confirm', 'spy')
 				elif card.value in [11, 12]:
 					emit_signal('action_confirm', 'swap')
-				get_node('/root/GameScreen').clear_new_card(player)
+				get_node('/root/Main').clear_new_card(player)
 			else:
-				get_node('/root/GameScreen').clear_new_card(player)
-				get_node('/root/GameScreen').end_turn()
+				get_node('/root/Main').clear_new_card(player)
+				get_node('/root/Main').end_turn()
 
 func enable():
 	$PileButton.disabled = false
