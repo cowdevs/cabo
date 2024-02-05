@@ -2,7 +2,8 @@ extends Node2D
 
 signal swap_action(index)
 
-const is_player = true
+const is_human = true
+var is_main_player = false
 
 var arrow_cursor = load("res://assets/textures/ui/cursors/normal.png")
 var lens_cursor = load("res://assets/textures/ui/cursors/magnifying_glass.png")
@@ -30,6 +31,7 @@ func _to_string():
 
 func start_turn():
 	can_draw = true
+	$"../../Pile".enable()
 	$"../../ActionButtons/CaboButton".disabled = false
 
 func find_in_hand(i):
@@ -53,10 +55,10 @@ func _on_action_confirm(action):
 func _on_button_pressed(i):
 	if not doing_action:
 		var card = find_in_hand(i)
-		hand[i] = TurnSystem.new_cards[self]
-		TurnSystem.clear_new_card(self)
+		hand[i] = get_node('/root/GameScreen').new_cards[self]
+		get_node('/root/GameScreen').clear_new_card(self)
 		card.discard()
-		TurnSystem.end_turn()
+		get_node('/root/GameScreen').end_turn()
 	else:
 		doing_action = false
 		for button in $Buttons.get_children():
@@ -68,6 +70,6 @@ func _on_button_pressed(i):
 			flipping_card.flip()
 			store_action = null
 			Input.set_custom_mouse_cursor(arrow_cursor)
-			TurnSystem.end_turn()
+			get_node('/root/GameScreen').end_turn()
 		elif store_action == 'swap':
 			swap_action.emit(i)

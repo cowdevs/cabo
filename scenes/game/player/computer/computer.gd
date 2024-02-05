@@ -1,16 +1,23 @@
 extends Node2D
 
-const is_player = false
+const is_human = false
+var is_main_player = false
 
 var arrow_cursor = load("res://assets/textures/ui/cursors/normal.png")
 var lens_cursor = load("res://assets/textures/ui/cursors/magnifying_glass.png")
 var swap_cursor = load("res://assets/textures/ui/cursors/swap.png")
 
+@onready var game = get_node('/root/GameScreen')
+
 var hand
+var memory
+var opponent_memory
 var can_draw: bool
 
 func _ready():
 	hand = []
+	memory = [null, null, null, null]
+	opponent_memory = {}
 	can_draw = false
 	$"../../Pile".connect('action_confirm', _on_action_confirm)
 	for button in $Buttons.get_children():
@@ -37,25 +44,33 @@ func start_turn():
 	await get_tree().create_timer(2).timeout
 	
 	# play best card
-	if CardSystem.get_best_card(hand, self) != null:
-		var card = CardSystem.get_best_card(hand, self)
-		hand[hand.find(card)] = TurnSystem.new_cards[self]
-		TurnSystem.clear_new_card(self)
-		card.discard()
-		TurnSystem.end_turn()
+	if game.new_cards[self].value == 0 and CardSystem.all_int(memory):
+		for i in range(hand.size()):
+			if memory[i] == null:
+				hand[i] = game.new_cards[self]
+				memory[i] = game.new_cards[self]
+				break
 	else:
-		if TurnSystem.new_cards[self] != null:
-			var card = TurnSystem.new_cards[self]
-			card.discard()
-			if card.value in range(7, 13):
-				if card.value in [7, 8]:
-					pass
-				elif card.value in [9, 10]:
-					pass
-				elif card.value in [11, 12]:
-					pass
-			TurnSystem.clear_new_card(self)
-			TurnSystem.end_turn()
+		var best_card = CardSystem.get_best_card(memory, self)
+		if best_card != null:
+			var best_card_index = hand.find(best_card)
+			hand[best_card_index] = game.new_cards[self]
+			memory[best_card_index] = game.new_cards[self]
+			game.clear_new_card(self)
+			best_card.discard()
+		else:
+			if game.new_cards[self] != null:
+				var card = game.new_cards[self]
+				card.discard()
+				if card.value in range(7, 13):
+					if card.value in [7, 8]:
+						pass
+					elif card.value in [9, 10]:
+						pass
+					elif card.value in [11, 12]:
+						pass
+				game.clear_new_card(self)
+	game.end_turn()
 
 func _on_action_confirm(action):
 	await $"../../ActionButtons/YesButton".pressed
@@ -66,7 +81,7 @@ func _on_action_confirm(action):
 
 func _on_button_pressed(i):
 	for player in $"..".get_children():
-		if player.is_player and player.doing_action:
+		if player.is_human and player.doing_action:
 			for button in $Buttons.get_children():
 				button.disabled = true
 			if player.store_action == 'spy':
@@ -91,4 +106,4 @@ func _on_button_pressed(i):
 				card.show()
 			player.store_action = null
 			Input.set_custom_mouse_cursor(arrow_cursor)
-			TurnSystem.end_turn()
+			game.end_turn()

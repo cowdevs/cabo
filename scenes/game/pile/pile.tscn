@@ -12,6 +12,7 @@ texture_filter = 1
 sprite_frames = ExtResource("2_ce5m7")
 
 [node name="PileButton" type="TextureButton" parent="."]
+texture_filter = 1
 offset_left = -33.0
 offset_top = -45.0
 offset_right = 33.0

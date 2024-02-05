@@ -7,7 +7,7 @@ func _ready():
 		var card_instance = card_scene.instantiate()
 		card_instance.position = marker.position
 		add_child(card_instance)
-	if $"..".is_player:
+	if $"..".is_human:
 		get_children()[4].face = 'Front'
 
 func _process(_delta):
@@ -20,9 +20,9 @@ func update_display():
 		card_display.value = $"..".hand[i].value
 	
 	# new card
-	if TurnSystem.new_cards[$".."] != null:
+	if get_node('/root/GameScreen').new_cards[$".."] != null:
 		get_children()[4].show()
-		get_children()[4].value = TurnSystem.new_cards[$".."].value
+		get_children()[4].value = get_node('/root/GameScreen').new_cards[$".."].value
 	else:
 		get_children()[4].hide()
 	

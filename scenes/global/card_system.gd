@@ -23,26 +23,34 @@ func pop_card(list):
 
 func deal_card(list, player):
 	if list.size() > 0:
-		TurnSystem.set_new_card(player, pop_card(list))
-		if player.is_player:
+		get_node('/root/GameScreen').set_new_card(player, pop_card(list))
+		if player.is_human:
 			get_node('/root/GameScreen/ActionButtons/CaboButton').disabled = true
 		player.can_draw = false
 
 func get_sum(list):
 	var total = 0
-	for card in list:
-		total += card.value
+	for i in list:
+		if i != null:
+			total += i.value
 	return total
 
 func get_best_card(list, player):
 	var sums = []
 	for i in range(len(list)):
-		sums.append(get_sum(list) - list[i].value + TurnSystem.new_cards[player].value)
+		if list[i] != null:
+			sums.append(get_sum(list) - list[i].value + get_node('/root/GameScreen').new_cards[player].value)
 
 	if sums.min() < get_sum(list):
 		return list[sums.find(sums.min())]
 	else:
 		return null
+
+func all_int(list):
+	for item in list:
+		if typeof(item) != TYPE_INT:
+			return false
+	return true
 
 func update(list):
 	if list == deck:

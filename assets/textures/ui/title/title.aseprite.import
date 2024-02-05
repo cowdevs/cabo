@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0voi6v1pe58q"
-path="res://.godot/imported/pressed.aseprite-7aa51d1f9e397fbde574c94d9c3bf592.ctex"
+uid="uid://nkhhils8ods8"
+path="res://.godot/imported/title.aseprite-9cd7fcff94509a9c697dddb55d2e6a53.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/ui/buttons/quit/pressed.aseprite"
-dest_files=["res://.godot/imported/pressed.aseprite-7aa51d1f9e397fbde574c94d9c3bf592.ctex"]
+source_file="res://assets/textures/ui/title/title.aseprite"
+dest_files=["res://.godot/imported/title.aseprite-9cd7fcff94509a9c697dddb55d2e6a53.ctex"]
 
 [params]
 

@@ -11,7 +11,7 @@ func _on_yes_button_pressed():
 	
 func _on_no_button_pressed():
 	hide_buttons()
-	TurnSystem.end_turn()
+	get_node('/root/GameScreen').end_turn()
 		
 func hide_buttons():
 	for button in get_children():

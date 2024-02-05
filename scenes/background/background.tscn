@@ -4,11 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://37c3lf0ei0vt" path="res://assets/backgrounds/navy.png" id="2_gibht"]
 
 [node name="Background" type="ParallaxBackground"]
+script = ExtResource("1_a3wlq")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]
 motion_mirroring = Vector2(0, 1200)
-script = ExtResource("1_a3wlq")
-speed = 50
 
 [node name="Background" type="Sprite2D" parent="ParallaxLayer"]
 texture_filter = 1

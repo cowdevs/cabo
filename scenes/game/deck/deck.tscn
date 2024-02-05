@@ -81,6 +81,7 @@ sprite_frames = SubResource("SpriteFrames_qt403")
 frame = 8
 
 [node name="DeckButton" type="TextureButton" parent="."]
+texture_filter = 1
 offset_left = -33.2
 offset_top = -52.4
 offset_right = 32.8

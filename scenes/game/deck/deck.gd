@@ -8,7 +8,7 @@ func _ready():
 
 func _process(_delta):
 	for player in $"../Players".get_children():
-		if player.is_player:
+		if player.is_human:
 			$DeckButton.disabled = false if not player.has_new_card and player.can_draw else true
 
 func create_deck():
