@@ -125,8 +125,8 @@ func _on_cabo_button_pressed():
 	final_round = true
 	end_turn()
 
-func _process(_delta):
-	for player in $Players.get_children():
-		if player.is_human == false:
-			print(str(player) + str(player.hand))
-			print(str(player) + str(player.memory))
+#func _process(_delta):
+	#for player in $Players.get_children():
+		#if player.is_human == false:
+			#print(str(player) + str(player.hand))
+			#print(str(player) + str(player.memory))

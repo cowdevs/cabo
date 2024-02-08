@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dff4oyd8s0g7r"
-path="res://.godot/imported/3.png-d63585f71cc1195e07e41a70b7a54327.ctex"
+uid="uid://nkhhils8ods8"
+path="res://.godot/imported/title.aseprite-c54f15f2aabf1be581d042ea9e36589a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cabo/textures/ui/buttons/selection/3.png"
-dest_files=["res://.godot/imported/3.png-d63585f71cc1195e07e41a70b7a54327.ctex"]
+source_file="res://assets/cabo/textures/gui/title/title.aseprite"
+dest_files=["res://.godot/imported/title.aseprite-c54f15f2aabf1be581d042ea9e36589a.ctex"]
 
 [params]
 

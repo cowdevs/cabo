@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://assets/cabo/scenes/title/title.gd" id="1_s4wwq"]
 [ext_resource type="PackedScene" uid="uid://e5m4bhuc5ogf" path="res://assets/cabo/scenes/background/background.tscn" id="2_mdsjp"]
-[ext_resource type="Texture2D" uid="uid://nkhhils8ods8" path="res://assets/cabo/textures/ui/title/title.aseprite" id="3_7u3un"]
-[ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/ui/buttons/button.tres" id="8_o0gph"]
+[ext_resource type="Texture2D" uid="uid://nkhhils8ods8" path="res://assets/cabo/textures/gui/title/title.aseprite" id="3_7u3un"]
+[ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/button.tres" id="8_o0gph"]
 
 [node name="TitleScreen" type="Node2D"]
 script = ExtResource("1_s4wwq")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6v3mer72dl5o"
-path="res://.godot/imported/1.png-80a3db9d706f025b0c5298923cfcac19.ctex"
+uid="uid://dff4oyd8s0g7r"
+path="res://.godot/imported/3.png-d5e234b586ececb7e51b5b376a79a75e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cabo/textures/ui/buttons/selection/1.png"
-dest_files=["res://.godot/imported/1.png-80a3db9d706f025b0c5298923cfcac19.ctex"]
+source_file="res://assets/cabo/textures/gui/buttons/selection/3.png"
+dest_files=["res://.godot/imported/3.png-d5e234b586ececb7e51b5b376a79a75e.ctex"]
 
 [params]
 

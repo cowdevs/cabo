@@ -13,7 +13,7 @@ config_version=5
 config/name="Cabo"
 run/main_scene="res://assets/cabo/scenes/title/title.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-boot_splash/image="res://assets/cabo/textures/ui/boot_splash.png"
+boot_splash/image="res://assets/cabo/textures/gui/boot_splash.png"
 
 [aseprite_importers]
 
@@ -28,7 +28,7 @@ CardSystem="*res://assets/cabo/scenes/global/card_system.gd"
 window/size/viewport_width=1600
 window/size/viewport_height=1200
 window/size/resizable=false
-mouse_cursor/custom_image="res://assets/cabo/textures/ui/cursors/normal.png"
+mouse_cursor/custom_image="res://assets/cabo/textures/gui/cursors/normal.png"
 
 [editor_plugins]
 

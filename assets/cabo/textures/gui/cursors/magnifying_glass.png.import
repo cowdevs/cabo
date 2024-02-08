@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgmruyc2jt7i3"
-path="res://.godot/imported/2.png-6a4a7e23e4d5f34cd6086699d053a61c.ctex"
+uid="uid://cc871ukt3qnuw"
+path="res://.godot/imported/magnifying_glass.png-94a809d50553cf2b74bd09884843f07e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cabo/textures/ui/buttons/selection/2.png"
-dest_files=["res://.godot/imported/2.png-6a4a7e23e4d5f34cd6086699d053a61c.ctex"]
+source_file="res://assets/cabo/textures/gui/cursors/magnifying_glass.png"
+dest_files=["res://.godot/imported/magnifying_glass.png-94a809d50553cf2b74bd09884843f07e.ctex"]
 
 [params]
 

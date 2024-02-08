@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7qed64s6nrgw"
-path="res://.godot/imported/swap.png-a44349a8059bf387e0f6cb17881cbc48.ctex"
+uid="uid://bhqf4yx6eo13i"
+path="res://.godot/imported/game_over.aseprite-06fcc6ae211a9d0c169f1cd5d43fe310.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cabo/textures/ui/cursors/swap.png"
-dest_files=["res://.godot/imported/swap.png-a44349a8059bf387e0f6cb17881cbc48.ctex"]
+source_file="res://assets/cabo/textures/gui/game_over.aseprite"
+dest_files=["res://.godot/imported/game_over.aseprite-06fcc6ae211a9d0c169f1cd5d43fe310.ctex"]
 
 [params]
 

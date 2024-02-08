@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bab772x65xkn6"
-path="res://.godot/imported/normal_speech.aseprite-44e76016033f5aad2a0545ddf0262b04.ctex"
+path="res://.godot/imported/normal_speech.aseprite-a3b9f3a3f2d851b6946094086f9a137c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cabo/textures/ui/buttons/speech/normal_speech.aseprite"
-dest_files=["res://.godot/imported/normal_speech.aseprite-44e76016033f5aad2a0545ddf0262b04.ctex"]
+source_file="res://assets/cabo/textures/gui/buttons/speech/normal_speech.aseprite"
+dest_files=["res://.godot/imported/normal_speech.aseprite-a3b9f3a3f2d851b6946094086f9a137c.ctex"]
 
 [params]
 

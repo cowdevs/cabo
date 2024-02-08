@@ -1,19 +1,19 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://nvvji4kitupw"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://nvvji4kitupw"]
 
-[ext_resource type="FontFile" uid="uid://6eps560v1bbt" path="res://assets/cabo/fonts/ThaleahFat.ttf" id="1_shqrv"]
-[ext_resource type="Texture2D" uid="uid://d3t1qg48ixsvt" path="res://assets/cabo/textures/ui/buttons/default/normal.aseprite" id="2_263rc"]
-[ext_resource type="Texture2D" uid="uid://c0qfhbbrrhxfw" path="res://assets/cabo/textures/ui/buttons/default/pressed.aseprite" id="3_sxd2g"]
+[ext_resource type="FontFile" uid="uid://6eps560v1bbt" path="res://assets/cabo/fonts/ThaleahFat.ttf" id="1_5eccp"]
+[ext_resource type="Texture2D" uid="uid://v30lmb476rck" path="res://assets/cabo/textures/gui/gui.aseprite" id="2_cae1h"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u0135"]
 content_margin_left = 20.0
 content_margin_top = 20.0
 content_margin_right = 16.0
 content_margin_bottom = 16.0
-texture = ExtResource("2_263rc")
+texture = ExtResource("2_cae1h")
 texture_margin_left = 12.0
 texture_margin_top = 12.0
 texture_margin_right = 12.0
 texture_margin_bottom = 24.2706
+region_rect = Rect2(8, 8, 152, 84)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tindf"]
 
@@ -22,14 +22,15 @@ content_margin_left = 20.0
 content_margin_top = 24.0
 content_margin_right = 16.0
 content_margin_bottom = 12.0
-texture = ExtResource("3_sxd2g")
+texture = ExtResource("2_cae1h")
 texture_margin_left = 12.0
-texture_margin_top = 16.3242
+texture_margin_top = 12.1352
 texture_margin_right = 12.0
 texture_margin_bottom = 19.8376
+region_rect = Rect2(168, 8, 152, 84)
 
 [resource]
-default_font = ExtResource("1_shqrv")
+default_font = ExtResource("1_5eccp")
 default_font_size = 32
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_disabled_color = Color(1, 1, 1, 1)
@@ -48,7 +49,7 @@ Button/constants/h_separation = 4
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
 Button/font_sizes/font_size = 32
-Button/fonts/font = ExtResource("1_shqrv")
+Button/fonts/font = ExtResource("1_5eccp")
 Button/styles/disabled = SubResource("StyleBoxTexture_u0135")
 Button/styles/focus = SubResource("StyleBoxEmpty_tindf")
 Button/styles/hover = SubResource("StyleBoxTexture_u0135")

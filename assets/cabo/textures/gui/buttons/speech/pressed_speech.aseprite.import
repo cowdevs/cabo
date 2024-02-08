@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgyf0s5evytis"
-path="res://.godot/imported/magnifying_glass.aseprite-b3880638398f40f6829703add192cbb7.ctex"
+uid="uid://cik14txembm87"
+path="res://.godot/imported/pressed_speech.aseprite-26bc89cecbdf077b6af060c28603f22e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cabo/textures/ui/cursors/magnifying_glass.aseprite"
-dest_files=["res://.godot/imported/magnifying_glass.aseprite-b3880638398f40f6829703add192cbb7.ctex"]
+source_file="res://assets/cabo/textures/gui/buttons/speech/pressed_speech.aseprite"
+dest_files=["res://.godot/imported/pressed_speech.aseprite-26bc89cecbdf077b6af060c28603f22e.ctex"]
 
 [params]
 

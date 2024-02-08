@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdgt0sodkid00"
-path="res://.godot/imported/boot_splash.png-00da47ca22520510afb15a087bf170cb.ctex"
+uid="uid://cgmruyc2jt7i3"
+path="res://.godot/imported/2.png-f6af9c428eb12ee65ff7e89986115938.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cabo/textures/ui/boot_splash.png"
-dest_files=["res://.godot/imported/boot_splash.png-00da47ca22520510afb15a087bf170cb.ctex"]
+source_file="res://assets/cabo/textures/gui/buttons/selection/2.png"
+dest_files=["res://.godot/imported/2.png-f6af9c428eb12ee65ff7e89986115938.ctex"]
 
 [params]
 
