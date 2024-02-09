@@ -1,7 +1,7 @@
 extends Node2D
 
-var Player = preload("res://assets/cabo/scenes/game/player/player/player.tscn")
-var Computer = preload("res://assets/cabo/scenes/game/player/computer/computer.tscn")
+var Player = preload("res://assets/cabo/scenes/player/player.tscn")
+var Computer = preload("res://assets/cabo/scenes/player/computer.tscn")
 
 var num_computers = 1
 
@@ -10,6 +10,8 @@ func _ready():
 	new_cards = {}
 	turn_index = 0
 	final_round = false
+	
+	$EndPanel.hide()
 	
 	$Players.add_child(Player.instantiate())
 	for i in range(num_computers):
@@ -93,7 +95,7 @@ func end_game():
 			card.flip()
 	print(get_winner())
 	await get_tree().create_timer(5).timeout
-	get_tree().reload_current_scene() 
+	$EndPanel.show()
 
 func get_winner():
 	var min_sum = 50
@@ -125,8 +127,8 @@ func _on_cabo_button_pressed():
 	final_round = true
 	end_turn()
 
-#func _process(_delta):
-	#for player in $Players.get_children():
+func _process(_delta):
+	for player in $Players.get_children():
 		#if player.is_human == false:
-			#print(str(player) + str(player.hand))
-			#print(str(player) + str(player.memory))
+		print(str(player) + str(player.hand))
+		#print(str(player) + str(player.memory))

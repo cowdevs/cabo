@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Cabo"
-run/main_scene="res://assets/cabo/scenes/title/title.tscn"
+run/main_scene="res://assets/cabo/scenes/title.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/image="res://assets/cabo/textures/gui/boot_splash.png"
 
@@ -21,7 +21,7 @@ aseprite_executable_path="C:/aseprite/build/bin/aseprite.exe"
 
 [autoload]
 
-CardSystem="*res://assets/cabo/scenes/global/card_system.gd"
+CardSystem="*res://assets/cabo/scripts/card_system.gd"
 
 [display]
 

@@ -1,17 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://gtj8s4i8ekna"]
+[gd_scene load_steps=7 format=3 uid="uid://gtj8s4i8ekna"]
 
-[ext_resource type="Texture2D" uid="uid://bhqf4yx6eo13i" path="res://assets/cabo/textures/gui/game_over.aseprite" id="1_frahr"]
-[ext_resource type="FontFile" uid="uid://6eps560v1bbt" path="res://assets/cabo/fonts/ThaleahFat.ttf" id="2_c6oln"]
-[ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/button.tres" id="3_r122u"]
+[ext_resource type="Script" path="res://assets/cabo/scripts/game/end_panel.gd" id="1_1sl7j"]
+[ext_resource type="Texture2D" uid="uid://bhqf4yx6eo13i" path="res://assets/cabo/textures/gui/game_over.aseprite" id="1_sf03d"]
+[ext_resource type="FontFile" uid="uid://6eps560v1bbt" path="res://assets/cabo/fonts/ThaleahFat.ttf" id="2_m68ou"]
+[ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/button.tres" id="3_kl64u"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jy2qo"]
-texture = ExtResource("1_frahr")
+texture = ExtResource("1_sf03d")
 
 [sub_resource type="Theme" id="Theme_xh4la"]
-default_font = ExtResource("2_c6oln")
+default_font = ExtResource("2_m68ou")
 default_font_size = 32
 
-[node name="EndCard" type="Control"]
+[node name="EndPanel" type="Control"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 8
@@ -21,6 +22,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_1sl7j")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 texture_filter = 1
@@ -59,14 +61,16 @@ layout_mode = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="NextRound" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("3_r122u")
+theme = ExtResource("3_kl64u")
 text = "NEXT ROUND"
 
-[node name="Button2" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="EndGame" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("3_r122u")
+theme = ExtResource("3_kl64u")
 text = "END GAME"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/NextRound" to="." method="_on_next_round_pressed"]

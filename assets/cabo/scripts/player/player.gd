@@ -5,9 +5,11 @@ signal swap_action(index)
 const is_human = true
 var is_main_player = false
 
-var arrow_cursor = load("res://assets/cabo/textures/ui/cursors/normal.png")
-var lens_cursor = load("res://assets/cabo/textures/ui/cursors/magnifying_glass.png")
-var swap_cursor = load("res://assets/cabo/textures/ui/cursors/swap.png")
+var card_scene = preload("res://assets/cabo/scenes/card.tscn")
+
+var arrow_cursor = load("res://assets/cabo/textures/gui/cursors/normal.aseprite")
+var lens_cursor = load("res://assets/cabo/textures/gui/cursors/magnifying_glass.aseprite")
+var swap_cursor = load("res://assets/cabo/textures/gui/cursors/swap.aseprite")
 
 var hand
 var can_draw: bool
@@ -19,12 +21,12 @@ func _ready():
 	can_draw = false
 	has_new_card = false
 	doing_action = false
+	
 	$"../../Pile".connect('action_confirm', _on_action_confirm)
-	for button in $Buttons.get_children():
+	
+	for button in $"ButtonsComponent/Buttons".get_children():
 		button.connect('pressed_button', _on_button_pressed)
 		button.disabled = true
-	for card in $FakeCards.get_children():
-		card.visible = false
 
 func _to_string():
 	return 'Player' + str($"..".get_children().find(self) + 1)
@@ -35,7 +37,7 @@ func start_turn():
 	$"../../ActionButtons/CaboButton".disabled = false
 
 func find_in_hand(i):
-	return $Hand.get_children()[i]
+	return $Hand.get_child(i)
 
 var store_action = null
 
@@ -56,10 +58,10 @@ func _on_button_pressed(i):
 	$"../../Pile".disable()
 	if not doing_action:
 		var card = find_in_hand(i)
-		hand[i] = get_node('/root/Main').new_cards[self]
-		get_node('/root/Main').clear_new_card(self)
+		hand[i] = get_node('/root/Game').new_cards[self]
+		get_node('/root/Game').clear_new_card(self)
 		card.discard()
-		get_node('/root/Main').end_turn()
+		get_node('/root/Game').end_turn()
 	else:
 		doing_action = false
 		for button in $Buttons.get_children():
@@ -71,6 +73,6 @@ func _on_button_pressed(i):
 			flipping_card.flip()
 			store_action = null
 			Input.set_custom_mouse_cursor(arrow_cursor)
-			get_node('/root/Main').end_turn()
+			get_node('/root/Game').end_turn()
 		elif store_action == 'swap':
 			swap_action.emit(i)

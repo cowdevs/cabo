@@ -1,14 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://c2acmuwthr7g8"]
 
-[ext_resource type="Script" path="res://assets/cabo/scenes/title/title.gd" id="1_s4wwq"]
-[ext_resource type="PackedScene" uid="uid://e5m4bhuc5ogf" path="res://assets/cabo/scenes/background/background.tscn" id="2_mdsjp"]
-[ext_resource type="Texture2D" uid="uid://nkhhils8ods8" path="res://assets/cabo/textures/gui/title/title.aseprite" id="3_7u3un"]
-[ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/button.tres" id="8_o0gph"]
+[ext_resource type="Script" path="res://assets/cabo/scripts/title.gd" id="1_dt83l"]
+[ext_resource type="PackedScene" uid="uid://e5m4bhuc5ogf" path="res://assets/cabo/scenes/background.tscn" id="2_h27m2"]
+[ext_resource type="Texture2D" uid="uid://nkhhils8ods8" path="res://assets/cabo/textures/gui/title/title.aseprite" id="3_tvkl4"]
+[ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/button.tres" id="4_cxdcy"]
 
 [node name="TitleScreen" type="Node2D"]
-script = ExtResource("1_s4wwq")
+script = ExtResource("1_dt83l")
 
-[node name="Background" parent="." instance=ExtResource("2_mdsjp")]
+[node name="Background" parent="." instance=ExtResource("2_h27m2")]
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -28,7 +28,7 @@ texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("3_7u3un")
+texture = ExtResource("3_tvkl4")
 stretch_mode = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="Control/MarginContainer/VBoxContainer"]
@@ -46,7 +46,7 @@ theme_override_constants/margin_bottom = 38
 [node name="PlayButton" type="Button" parent="Control/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer"]
 texture_filter = 1
 layout_mode = 2
-theme = ExtResource("8_o0gph")
+theme = ExtResource("4_cxdcy")
 text = "PLAY"
 alignment = 0
 
@@ -57,7 +57,7 @@ theme_override_constants/margin_bottom = 25
 [node name="QuitButton" type="Button" parent="Control/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer2"]
 texture_filter = 1
 layout_mode = 2
-theme = ExtResource("8_o0gph")
+theme = ExtResource("4_cxdcy")
 text = "quit"
 alignment = 0
 

@@ -3,11 +3,13 @@ extends Node2D
 const is_human = false
 var is_main_player = false
 
-var arrow_cursor = load("res://assets/cabo/textures/ui/cursors/normal.png")
-var lens_cursor = load("res://assets/cabo/textures/ui/cursors/magnifying_glass.png")
-var swap_cursor = load("res://assets/cabo/textures/ui/cursors/swap.png")
+var card_scene = preload("res://assets/cabo/scenes/card.tscn")
 
-@onready var main = get_node('/root/Main')
+var arrow_cursor = load("res://assets/cabo/textures/gui/cursors/normal.aseprite")
+var lens_cursor = load("res://assets/cabo/textures/gui/cursors/magnifying_glass.aseprite")
+var swap_cursor = load("res://assets/cabo/textures/gui/cursors/swap.aseprite")
+
+@onready var game = get_node('/root/Game')
 
 var hand
 var memory
@@ -19,18 +21,18 @@ func _ready():
 	memory = [null, null, null, null]
 	opponent_memory = {}
 	can_draw = false
+	
 	$"../../Pile".connect('action_confirm', _on_action_confirm)
-	for button in $Buttons.get_children():
+	
+	for button in $"ButtonsComponent/Buttons".get_children():
 		button.connect('pressed_button', _on_button_pressed)
 		button.disabled = true
-	for card in $FakeCards.get_children():
-		card.visible = false
 
 func _to_string():
 	return 'Computer' + str($"..".get_children().find(self) + 1)
 
 func find_in_hand(i):
-	return $Hand.get_children()[hand.find(hand[i])]
+	return $Hand.get_child(i)
 
 func start_turn():
 	can_draw = true
@@ -44,23 +46,23 @@ func start_turn():
 	await get_tree().create_timer(2).timeout
 	
 	# play best card
-	if main.new_cards[self].value == 0 and CardSystem.all_int(memory):
+	if game.new_cards[self].value == 0 and CardSystem.all_int(memory):
 		for i in range(hand.size()):
 			if memory[i] == null:
-				hand[i] = main.new_cards[self]
-				memory[i] = main.new_cards[self]
+				hand[i] = game.new_cards[self]
+				memory[i] = game.new_cards[self]
 				break
 	else:
 		var best_card = CardSystem.get_best_card(memory, self)
 		if best_card != null:
 			var best_card_index = hand.find(best_card)
-			hand[best_card_index] = main.new_cards[self]
-			memory[best_card_index] = main.new_cards[self]
-			main.clear_new_card(self)
+			hand[best_card_index] = game.new_cards[self]
+			memory[best_card_index] = game.new_cards[self]
+			game.clear_new_card(self)
 			best_card.discard()
 		else:
-			if main.new_cards[self] != null:
-				var card = main.new_cards[self]
+			if game.new_cards[self] != null:
+				var card = game.new_cards[self]
 				card.discard()
 				if card.value in range(7, 13):
 					if card.value in [7, 8]:
@@ -69,20 +71,20 @@ func start_turn():
 						pass
 					elif card.value in [11, 12]:
 						pass
-				main.clear_new_card(self)
-	main.end_turn()
+				game.clear_new_card(self)
+	game.end_turn()
 
 func _on_action_confirm(action):
 	await $"../../ActionButtons/YesButton".pressed
 	
 	if action != 'peek':
-		for button in $Buttons.get_children():
+		for button in $"ButtonsComponent/Buttons".get_children():
 			button.disabled = false
 
 func _on_button_pressed(i):
 	for player in $"..".get_children():
 		if player.is_human and player.doing_action:
-			for button in $Buttons.get_children():
+			for button in $"ButtonsComponent/Buttons".get_children():
 				button.disabled = true
 			if player.store_action == 'spy':
 				var flipping_card = find_in_hand(i)
@@ -106,4 +108,4 @@ func _on_button_pressed(i):
 				card.show()
 			player.store_action = null
 			Input.set_custom_mouse_cursor(arrow_cursor)
-			main.end_turn()
+			game.end_turn()

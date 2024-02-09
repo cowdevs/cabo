@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://obslegcoymti"]
 
-[ext_resource type="Script" path="res://assets/cabo/scenes/game/pile/pile.gd" id="1_od0lv"]
+[ext_resource type="Script" path="res://assets/cabo/scripts/game/pile.gd" id="1_od0lv"]
 [ext_resource type="SpriteFrames" uid="uid://dj0gy4h2owm8e" path="res://assets/cabo/textures/card/card_frames.tres" id="2_ce5m7"]
 [ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/cabo/textures/gui/buttons/selection/selection.tres" id="3_v6a46"]
 

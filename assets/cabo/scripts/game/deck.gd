@@ -1,6 +1,6 @@
 extends Node2D
 
-var card_scene = preload("res://assets/cabo/scenes/card/card.tscn")
+var card_scene = preload("res://assets/cabo/scenes/card.tscn")
 
 func _ready():
 	create_deck()

@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://csa3o368n80y4"]
+
+[ext_resource type="Script" path="res://assets/cabo/scripts/player/player.gd" id="1_an0cy"]
+[ext_resource type="Script" path="res://assets/cabo/scripts/player/hand.gd" id="2_l684h"]
+[ext_resource type="PackedScene" uid="uid://c6jxdftr7yikm" path="res://assets/cabo/scenes/player/components/buttons_component.tscn" id="3_8wmak"]
+[ext_resource type="PackedScene" uid="uid://cc15ujknfyo1k" path="res://assets/cabo/scenes/player/components/slots_component.tscn" id="4_r51ob"]
+[ext_resource type="PackedScene" uid="uid://d2k1jm3145nws" path="res://assets/cabo/scenes/player/components/fakecards_component.tscn" id="5_5djgi"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_an0cy")
+
+[node name="Hand" type="Node2D" parent="."]
+script = ExtResource("2_l684h")
+
+[node name="ButtonsComponent" parent="." instance=ExtResource("3_8wmak")]
+metadata/_edit_use_anchors_ = true
+
+[node name="SlotsComponent" parent="." instance=ExtResource("4_r51ob")]
+
+[node name="FakeCardsComponent" parent="." instance=ExtResource("5_5djgi")]

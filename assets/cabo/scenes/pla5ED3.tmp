@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://csa3o368n80y4"]
+
+[ext_resource type="Script" path="res://assets/cabo/scripts/player.gd" id="1_v6xuy"]
+[ext_resource type="PackedScene" uid="uid://dy48nbhp6cwqc" path="res://assets/cabo/scenes/hand_display.tscn" id="2_k6n63"]
+[ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/cabo/textures/gui/buttons/selection/selection.tres" id="3_g0l01"]
+[ext_resource type="Script" path="res://assets/cabo/scripts/card_button.gd" id="4_qqyc4"]
+[ext_resource type="PackedScene" uid="uid://8l4unom70ipd" path="res://assets/cabo/scenes/fakecard_component.tscn" id="5_182oe"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_v6xuy")
+
+[node name="Hand" parent="." instance=ExtResource("2_k6n63")]
+
+[node name="Buttons" type="Node2D" parent="."]
+
+[node name="Button1" type="TextureButton" parent="Buttons"]
+texture_filter = 1
+offset_left = -345.0
+offset_top = -112.5
+offset_right = -279.0
+offset_bottom = -22.5
+scale = Vector2(2.5, 2.5)
+disabled = true
+texture_hover = ExtResource("3_g0l01")
+script = ExtResource("4_qqyc4")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button2" type="TextureButton" parent="Buttons"]
+texture_filter = 1
+offset_left = -170.0
+offset_top = -112.5
+offset_right = -104.0
+offset_bottom = -22.5
+scale = Vector2(2.5, 2.5)
+texture_hover = ExtResource("3_g0l01")
+script = ExtResource("4_qqyc4")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button3" type="TextureButton" parent="Buttons"]
+texture_filter = 1
+offset_left = 5.0
+offset_top = -112.5
+offset_right = 71.0
+offset_bottom = -22.5
+scale = Vector2(2.5, 2.5)
+texture_hover = ExtResource("3_g0l01")
+script = ExtResource("4_qqyc4")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button4" type="TextureButton" parent="Buttons"]
+texture_filter = 1
+offset_left = 180.0
+offset_top = -112.5
+offset_right = 246.0
+offset_bottom = -22.5
+scale = Vector2(2.5, 2.5)
+texture_hover = ExtResource("3_g0l01")
+script = ExtResource("4_qqyc4")
+metadata/_edit_use_anchors_ = true
+
+[node name="FakeCardComponent" parent="." instance=ExtResource("5_182oe")]

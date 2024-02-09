@@ -1,19 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://c32hx6uv3o45"]
+[gd_scene load_steps=11 format=3 uid="uid://c32hx6uv3o45"]
 
-[ext_resource type="Script" path="res://assets/cabo/scenes/game/main/main.gd" id="1_p6g4n"]
-[ext_resource type="PackedScene" uid="uid://e5m4bhuc5ogf" path="res://assets/cabo/scenes/background/background.tscn" id="2_0fwjb"]
-[ext_resource type="PackedScene" uid="uid://dcbclwsjjgdkg" path="res://assets/cabo/scenes/game/deck/deck.tscn" id="3_obhdc"]
-[ext_resource type="PackedScene" uid="uid://obslegcoymti" path="res://assets/cabo/scenes/game/pile/pile.tscn" id="4_7xvpd"]
-[ext_resource type="Script" path="res://assets/cabo/scenes/game/main/action_buttons.gd" id="5_mou70"]
-[ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/button.tres" id="6_tjule"]
-[ext_resource type="Texture2D" uid="uid://v30lmb476rck" path="res://assets/cabo/textures/gui/gui.aseprite" id="7_eb2fi"]
+[ext_resource type="Script" path="res://assets/cabo/scripts/game/game.gd" id="1_o85uf"]
+[ext_resource type="PackedScene" uid="uid://e5m4bhuc5ogf" path="res://assets/cabo/scenes/background.tscn" id="2_6rewp"]
+[ext_resource type="PackedScene" uid="uid://dcbclwsjjgdkg" path="res://assets/cabo/scenes/game/deck.tscn" id="3_j87sg"]
+[ext_resource type="PackedScene" uid="uid://obslegcoymti" path="res://assets/cabo/scenes/game/pile.tscn" id="4_qrnmo"]
+[ext_resource type="Script" path="res://assets/cabo/scripts/game/action_buttons.gd" id="5_pnw6d"]
+[ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/button.tres" id="6_xwg68"]
+[ext_resource type="Texture2D" uid="uid://v30lmb476rck" path="res://assets/cabo/textures/gui/gui.aseprite" id="7_j425c"]
+[ext_resource type="PackedScene" uid="uid://gtj8s4i8ekna" path="res://assets/cabo/scenes/game/end_panel.tscn" id="8_qhpc2"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s7shq"]
 content_margin_left = 20.0
 content_margin_top = 20.0
 content_margin_right = 16.0
 content_margin_bottom = 40.0
-texture = ExtResource("7_eb2fi")
+texture = ExtResource("7_j425c")
 texture_margin_left = 12.0
 texture_margin_top = 12.0
 texture_margin_right = 12.0
@@ -25,29 +26,29 @@ content_margin_left = 20.0
 content_margin_top = 24.0
 content_margin_right = 16.0
 content_margin_bottom = 36.0
-texture = ExtResource("7_eb2fi")
+texture = ExtResource("7_j425c")
 texture_margin_left = 12.0
 texture_margin_top = 15.9188
 texture_margin_right = 12.0
 texture_margin_bottom = 44.0259
 region_rect = Rect2(168, 100, 152, 108)
 
-[node name="Main" type="Node2D"]
-script = ExtResource("1_p6g4n")
+[node name="Game" type="Node2D"]
+script = ExtResource("1_o85uf")
 
-[node name="Background" parent="." instance=ExtResource("2_0fwjb")]
+[node name="Background" parent="." instance=ExtResource("2_6rewp")]
 
-[node name="Deck" parent="." instance=ExtResource("3_obhdc")]
+[node name="Deck" parent="." instance=ExtResource("3_j87sg")]
 position = Vector2(975, 574)
 
-[node name="Pile" parent="." instance=ExtResource("4_7xvpd")]
+[node name="Pile" parent="." instance=ExtResource("4_qrnmo")]
 position = Vector2(800, 600)
 scale = Vector2(2.5, 2.5)
 
 [node name="Players" type="Node2D" parent="."]
 
 [node name="ActionButtons" type="Node2D" parent="."]
-script = ExtResource("5_mou70")
+script = ExtResource("5_pnw6d")
 
 [node name="YesButton" type="Button" parent="ActionButtons"]
 texture_filter = 1
@@ -56,7 +57,7 @@ offset_top = 721.0
 offset_right = 824.0
 offset_bottom = 801.0
 scale = Vector2(0.75, 0.75)
-theme = ExtResource("6_tjule")
+theme = ExtResource("6_xwg68")
 text = "YES"
 
 [node name="NoButton" type="Button" parent="ActionButtons"]
@@ -66,7 +67,7 @@ offset_top = 721.0
 offset_right = 936.0
 offset_bottom = 802.0
 scale = Vector2(0.75, 0.75)
-theme = ExtResource("6_tjule")
+theme = ExtResource("6_xwg68")
 text = "NO"
 
 [node name="CaboButton" type="Button" parent="ActionButtons"]
@@ -76,12 +77,27 @@ offset_top = 1077.0
 offset_right = 1339.0
 offset_bottom = 1181.0
 scale = Vector2(0.75, 0.75)
-theme = ExtResource("6_tjule")
+theme = ExtResource("6_xwg68")
 theme_override_styles/normal = SubResource("StyleBoxTexture_s7shq")
 theme_override_styles/hover = SubResource("StyleBoxTexture_s7shq")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_70o37")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_s7shq")
 text = "CABO!"
+
+[node name="EndPanel" parent="." instance=ExtResource("8_qhpc2")]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 800.0
+offset_top = 600.0
+offset_right = 800.0
+offset_bottom = 600.0
+grow_horizontal = 1
+grow_vertical = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [connection signal="button_down" from="ActionButtons/YesButton" to="ActionButtons/YesButton" method="_on_button_down"]
 [connection signal="button_up" from="ActionButtons/YesButton" to="ActionButtons/YesButton" method="_on_button_up"]
