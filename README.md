@@ -30,7 +30,7 @@ If you take the top card from the discard pile, you must **exchange it** (see ab
 #### Call CABO
 If you call CABO, your turn ends. Each other player gets one more turn, and then the round ends.
 
-### Special Abilities
+### Special Abilties
 
 If you draw a card with an ability from the deck, you may place it in the discard pile and use its ability. The abilities:
 
