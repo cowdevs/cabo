@@ -1,19 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqm4nc6bhaexr"]
+[gd_scene load_steps=3 format=3 uid="uid://cqm4nc6bhaexr"]
 
+[ext_resource type="PackedScene" uid="uid://csa3o368n80y4" path="res://assets/cabo/scenes/player/player.tscn" id="1_bnq0o"]
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/computer.gd" id="1_j8px4"]
-[ext_resource type="Script" path="res://assets/cabo/scripts/player/hand.gd" id="2_qjygb"]
-[ext_resource type="PackedScene" uid="uid://c6jxdftr7yikm" path="res://assets/cabo/scenes/player/components/buttons_component.tscn" id="3_aqkiq"]
-[ext_resource type="PackedScene" uid="uid://cc15ujknfyo1k" path="res://assets/cabo/scenes/player/components/slots_component.tscn" id="4_uucky"]
-[ext_resource type="PackedScene" uid="uid://d2k1jm3145nws" path="res://assets/cabo/scenes/player/components/fakecards_component.tscn" id="5_43i7q"]
 
-[node name="Computer" type="Node2D"]
+[node name="Computer" instance=ExtResource("1_bnq0o")]
 script = ExtResource("1_j8px4")
 
-[node name="Hand" type="Node2D" parent="."]
-script = ExtResource("2_qjygb")
-
-[node name="ButtonsComponent" parent="." instance=ExtResource("3_aqkiq")]
-
-[node name="SlotsComponent" parent="." instance=ExtResource("4_uucky")]
-
-[node name="FakeCardsComponent" parent="." instance=ExtResource("5_43i7q")]
+[node name="CaboButton" parent="Control" index="1"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 176.0
+offset_bottom = 104.0

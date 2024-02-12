@@ -1,7 +1,11 @@
+class_name Card
 extends Node2D
 
 @export var value: int
-@export var face = 'Front'
+@export_enum("Front", "Back") var face: String
+
+func _ready():
+	face = 'Front'
 
 func _to_string():
 	return str(value)
@@ -11,7 +15,3 @@ func flip():
 		$Animation.play('flip')
 	else:
 		$Animation.play_backwards('flip')
-
-func discard():
-	CardSystem.pile.append(self)
-	CardSystem.update(CardSystem.pile)

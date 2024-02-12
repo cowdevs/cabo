@@ -10,7 +10,6 @@ script = ExtResource("1_a3wlq")
 motion_mirroring = Vector2(0, 1200)
 
 [node name="Background" type="Sprite2D" parent="ParallaxLayer"]
-texture_filter = 1
 texture_repeat = 2
 position = Vector2(800, 600)
 scale = Vector2(3.12479, 3.12479)

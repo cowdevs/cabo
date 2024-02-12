@@ -9,11 +9,11 @@ content_margin_top = 20.0
 content_margin_right = 16.0
 content_margin_bottom = 16.0
 texture = ExtResource("2_cae1h")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
+texture_margin_left = 20.0
+texture_margin_top = 24.0
+texture_margin_right = 20.0
 texture_margin_bottom = 24.2706
-region_rect = Rect2(8, 8, 152, 84)
+region_rect = Rect2(0, 0, 128, 64)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tindf"]
 
@@ -24,10 +24,10 @@ content_margin_right = 16.0
 content_margin_bottom = 12.0
 texture = ExtResource("2_cae1h")
 texture_margin_left = 12.0
-texture_margin_top = 12.1352
+texture_margin_top = 16.0
 texture_margin_right = 12.0
 texture_margin_bottom = 19.8376
-region_rect = Rect2(168, 8, 152, 84)
+region_rect = Rect2(192, 0, 128, 64)
 
 [resource]
 default_font = ExtResource("1_5eccp")
@@ -45,11 +45,6 @@ Button/colors/icon_hover_color = Color(1, 1, 1, 1)
 Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
 Button/colors/icon_normal_color = Color(1, 1, 1, 1)
 Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
-Button/constants/h_separation = 4
-Button/constants/icon_max_width = 0
-Button/constants/outline_size = 0
-Button/font_sizes/font_size = 32
-Button/fonts/font = ExtResource("1_5eccp")
 Button/styles/disabled = SubResource("StyleBoxTexture_u0135")
 Button/styles/focus = SubResource("StyleBoxEmpty_tindf")
 Button/styles/hover = SubResource("StyleBoxTexture_u0135")

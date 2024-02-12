@@ -1,10 +1,38 @@
-[gd_scene load_steps=6 format=3 uid="uid://csa3o368n80y4"]
+[gd_scene load_steps=12 format=3 uid="uid://csa3o368n80y4"]
 
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/player.gd" id="1_an0cy"]
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/hand.gd" id="2_l684h"]
-[ext_resource type="PackedScene" uid="uid://c6jxdftr7yikm" path="res://assets/cabo/scenes/player/components/buttons_component.tscn" id="3_8wmak"]
-[ext_resource type="PackedScene" uid="uid://cc15ujknfyo1k" path="res://assets/cabo/scenes/player/components/slots_component.tscn" id="4_r51ob"]
-[ext_resource type="PackedScene" uid="uid://d2k1jm3145nws" path="res://assets/cabo/scenes/player/components/fakecards_component.tscn" id="5_5djgi"]
+[ext_resource type="Script" path="res://assets/cabo/scripts/player/components/slots_component.gd" id="5_0k4qu"]
+[ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/cabo/textures/gui/buttons/selection/selection.tres" id="5_dsaoi"]
+[ext_resource type="Script" path="res://assets/cabo/scripts/player/components/buttons_component.gd" id="6_00mqq"]
+[ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/button.tres" id="7_w3eba"]
+[ext_resource type="Script" path="res://assets/cabo/scripts/player/components/fakecards_component.gd" id="8_5y6lu"]
+[ext_resource type="Texture2D" uid="uid://v30lmb476rck" path="res://assets/cabo/textures/gui/gui.aseprite" id="8_l7pr3"]
+[ext_resource type="Texture2D" uid="uid://dighr41xbca1k" path="res://assets/cabo/textures/card/card_back.png" id="9_vkr38"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6ld8t"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 16.0
+content_margin_bottom = 40.0
+texture = ExtResource("8_l7pr3")
+texture_margin_left = 11.7564
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 43.6758
+region_rect = Rect2(0, 128, 128, 84)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vt51l"]
+content_margin_left = 20.0
+content_margin_top = 24.0
+content_margin_right = 16.0
+content_margin_bottom = 36.0
+texture = ExtResource("8_l7pr3")
+texture_margin_left = 12.0
+texture_margin_top = 15.9188
+texture_margin_right = 12.0
+texture_margin_bottom = 40.0
+region_rect = Rect2(192, 128, 128, 84)
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_an0cy")
@@ -12,9 +40,123 @@ script = ExtResource("1_an0cy")
 [node name="Hand" type="Node2D" parent="."]
 script = ExtResource("2_l684h")
 
-[node name="ButtonsComponent" parent="." instance=ExtResource("3_8wmak")]
+[node name="Slots" type="Node2D" parent="."]
+script = ExtResource("5_0k4qu")
+
+[node name="Slot1" type="Marker2D" parent="Slots"]
+position = Vector2(-270, -7.62939e-06)
+scale = Vector2(2.5, 2.5)
+
+[node name="Slot2" type="Marker2D" parent="Slots"]
+position = Vector2(-90, -7.62939e-06)
+
+[node name="Slot3" type="Marker2D" parent="Slots"]
+position = Vector2(90, -7.62939e-06)
+
+[node name="Slot4" type="Marker2D" parent="Slots"]
+position = Vector2(270, -7.62939e-06)
+
+[node name="NewCard" type="Marker2D" parent="Slots"]
+position = Vector2(0, -225)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 550.0
+offset_top = -105.0
+offset_right = 550.0
+offset_bottom = 105.0
+
+[node name="Buttons" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -895.0
+offset_top = -105.0
+offset_right = -205.0
+offset_bottom = 105.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Button1" type="TextureButton" parent="Control/Buttons"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+texture_hover = ExtResource("5_dsaoi")
+script = ExtResource("6_00mqq")
 metadata/_edit_use_anchors_ = true
 
-[node name="SlotsComponent" parent="." instance=ExtResource("4_r51ob")]
+[node name="Button2" type="TextureButton" parent="Control/Buttons"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+texture_hover = ExtResource("5_dsaoi")
+script = ExtResource("6_00mqq")
+metadata/_edit_use_anchors_ = true
 
-[node name="FakeCardsComponent" parent="." instance=ExtResource("5_5djgi")]
+[node name="Button3" type="TextureButton" parent="Control/Buttons"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+texture_hover = ExtResource("5_dsaoi")
+script = ExtResource("6_00mqq")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button4" type="TextureButton" parent="Control/Buttons"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+texture_hover = ExtResource("5_dsaoi")
+script = ExtResource("6_00mqq")
+metadata/_edit_use_anchors_ = true
+
+[node name="CaboButton" type="Button" parent="Control"]
+offset_left = -175.0
+offset_top = 132.0
+offset_right = 1.0
+offset_bottom = 236.0
+scale = Vector2(0.75, 0.75)
+theme = ExtResource("7_w3eba")
+theme_override_styles/normal = SubResource("StyleBoxTexture_6ld8t")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6ld8t")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vt51l")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_6ld8t")
+text = "CABO!"
+
+[node name="FakeCards" type="Node2D" parent="."]
+script = ExtResource("8_5y6lu")
+
+[node name="FakeCard1" type="Sprite2D" parent="FakeCards"]
+texture_filter = 1
+position = Vector2(-345, -105)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("9_vkr38")
+centered = false
+
+[node name="FakeCard2" type="Sprite2D" parent="FakeCards"]
+texture_filter = 1
+position = Vector2(-165, -105)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("9_vkr38")
+centered = false
+
+[node name="FakeCard3" type="Sprite2D" parent="FakeCards"]
+texture_filter = 1
+position = Vector2(15, -105)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("9_vkr38")
+centered = false
+
+[node name="FakeCard4" type="Sprite2D" parent="FakeCards"]
+texture_filter = 1
+position = Vector2(195, -105)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("9_vkr38")
+centered = false
+
+[connection signal="pressed" from="Control/CaboButton" to="." method="_on_cabo_button_pressed"]
