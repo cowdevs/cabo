@@ -10,6 +10,7 @@ func _on_button_pressed():
 	for player in $"../Players".get_children():
 		if player.can_draw:
 			draw_card(player)
+			update()
 			player.can_draw = false
 
 func create_deck() -> void:

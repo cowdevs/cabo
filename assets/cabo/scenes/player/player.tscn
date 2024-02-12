@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://csa3o368n80y4"]
+[gd_scene load_steps=14 format=3 uid="uid://csa3o368n80y4"]
 
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/player.gd" id="1_an0cy"]
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/hand.gd" id="2_l684h"]
@@ -33,6 +33,11 @@ texture_margin_top = 15.9188
 texture_margin_right = 12.0
 texture_margin_bottom = 40.0
 region_rect = Rect2(192, 128, 128, 84)
+
+[sub_resource type="Gradient" id="Gradient_am8v2"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yre72"]
+gradient = SubResource("Gradient_am8v2")
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_an0cy")
@@ -116,6 +121,7 @@ script = ExtResource("6_00mqq")
 metadata/_edit_use_anchors_ = true
 
 [node name="CaboButton" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = -175.0
 offset_top = 132.0
 offset_right = 1.0
@@ -158,5 +164,10 @@ position = Vector2(195, -105)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("9_vkr38")
 centered = false
+
+[node name="TurnIndicator" type="Sprite2D" parent="."]
+position = Vector2(0, 115)
+scale = Vector2(1, 10)
+texture = SubResource("GradientTexture1D_yre72")
 
 [connection signal="pressed" from="Control/CaboButton" to="." method="_on_cabo_button_pressed"]

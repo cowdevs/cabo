@@ -9,6 +9,7 @@ func _on_button_pressed():
 	for player in $"../Players".get_children():
 		if player.can_draw:
 			draw_card(player)
+			update()
 			disable()
 		elif player.is_human and player.has_new_card:
 			disable()

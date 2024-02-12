@@ -3,7 +3,7 @@ extends Node2D
 var player_scene = preload("res://assets/cabo/scenes/player/player.tscn")
 var computer_scene = preload("res://assets/cabo/scenes/player/computer.tscn")
 
-var num_computers = 1
+var num_computers = 4
 
 func _ready():
 	player_list = []
@@ -12,7 +12,7 @@ func _ready():
 	
 	$EndPanel.hide()
 	
-	$Players.add_child(player_scene.instantiate())
+	# $Players.add_child(player_scene.instantiate())
 	for i in range(num_computers):
 		$Players.add_child(computer_scene.instantiate())
 	
@@ -61,9 +61,9 @@ func _on_cabo_called(player):
 
 func start_round():
 	for player in $Players.get_children():
-		if player.is_human == false:
-			player.memory[player][0] = player.hand[0]
-			player.memory[player][1] = player.hand[1]
+		if not player.is_human:
+			for opp in $Players.get_children():
+				player.memory[opp] = [null, null, null, null] if opp != player else [player.hand[0], player.hand[1], null, null]
 		if player.is_main_player:
 			player.get_node('Hand').get_child(0).flip()
 			player.get_node('Hand').get_child(1).flip()
@@ -78,10 +78,12 @@ func start_turn(player):
 		$Pile.enable()
 		player.get_node("Control/CaboButton").disabled = false
 	player.can_draw = true
+	player.get_node('TurnIndicator').show()
 	if not player.is_human:
 		player.computer_turn()
 
-func end_turn():
+func end_turn(player):
+	player.get_node('TurnIndicator').hide()
 	if cabo_called:
 		player_list.erase($Players.get_child(turn_index))
 		if player_list.size() == 0:
@@ -90,7 +92,7 @@ func end_turn():
 		turn_index += 1
 	else:
 		turn_index = (turn_index + 1) % player_list.size()
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.1).timeout # CHANGE BACK TO 0.5
 	start_turn($Players.get_child(turn_index))
 
 func end_round():
@@ -144,7 +146,7 @@ func maxpos(list: Array) -> int:
 
 func value_in_hand(value, list) -> Array: # bool, index
 	for i in range(list.size()):
-		if (list[i].value == value and value != null) or (list[i] == value and value == null):
+		if (value != null and list[i].value == value) or (value == null and list[i] == value):
 			return [true, i]
 	return [false, null]
 

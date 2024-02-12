@@ -40,6 +40,7 @@ func empty() -> bool:
 	return cards.is_empty()
 
 func shuffle() -> void:
+	randomize()
 	cards.shuffle()
 
 func clear() -> void:

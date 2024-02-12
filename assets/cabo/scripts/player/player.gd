@@ -39,6 +39,7 @@ func _ready():
 		button.disabled = true
 	
 	$Control/CaboButton.disabled = true
+	$TurnIndicator.hide()
 
 func _to_string():
 	return 'Player' + str($"..".get_children().find(self) + 1)
@@ -55,21 +56,18 @@ func _on_action_confirm(action):
 		Input.set_custom_mouse_cursor(swap_cursor)	
 		
 	if action == 'peek':
-		for button in $Buttons.get_children():
+		for button in $Control/Buttons.get_children():
 			button.disabled = false
 
 func _on_button_pressed(i):
 	Pile.disable()
 	Deck.disable()
 	if not doing_action:
-		var card = $Hand.get_child(i)
-		hand[i] = new_card
-		clear_new_card()
-		Pile.discard(card)
-		get_node('/root/Game').end_turn()
+		exchange_new_card(i, self)
+		Game.end_turn(self)
 	else:
 		doing_action = false
-		for button in $Buttons.get_children():
+		for button in $Control/Buttons.get_children():
 			button.disabled = true
 		if store_action == 'peek':
 			var flipping_card = $Hand.get_child(i)
@@ -78,14 +76,21 @@ func _on_button_pressed(i):
 			flipping_card.flip()
 			store_action = null
 			Input.set_custom_mouse_cursor(arrow_cursor)
-			get_node('/root/Game').end_turn()
+			Game.end_turn(self)
 		elif store_action == 'swap':
 			swap.emit(i)
 
 func _on_cabo_button_pressed():
 	$Control/CaboButton.disabled = true
 	cabo_called.emit(self)
-	Game.end_turn()
+	Game.end_turn(self)
+
+func exchange_new_card(i: int, player: Player):
+	Pile.discard(player.hand[i])
+	player.hand[i] = player.new_card
+	if not player.is_human:
+		player.memory[player][i] = player.new_card
+	clear_new_card()
 
 func set_new_card(card):
 	new_card = card

@@ -5,9 +5,9 @@
 
 [node name="Computer" instance=ExtResource("1_bnq0o")]
 script = ExtResource("1_j8px4")
+risk_factor = 4
 
 [node name="CaboButton" parent="Control" index="1"]
-layout_mode = 0
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 176.0
