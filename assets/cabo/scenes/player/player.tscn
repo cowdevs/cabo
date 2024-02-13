@@ -1,14 +1,37 @@
-[gd_scene load_steps=14 format=3 uid="uid://csa3o368n80y4"]
+[gd_scene load_steps=17 format=3 uid="uid://csa3o368n80y4"]
 
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/player.gd" id="1_an0cy"]
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/hand.gd" id="2_l684h"]
-[ext_resource type="Script" path="res://assets/cabo/scripts/player/components/slots_component.gd" id="5_0k4qu"]
-[ext_resource type="Texture2D" uid="uid://8ka0a0ya6bo3" path="res://assets/cabo/textures/gui/buttons/selection/selection.tres" id="5_dsaoi"]
-[ext_resource type="Script" path="res://assets/cabo/scripts/player/components/buttons_component.gd" id="6_00mqq"]
+[ext_resource type="Script" path="res://assets/cabo/scripts/game/action_buttons.gd" id="3_p10fl"]
+[ext_resource type="Script" path="res://assets/cabo/scripts/player/buttons.gd" id="4_h7j1g"]
+[ext_resource type="Texture2D" uid="uid://dftov3wyrbusv" path="res://assets/cabo/textures/gui/buttons/selection/max.aseprite" id="6_s5vxr"]
+[ext_resource type="Texture2D" uid="uid://dki1w6rh4lvmo" path="res://assets/cabo/textures/gui/buttons/selection/medium.aseprite" id="7_5ignq"]
 [ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/button.tres" id="7_w3eba"]
-[ext_resource type="Script" path="res://assets/cabo/scripts/player/components/fakecards_component.gd" id="8_5y6lu"]
 [ext_resource type="Texture2D" uid="uid://v30lmb476rck" path="res://assets/cabo/textures/gui/gui.aseprite" id="8_l7pr3"]
+[ext_resource type="Texture2D" uid="uid://c0s4n1rvl28x0" path="res://assets/cabo/textures/gui/buttons/selection/min.aseprite" id="8_py823"]
+[ext_resource type="Texture2D" uid="uid://c05j8ia1k4fix" path="res://assets/cabo/textures/gui/turn_indicator0.aseprite" id="9_rpd4j"]
 [ext_resource type="Texture2D" uid="uid://dighr41xbca1k" path="res://assets/cabo/textures/card/card_back.png" id="9_vkr38"]
+[ext_resource type="Texture2D" uid="uid://mgwnan82sr74" path="res://assets/cabo/textures/gui/turn_indicator1.aseprite" id="10_q4u6m"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p0o4k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_s5vxr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_5ignq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_py823")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_5ignq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6ld8t"]
 content_margin_left = 20.0
@@ -34,10 +57,19 @@ texture_margin_right = 12.0
 texture_margin_bottom = 40.0
 region_rect = Rect2(192, 128, 128, 84)
 
-[sub_resource type="Gradient" id="Gradient_am8v2"]
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_yre72"]
-gradient = SubResource("Gradient_am8v2")
+[sub_resource type="SpriteFrames" id="SpriteFrames_fmcp0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_rpd4j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_q4u6m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_an0cy")
@@ -45,97 +77,7 @@ script = ExtResource("1_an0cy")
 [node name="Hand" type="Node2D" parent="."]
 script = ExtResource("2_l684h")
 
-[node name="Slots" type="Node2D" parent="."]
-script = ExtResource("5_0k4qu")
-
-[node name="Slot1" type="Marker2D" parent="Slots"]
-position = Vector2(-270, -7.62939e-06)
-scale = Vector2(2.5, 2.5)
-
-[node name="Slot2" type="Marker2D" parent="Slots"]
-position = Vector2(-90, -7.62939e-06)
-
-[node name="Slot3" type="Marker2D" parent="Slots"]
-position = Vector2(90, -7.62939e-06)
-
-[node name="Slot4" type="Marker2D" parent="Slots"]
-position = Vector2(270, -7.62939e-06)
-
-[node name="NewCard" type="Marker2D" parent="Slots"]
-position = Vector2(0, -225)
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 550.0
-offset_top = -105.0
-offset_right = 550.0
-offset_bottom = 105.0
-
-[node name="Buttons" type="HBoxContainer" parent="Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -895.0
-offset_top = -105.0
-offset_right = -205.0
-offset_bottom = 105.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 30
-
-[node name="Button1" type="TextureButton" parent="Control/Buttons"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 3
-disabled = true
-texture_hover = ExtResource("5_dsaoi")
-script = ExtResource("6_00mqq")
-metadata/_edit_use_anchors_ = true
-
-[node name="Button2" type="TextureButton" parent="Control/Buttons"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 3
-texture_hover = ExtResource("5_dsaoi")
-script = ExtResource("6_00mqq")
-metadata/_edit_use_anchors_ = true
-
-[node name="Button3" type="TextureButton" parent="Control/Buttons"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 3
-texture_hover = ExtResource("5_dsaoi")
-script = ExtResource("6_00mqq")
-metadata/_edit_use_anchors_ = true
-
-[node name="Button4" type="TextureButton" parent="Control/Buttons"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 3
-texture_hover = ExtResource("5_dsaoi")
-script = ExtResource("6_00mqq")
-metadata/_edit_use_anchors_ = true
-
-[node name="CaboButton" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = -175.0
-offset_top = 132.0
-offset_right = 1.0
-offset_bottom = 236.0
-scale = Vector2(0.75, 0.75)
-theme = ExtResource("7_w3eba")
-theme_override_styles/normal = SubResource("StyleBoxTexture_6ld8t")
-theme_override_styles/hover = SubResource("StyleBoxTexture_6ld8t")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_vt51l")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_6ld8t")
-text = "CABO!"
-
 [node name="FakeCards" type="Node2D" parent="."]
-script = ExtResource("8_5y6lu")
 
 [node name="FakeCard1" type="Sprite2D" parent="FakeCards"]
 texture_filter = 1
@@ -165,9 +107,130 @@ scale = Vector2(2.5, 2.5)
 texture = ExtResource("9_vkr38")
 centered = false
 
-[node name="TurnIndicator" type="Sprite2D" parent="."]
-position = Vector2(0, 115)
-scale = Vector2(1, 10)
-texture = SubResource("GradientTexture1D_yre72")
+[node name="Slots" type="Node2D" parent="."]
 
+[node name="Slot1" type="Marker2D" parent="Slots"]
+position = Vector2(-270, -7.62939e-06)
+scale = Vector2(2.5, 2.5)
+
+[node name="Slot2" type="Marker2D" parent="Slots"]
+position = Vector2(-90, -7.62939e-06)
+
+[node name="Slot3" type="Marker2D" parent="Slots"]
+position = Vector2(90, -7.62939e-06)
+
+[node name="Slot4" type="Marker2D" parent="Slots"]
+position = Vector2(270, -7.62939e-06)
+
+[node name="NewCard" type="Marker2D" parent="Slots"]
+position = Vector2(0, -225)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("3_p10fl")
+
+[node name="Buttons" type="HBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = -345.0
+offset_top = -105.0
+offset_right = 345.0
+offset_bottom = 105.0
+theme_override_constants/separation = 30
+alignment = 1
+metadata/_edit_group_ = true
+
+[node name="Button1" type="TextureButton" parent="Control/Buttons"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+script = ExtResource("4_h7j1g")
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonHover" type="AnimatedSprite2D" parent="Control/Buttons/Button1"]
+position = Vector2(75, 105)
+scale = Vector2(2.57576, 2.55556)
+sprite_frames = SubResource("SpriteFrames_p0o4k")
+
+[node name="Button2" type="TextureButton" parent="Control/Buttons"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_h7j1g")
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonHover" type="AnimatedSprite2D" parent="Control/Buttons/Button2"]
+position = Vector2(75, 105)
+scale = Vector2(2.57576, 2.55556)
+sprite_frames = SubResource("SpriteFrames_p0o4k")
+
+[node name="Button3" type="TextureButton" parent="Control/Buttons"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_h7j1g")
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonHover" type="AnimatedSprite2D" parent="Control/Buttons/Button3"]
+position = Vector2(75, 105)
+scale = Vector2(2.57576, 2.55556)
+sprite_frames = SubResource("SpriteFrames_p0o4k")
+
+[node name="Button4" type="TextureButton" parent="Control/Buttons"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_h7j1g")
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonHover" type="AnimatedSprite2D" parent="Control/Buttons/Button4"]
+position = Vector2(75, 105)
+scale = Vector2(2.57576, 2.55556)
+sprite_frames = SubResource("SpriteFrames_p0o4k")
+
+[node name="ActionButtons" type="HBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = -135.0
+offset_top = -337.0
+offset_right = 135.0
+offset_bottom = -257.0
+theme_override_constants/separation = 10
+metadata/_edit_group_ = true
+
+[node name="YesButton" type="Button" parent="Control/ActionButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_w3eba")
+text = "YES"
+metadata/_edit_use_anchors_ = true
+
+[node name="NoButton" type="Button" parent="Control/ActionButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_w3eba")
+text = "NO"
+metadata/_edit_use_anchors_ = true
+
+[node name="CaboButton" type="Button" parent="Control"]
+layout_mode = 2
+offset_left = 375.0
+offset_top = 27.0
+offset_right = 551.0
+offset_bottom = 131.0
+scale = Vector2(0.75, 0.75)
+theme = ExtResource("7_w3eba")
+theme_override_styles/normal = SubResource("StyleBoxTexture_6ld8t")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6ld8t")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vt51l")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_6ld8t")
+text = "CABO!"
+
+[node name="TurnIndicator" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 126)
+sprite_frames = SubResource("SpriteFrames_fmcp0")
+frame_progress = 0.882993
+
+[connection signal="pressed" from="Control/ActionButtons/YesButton" to="Control" method="_on_yes_button_pressed"]
+[connection signal="pressed" from="Control/ActionButtons/NoButton" to="Control" method="_on_no_button_pressed"]
 [connection signal="pressed" from="Control/CaboButton" to="." method="_on_cabo_button_pressed"]

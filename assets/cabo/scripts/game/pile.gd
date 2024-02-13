@@ -1,9 +1,17 @@
 extends CardList
 
-signal action_confirm(action)
+signal action_confirm(action, player)
 
 func _ready():
 	disable()
+
+func _process(_delta):
+	if $Button.is_hovered() and not $Button.is_disabled():
+		$Button/ButtonHover.show()
+		$Button/ButtonHover.play()
+	else:
+		$Button/ButtonHover.hide()
+		$Button/ButtonHover.stop()
 
 func _on_button_pressed():
 	for player in $"../Players".get_children():
@@ -18,11 +26,11 @@ func _on_button_pressed():
 			player.clear_new_card()
 			if card.value in range(7, 13):
 				if card.value in [7, 8]:
-					emit_signal('action_confirm', 'peek')
+					action_confirm.emit('peek', player)
 				elif card.value in [9, 10]:
-					emit_signal('action_confirm', 'spy')
+					action_confirm.emit('spy', player)
 				elif card.value in [11, 12]:
-					emit_signal('action_confirm', 'swap')
+					action_confirm.emit('swap', player)
 			else:
 				$"..".end_turn()
 

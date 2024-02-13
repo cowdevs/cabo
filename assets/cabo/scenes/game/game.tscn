@@ -1,11 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c32hx6uv3o45"]
+[gd_scene load_steps=6 format=3 uid="uid://c32hx6uv3o45"]
 
 [ext_resource type="Script" path="res://assets/cabo/scripts/game/game.gd" id="1_o85uf"]
 [ext_resource type="PackedScene" uid="uid://e5m4bhuc5ogf" path="res://assets/cabo/scenes/background.tscn" id="2_6rewp"]
 [ext_resource type="PackedScene" uid="uid://dcbclwsjjgdkg" path="res://assets/cabo/scenes/game/deck.tscn" id="3_j87sg"]
 [ext_resource type="PackedScene" uid="uid://obslegcoymti" path="res://assets/cabo/scenes/game/pile.tscn" id="4_qrnmo"]
-[ext_resource type="Script" path="res://assets/cabo/scripts/game/action_buttons.gd" id="5_pnw6d"]
-[ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/button.tres" id="6_xwg68"]
 [ext_resource type="PackedScene" uid="uid://gtj8s4i8ekna" path="res://assets/cabo/scenes/game/end_panel.tscn" id="8_qhpc2"]
 
 [node name="Game" type="Node2D"]
@@ -18,36 +16,8 @@ position = Vector2(975, 574)
 
 [node name="Pile" parent="." instance=ExtResource("4_qrnmo")]
 position = Vector2(800, 600)
-scale = Vector2(2.5, 2.5)
 
 [node name="Players" type="Node2D" parent="."]
-
-[node name="ActionButtons" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("5_pnw6d")
-
-[node name="YesButton" type="Button" parent="ActionButtons"]
-layout_mode = 0
-offset_left = 696.0
-offset_top = 721.0
-offset_right = 824.0
-offset_bottom = 801.0
-scale = Vector2(0.75, 0.75)
-theme = ExtResource("6_xwg68")
-text = "YES"
-metadata/_edit_use_anchors_ = true
-
-[node name="NoButton" type="Button" parent="ActionButtons"]
-layout_mode = 0
-offset_left = 808.0
-offset_top = 721.0
-offset_right = 936.0
-offset_bottom = 802.0
-scale = Vector2(0.75, 0.75)
-theme = ExtResource("6_xwg68")
-text = "NO"
-metadata/_edit_use_anchors_ = true
 
 [node name="EndPanel" parent="." instance=ExtResource("8_qhpc2")]
 anchors_preset = 0
@@ -63,10 +33,3 @@ grow_horizontal = 1
 grow_vertical = 1
 size_flags_horizontal = 4
 size_flags_vertical = 4
-
-[connection signal="button_down" from="ActionButtons/YesButton" to="ActionButtons/YesButton" method="_on_button_down"]
-[connection signal="button_up" from="ActionButtons/YesButton" to="ActionButtons/YesButton" method="_on_button_up"]
-[connection signal="pressed" from="ActionButtons/YesButton" to="ActionButtons" method="_on_yes_button_pressed"]
-[connection signal="button_down" from="ActionButtons/NoButton" to="ActionButtons/NoButton" method="_on_button_down"]
-[connection signal="button_up" from="ActionButtons/NoButton" to="ActionButtons/NoButton" method="_on_button_up"]
-[connection signal="pressed" from="ActionButtons/NoButton" to="ActionButtons" method="_on_no_button_pressed"]

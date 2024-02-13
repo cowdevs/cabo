@@ -32,29 +32,52 @@ func _ready():
 	has_new_card = false
 	doing_action = false
 	
+	setup()
+	
+	$Control/CaboButton.disabled = true
+	$Control.hide_buttons()
+
+func setup() -> void:
 	Pile.connect('action_confirm', _on_action_confirm)
 	
 	for button in $Control/Buttons.get_children():
 		button.connect('pressed_button', _on_button_pressed)
 		button.disabled = true
 	
-	$Control/CaboButton.disabled = true
+	for marker in $Slots.get_children():
+		var card_instance = card_scene.instantiate()
+		card_instance.position = marker.position
+		$Hand.add_child(card_instance)
+	
+	for card in $FakeCards.get_children():
+		card.visible = false
+	
 	$TurnIndicator.hide()
 
+func _process(_delta):
+	$TurnIndicator.play()
+	for button in $Control/Buttons.get_children():
+		if button.is_hovered() and not button.is_disabled():
+			button.get_child(0).show()
+			button.get_child(0).play()
+		else:
+			button.get_child(0).hide()
+			button.get_child(0).stop()
+
 func _to_string():
-	return 'Player' + str($"..".get_children().find(self) + 1)
+	return 'Player'
 
 var store_action = null
 
-func _on_action_confirm(action):
-	await $"../../ActionButtons/YesButton".pressed
+func _on_action_confirm(action, player):
+	$Control.show_buttons()
+	await $Control/ActionButtons/YesButton.pressed
 	store_action = action
 	doing_action = true
 	if action == 'peek' or action == 'spy':
 		Input.set_custom_mouse_cursor(lens_cursor)
 	elif action == 'swap':
-		Input.set_custom_mouse_cursor(swap_cursor)	
-		
+		Input.set_custom_mouse_cursor(swap_cursor)
 	if action == 'peek':
 		for button in $Control/Buttons.get_children():
 			button.disabled = false

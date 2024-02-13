@@ -114,7 +114,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_xh4la")
-text = "PLAYER WINS!"
+text = "___ WAS CLOSEST TO CABO!"
 horizontal_alignment = 1
 vertical_alignment = 1
 

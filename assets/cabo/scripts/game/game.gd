@@ -3,7 +3,12 @@ extends Node2D
 var player_scene = preload("res://assets/cabo/scenes/player/player.tscn")
 var computer_scene = preload("res://assets/cabo/scenes/player/computer.tscn")
 
-var num_computers = 4
+var player_list
+var turn_index: int
+var cabo_called: bool
+var cabo_caller: Player
+
+var num_players = 4
 
 func _ready():
 	player_list = []
@@ -12,8 +17,8 @@ func _ready():
 	
 	$EndPanel.hide()
 	
-	# $Players.add_child(player_scene.instantiate())
-	for i in range(num_computers):
+	$Players.add_child(player_scene.instantiate())
+	for i in range(num_players - 1):
 		$Players.add_child(computer_scene.instantiate())
 	
 	$Players.get_child(0).is_main_player = true
@@ -21,18 +26,22 @@ func _ready():
 	set_player_positions()
 		
 	for player in $Players.get_children():
-		player.connect('cabo_called', _on_cabo_called)
 		player_list.append(player)
+		player.connect('cabo_called', _on_cabo_called)
 		for i in range(4):
 			$Deck.deal_card(player)
 	
+	# initiate new scoreboard
+	if Scoreboard.is_empty():
+		for player in $Players.get_children():
+			Scoreboard.scoreboard[str(player)] = 0
+	
 	var first_card = $Deck.pop_top_card()
+	
 	$Pile.discard(first_card)
 
 	$Deck.update()
 	$Pile.update()
-	
-	$ActionButtons.hide_buttons()
 	
 	await get_tree().create_timer(2).timeout	
 	start_round()
@@ -50,14 +59,9 @@ func set_player_positions():
 		$Players.get_child(i).position = positions[i]
 		$Players.get_child(i).rotation = rotations[i]
 
-var player_list
-var turn_index: int
-var cabo_called: bool
-var cabo_player: Player
-
 func _on_cabo_called(player):
 	cabo_called = true
-	cabo_player = player
+	cabo_caller = player
 
 func start_round():
 	for player in $Players.get_children():
@@ -83,6 +87,7 @@ func start_turn(player):
 		player.computer_turn()
 
 func end_turn(player):
+	await get_tree().create_timer(0.5).timeout
 	player.get_node('TurnIndicator').hide()
 	if cabo_called:
 		player_list.erase($Players.get_child(turn_index))
@@ -92,28 +97,38 @@ func end_turn(player):
 		turn_index += 1
 	else:
 		turn_index = (turn_index + 1) % player_list.size()
-	await get_tree().create_timer(0.1).timeout # CHANGE BACK TO 0.5
 	start_turn($Players.get_child(turn_index))
 
 func end_round():
 	for player in $Players.get_children():
 		for card in player.get_node('Hand').get_children():
 			card.flip()
-	print(get_winner())
+	calculate_scores()
 	await get_tree().create_timer(5).timeout
 	$"EndPanel/Animation".play('popup')
 
-func get_winner():
-	var min_sum = 50
-	var winner = null
+func calculate_scores() -> void:
+	# find player with smallest hand
+	var min_sum = INF
+	var lowest_hand = null
 	for player in $Players.get_children():
 		var player_sum = sum(player.hand)
 		if player_sum < min_sum:
 			min_sum = player_sum
-			winner = player
-	return winner
+			lowest_hand = player
+	
+	$EndPanel.declare_winner(lowest_hand)
+	
+	# calculate scores
+	for player in $Players.get_children():
+		if player == cabo_caller:
+			if player != lowest_hand:
+				Scoreboard.add_score(10 + sum(player.hand), player)
+		else:
+			Scoreboard.add_score(sum(player.hand), player)
 
 func swap(list_a: Array, a_index: int, list_b: Array, b_index: int) -> void:
+	print('DID SWAP')
 	var temp = list_a[a_index]
 	list_a[a_index] = list_b[b_index]
 	list_b[b_index] = temp
@@ -144,7 +159,7 @@ func maxpos(list: Array) -> int:
 			list_values.append(card.value)
 	return list_values.find(list_values.max())
 
-func value_in_hand(value, list) -> Array: # bool, index
+func value_in_hand(value, list) -> Array: # [bool, index]
 	for i in range(list.size()):
 		if (value != null and list[i].value == value) or (value == null and list[i] == value):
 			return [true, i]

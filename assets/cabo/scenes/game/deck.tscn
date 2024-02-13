@@ -82,10 +82,10 @@ frame = 8
 
 [node name="Button" type="TextureButton" parent="."]
 texture_filter = 1
-offset_left = -33.2
-offset_top = -52.4
-offset_right = 32.8
-offset_bottom = 52.1
+offset_left = -32.8
+offset_top = -54.8
+offset_right = 33.2
+offset_bottom = 35.2
 texture_hover = ExtResource("3_kwxe1")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

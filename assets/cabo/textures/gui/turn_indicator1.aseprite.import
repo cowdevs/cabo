@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6v3mer72dl5o"
-path="res://.godot/imported/1.png-ba322d6f846fee2e9658c97215e4c05b.ctex"
+uid="uid://mgwnan82sr74"
+path="res://.godot/imported/turn_indicator1.aseprite-4b51c377d41dc9d0e484a4fcc6e93eed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cabo/textures/gui/buttons/selection/1.png"
-dest_files=["res://.godot/imported/1.png-ba322d6f846fee2e9658c97215e4c05b.ctex"]
+source_file="res://assets/cabo/textures/gui/turn_indicator1.aseprite"
+dest_files=["res://.godot/imported/turn_indicator1.aseprite-4b51c377d41dc9d0e484a4fcc6e93eed.ctex"]
 
 [params]
 

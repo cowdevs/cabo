@@ -5,11 +5,11 @@ extends Node2D
 @export_enum("Front", "Back") var face: String
 
 func _ready():
-	face = 'Front'
+	face = 'Back'
 
 func _to_string():
 	return str(value)
-	
+
 func flip():
 	if face == 'Front':
 		$Animation.play('flip')

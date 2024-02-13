@@ -19,6 +19,10 @@ boot_splash/image="res://assets/cabo/textures/gui/boot_splash.png"
 
 aseprite_executable_path="C:/aseprite/build/bin/aseprite.exe"
 
+[autoload]
+
+Scoreboard="*res://assets/cabo/scripts/game/scoreboard.gd"
+
 [display]
 
 window/size/viewport_width=1600
