@@ -11,16 +11,16 @@ func _to_string():
 	print(str(cards))
 
 func get_top_card() -> Card:
-	var card = cards.back()
+	var card = cards.front()
 	return card
 
 func pop_top_card() -> Card:
-	var card = cards.pop_back()
+	var card = cards.pop_front()
 	size_changed.emit(cards.size())
 	return card
 
 func add_card(card) -> void:
-	cards.append(card)
+	cards.push_front(card)
 	size_changed.emit(cards.size())
 
 func deal_card(player) -> void:
@@ -45,3 +45,9 @@ func shuffle() -> void:
 
 func clear() -> void:
 	cards.clear()
+
+func enable(node) -> void:
+	node.get_node("Button").disabled = false
+	
+func disable(node) -> void:
+	node.get_node("Button").disabled = true

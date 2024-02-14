@@ -19,9 +19,9 @@ var can_draw: bool
 var has_new_card: bool
 var doing_action: bool
 
-@onready var Deck = $"../../Deck"
-@onready var Pile = $"../../Pile"
-@onready var Game = $"../.."
+@onready var deck_node = get_parent().get_parent().get_node('Deck')
+@onready var pile_node = get_parent().get_parent().get_node('Pile')
+@onready var game_node = get_parent().get_parent()
 
 func _ready():
 	is_human = true
@@ -34,11 +34,11 @@ func _ready():
 	
 	setup()
 	
-	$Control/CaboButton.disabled = true
+	disable_cabo_button()
 	$Control.hide_buttons()
 
 func setup() -> void:
-	Pile.connect('action_confirm', _on_action_confirm)
+	pile_node.connect('action_confirm', _on_action_confirm)
 	
 	for button in $Control/Buttons.get_children():
 		button.connect('pressed_button', _on_button_pressed)
@@ -83,11 +83,11 @@ func _on_action_confirm(action, player):
 			button.disabled = false
 
 func _on_button_pressed(i):
-	Pile.disable()
-	Deck.disable()
+	pile_node.disable(pile_node)
+	deck_node.disable(deck_node)
 	if not doing_action:
 		exchange_new_card(i, self)
-		Game.end_turn(self)
+		game_node.end_turn(self)
 	else:
 		doing_action = false
 		for button in $Control/Buttons.get_children():
@@ -99,17 +99,17 @@ func _on_button_pressed(i):
 			flipping_card.flip()
 			store_action = null
 			Input.set_custom_mouse_cursor(arrow_cursor)
-			Game.end_turn(self)
+			game_node.end_turn(self)
 		elif store_action == 'swap':
 			swap.emit(i)
 
 func _on_cabo_button_pressed():
-	$Control/CaboButton.disabled = true
+	disable_cabo_button()
 	cabo_called.emit(self)
-	Game.end_turn(self)
+	game_node.end_turn(self)
 
 func exchange_new_card(i: int, player: Player):
-	Pile.discard(player.hand[i])
+	pile_node.discard(player.hand[i])
 	player.hand[i] = player.new_card
 	if not player.is_human:
 		player.memory[player][i] = player.new_card
@@ -117,8 +117,8 @@ func exchange_new_card(i: int, player: Player):
 
 func set_new_card(card):
 	new_card = card
-	Pile.enable()
-	Deck.disable()
+	pile_node.enable(pile_node)
+	deck_node.disable(pile_node)
 	has_new_card = true
 	for button in $Control/Buttons.get_children():
 		button.disabled = false
@@ -128,3 +128,11 @@ func clear_new_card():
 	has_new_card = false
 	for button in $Control/Buttons.get_children():
 		button.disabled = true
+
+func enable_cabo_button() -> void:
+	$Control/CaboButton.disabled = false
+	$Control/CaboButton.show()
+
+func disable_cabo_button() -> void:
+	$Control/CaboButton.disabled = true
+	$Control/CaboButton.hide()

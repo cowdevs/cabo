@@ -1,9 +1,10 @@
+class_name Pile
 extends CardList
 
 signal action_confirm(action, player)
 
 func _ready():
-	disable()
+	disable(self)
 
 func _process(_delta):
 	if $Button.is_hovered() and not $Button.is_disabled():
@@ -17,10 +18,11 @@ func _on_button_pressed():
 	for player in $"../Players".get_children():
 		if player.can_draw:
 			draw_card(player)
+			player.disable_cabo_button()
 			update()
-			disable()
+			disable(self)
 		elif player.is_human and player.has_new_card:
-			disable()
+			disable(self)
 			var card = player.new_card
 			discard(card)
 			player.clear_new_card()
@@ -32,17 +34,11 @@ func _on_button_pressed():
 				elif card.value in [11, 12]:
 					action_confirm.emit('swap', player)
 			else:
-				$"..".end_turn()
-
-func update() -> void:
-	$Texture.frame = get_top_card().value if cards.size() > 0 else 15
-
-func enable() -> void:
-	$Button.disabled = false
-	
-func disable() -> void:
-	$Button.disabled = true
+				$"..".end_turn(player)
 
 func discard(card) -> void:
 	add_card(card) 
 	update()
+
+func update() -> void:
+	$Texture.frame = get_top_card().value if cards.size() > 0 else 15

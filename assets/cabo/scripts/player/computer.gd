@@ -44,13 +44,13 @@ func _on_button_pressed(i):
 				for button in player.get_node('Control/Buttons').get_children():
 					button.disabled = false
 				var index = await player.swap
-				Game.swap(hand, i, player.hand, index)
+				game_node.swap(hand, i, player.hand, index)
 				fake_card.translate(Vector2(0, 225))
 				fake_card.hide()
 				card.show()
 			player.store_action = null
 			Input.set_custom_mouse_cursor(arrow_cursor)
-			Game.end_turn(player)
+			game_node.end_turn(player)
 
 func set_new_card(card):
 	new_card = card
@@ -59,28 +59,32 @@ func clear_new_card():
 	new_card = null
 
 func computer_turn():
-	if Game.sum(hand) <= 6:
+	if game_node.sum(hand) <= 6:
 		cabo_called.emit(self)
 	
 	# draw from pile if card is 0
-	if Pile.get_top_card().value == 0:
-		Pile.draw_card(self)
+	if pile_node.get_top_card().value == 0:
+		print('draw from pile')
+		pile_node.draw_card(self)
+		pile_node.update()
 	else:
-		Deck.draw_card(self)
+		print('draw from deck')
+		deck_node.draw_card(self)
+		deck_node.update()
 
 	await get_tree().create_timer(2).timeout
 	
 	# play best card
-	var has_unknown_card = Game.value_in_hand(null, memory[self])
+	var has_unknown_card = game_node.value_in_hand(null, memory[self])
 	if new_card.value in range(risk_factor + 1) and has_unknown_card[0]:
 		exchange_new_card(has_unknown_card[1], self)
 	else:
-		var maxpos = Game.maxpos(memory[self])
+		var maxpos = game_node.maxpos(memory[self])
 		if (memory[self][maxpos].value > new_card.value) and not ((new_card.value in [7, 8] and null in memory[self]) and (abs(memory[self][maxpos].value - new_card.value) <= 2)):
 			exchange_new_card(maxpos, self)
 		else:
 			var card = new_card
-			Pile.discard(new_card)
+			pile_node.discard(new_card)
 			clear_new_card()
 			await get_tree().create_timer(1).timeout
 			if card.value in range(7, 13):
@@ -93,48 +97,47 @@ func computer_turn():
 					var sorted_memory = sort_memory()
 					for player in sorted_memory:
 						if player != self:
-							var null_in_hand = Game.value_in_hand(null, memory[player])
+							var null_in_hand = game_node.value_in_hand(null, memory[player])
 							if null_in_hand[0]:
 								memory[player][null_in_hand[1]] = player.hand[null_in_hand[1]]
 								await get_tree().create_timer(3).timeout
 								break
 				elif card.value in [11, 12]: # swap
-					if Game.cabo_called:
-						var cabo_caller = Game.cabo_caller
-						var zero_in_hand = Game.value_in_hand(0, memory[cabo_caller])
-						var null_in_hand = Game.value_in_hand(null, memory[cabo_caller])
+					if game_node.cabo_called:
+						var cabo_caller = game_node.cabo_caller
+						var zero_in_hand = game_node.value_in_hand(0, memory[cabo_caller])
+						var null_in_hand = game_node.value_in_hand(null, memory[cabo_caller])
 						if zero_in_hand[0]: # if player has 0
-							Game.swap(cabo_caller.hand, zero_in_hand[1], hand, Game.maxpos(memory[self])) # swap with 0
+							game_node.swap(cabo_caller.hand, zero_in_hand[1], hand, game_node.maxpos(memory[self])) # swap with 0
 						elif null_in_hand[0]: # if there is an unknown card
 							if memory[cabo_caller].count(null) >= cabo_caller.hand.size() / 2: # if there are more unknown cards than not
-								Game.swap(cabo_caller.hand, null_in_hand[1], hand, Game.maxpos(memory[self])) # swap with first unknown card
+								game_node.swap(cabo_caller.hand, null_in_hand[1], hand, game_node.maxpos(memory[self])) # swap with first unknown card
 							else:
-								Game.swap(cabo_caller.hand, Game.minpos(memory[cabo_caller]), hand, Game.maxpos(memory[self])) # swap with min known card
+								game_node.swap(cabo_caller.hand, game_node.minpos(memory[cabo_caller]), hand, game_node.maxpos(memory[self])) # swap with min known card
 						else: # if all cards are known
-							Game.swap(cabo_caller.hand, Game.minpos(memory[cabo_caller]), hand, Game.maxpos(memory[self])) # swap with min known card
+							game_node.swap(cabo_caller.hand, game_node.minpos(memory[cabo_caller]), hand, game_node.maxpos(memory[self])) # swap with min known card
 						await get_tree().create_timer(3).timeout
 					else:
 						var sorted_memory = sort_memory()
-						var max_index = Game.maxpos(memory[self])
+						var max_index = game_node.maxpos(memory[self])
 						for player in sorted_memory:
 							if player != self:
 								print('CODE REACHED: ' + str(player) + str(memory[player]))
 								if TYPE_OBJECT in memory[player]:
-									var min_index = Game.minpos(memory[player])
+									var min_index = game_node.minpos(memory[player])
 									if memory[self][max_index].value > memory[player][min_index].value:
-										Game.swap(player.hand, min_index, hand, max_index)
+										game_node.swap(player.hand, min_index, hand, max_index)
 										await get_tree().create_timer(3).timeout
 										break
 								print('SWAP SKIPPED')
-	print(str(self) + str(memory))
-	Game.end_turn(self)
+	game_node.end_turn(self)
 
 func sort_memory() -> Array:
 	var arr = []
 	var sums = [INF]
 	for player in memory:
 		sums.sort()
-		var sum = Game.sum(memory[player])
+		var sum = game_node.sum(memory[player])
 		if not sums.is_empty():
 			for i in range(sums.size()):
 				if sum < sums[i]:

@@ -74,13 +74,14 @@ func start_round():
 			await get_tree().create_timer(3).timeout
 			player.get_node('Hand').get_child(0).flip()
 			player.get_node('Hand').get_child(1).flip()
+	await get_tree().create_timer(1).timeout
 	start_turn(player_list[turn_index])
 
 func start_turn(player):
 	if player.is_human:
-		$Deck.enable()
-		$Pile.enable()
-		player.get_node("Control/CaboButton").disabled = false
+		$Deck.enable($Deck)
+		$Pile.enable($Pile)
+		player.enable_cabo_button()
 	player.can_draw = true
 	player.get_node('TurnIndicator').show()
 	if not player.is_human:
@@ -89,6 +90,7 @@ func start_turn(player):
 func end_turn(player):
 	await get_tree().create_timer(0.5).timeout
 	player.get_node('TurnIndicator').hide()
+	player.disable_cabo_button()
 	if cabo_called:
 		player_list.erase($Players.get_child(turn_index))
 		if player_list.size() == 0:
@@ -126,6 +128,8 @@ func calculate_scores() -> void:
 				Scoreboard.add_score(10 + sum(player.hand), player)
 		else:
 			Scoreboard.add_score(sum(player.hand), player)
+	
+	print(Scoreboard.get_scoreboard())
 
 func swap(list_a: Array, a_index: int, list_b: Array, b_index: int) -> void:
 	print('DID SWAP')

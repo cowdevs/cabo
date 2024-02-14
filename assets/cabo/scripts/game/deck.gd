@@ -1,17 +1,19 @@
+class_name Deck
 extends CardList
 
 func _ready():
 	create_deck()
 	shuffle()
-	disable()
+	disable(self)
 	update()
 
 func _on_button_pressed():
 	for player in $"../Players".get_children():
 		if player.can_draw:
 			draw_card(player)
+			player.disable_cabo_button()
 			update()
-			player.can_draw = false
+			disable(self)
 
 func create_deck() -> void:
 	cards.clear()
@@ -29,9 +31,3 @@ func create_deck() -> void:
 
 func update() -> void:
 	$Texture.frame = ceil(2.0 * type_convert(len(cards), TYPE_FLOAT) / 13.0)
-
-func enable() -> void:
-	$Button.disabled = false
-	
-func disable() -> void:
-	$Button.disabled = true

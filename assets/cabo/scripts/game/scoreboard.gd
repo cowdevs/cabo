@@ -5,6 +5,9 @@ var scoreboard: Dictionary
 func _ready():
 	scoreboard = {}
 
+func get_scoreboard() -> Dictionary:
+	return scoreboard
+
 func get_score(player) -> int:
 	return scoreboard[str(player)]
 
@@ -19,6 +22,3 @@ func is_empty() -> bool:
 
 func reset() -> void:
 	scoreboard.clear()
-	
-func _process(_delta):
-	print(scoreboard)

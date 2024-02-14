@@ -68,7 +68,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 1.0
 }]
 
 [node name="Deck" type="Node2D"]
@@ -78,7 +78,8 @@ script = ExtResource("1_fjbb1")
 [node name="Texture" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_qt403")
-frame = 8
+frame = 6
+frame_progress = 0.609752
 
 [node name="Button" type="TextureButton" parent="."]
 texture_filter = 1
