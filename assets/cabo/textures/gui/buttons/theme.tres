@@ -33,6 +33,7 @@ region_rect = Rect2(192, 0, 128, 64)
 default_font = ExtResource("1_5eccp")
 default_font_size = 32
 Button/colors/font_color = Color(0.894118, 0.92549, 0.972549, 1)
+Button/colors/font_focus_color = Color(0.894118, 0.92549, 0.972549, 1)
 Button/colors/font_hover_color = Color(1, 1, 1, 1)
 Button/styles/disabled = SubResource("StyleBoxTexture_u0135")
 Button/styles/focus = SubResource("StyleBoxEmpty_tindf")

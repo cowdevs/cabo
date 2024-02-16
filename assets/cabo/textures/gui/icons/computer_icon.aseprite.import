@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bab772x65xkn6"
-path="res://.godot/imported/normal_speech.aseprite-a3b9f3a3f2d851b6946094086f9a137c.ctex"
+uid="uid://dhj1pamat78br"
+path="res://.godot/imported/computer_icon.aseprite-5639c01f97cb61864719b1ffb7a1e33f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cabo/textures/gui/buttons/speech/normal_speech.aseprite"
-dest_files=["res://.godot/imported/normal_speech.aseprite-a3b9f3a3f2d851b6946094086f9a137c.ctex"]
+source_file="res://assets/cabo/textures/gui/icons/computer_icon.aseprite"
+dest_files=["res://.godot/imported/computer_icon.aseprite-5639c01f97cb61864719b1ffb7a1e33f.ctex"]
 
 [params]
 

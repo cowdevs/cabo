@@ -1,28 +1,37 @@
 class_name Pile
-extends CardList
+extends Deck
 
 signal action_confirm(action, player)
 
 func _ready():
-	disable(self)
+	$"../EndPanel".connect('new_round', _on_new_round)
+	disable()
+	update()
 
 func _process(_delta):
+	print("PILE: " + str(cards))
 	if $Button.is_hovered() and not $Button.is_disabled():
 		$Button/ButtonHover.show()
 		$Button/ButtonHover.play()
 	else:
 		$Button/ButtonHover.hide()
 		$Button/ButtonHover.stop()
+	
+func _on_new_round():
+	clear()
+	disable()
+	update()
 
 func _on_button_pressed():
-	for player in $"../Players".get_children():
+	var player = $"..".current_player
+	if player.is_human:
 		if player.can_draw:
 			draw_card(player)
 			player.disable_cabo_button()
 			update()
-			disable(self)
-		elif player.is_human and player.has_new_card:
-			disable(self)
+			disable()
+		elif player.has_new_card:
+			disable()
 			var card = player.new_card
 			discard(card)
 			player.clear_new_card()

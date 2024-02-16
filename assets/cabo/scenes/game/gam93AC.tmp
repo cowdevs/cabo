@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://c32hx6uv3o45"]
+
+[ext_resource type="Script" path="res://assets/cabo/scripts/game/game.gd" id="1_o85uf"]
+[ext_resource type="PackedScene" uid="uid://e5m4bhuc5ogf" path="res://assets/cabo/scenes/background.tscn" id="2_6rewp"]
+[ext_resource type="PackedScene" uid="uid://dcbclwsjjgdkg" path="res://assets/cabo/scenes/game/deck.tscn" id="3_j87sg"]
+[ext_resource type="PackedScene" uid="uid://obslegcoymti" path="res://assets/cabo/scenes/game/pile.tscn" id="4_qrnmo"]
+[ext_resource type="PackedScene" uid="uid://gtj8s4i8ekna" path="res://assets/cabo/scenes/game/end_panel.tscn" id="8_qhpc2"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_o85uf")
+
+[node name="Background" parent="." instance=ExtResource("2_6rewp")]
+
+[node name="Deck" parent="." instance=ExtResource("3_j87sg")]
+position = Vector2(975, 574)
+
+[node name="Pile" parent="." instance=ExtResource("4_qrnmo")]
+position = Vector2(800, 600)
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="EndPanel" parent="." instance=ExtResource("8_qhpc2")]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 800.0
+offset_top = 600.0
+offset_right = 800.0
+offset_bottom = 600.0
+grow_horizontal = 1
+grow_vertical = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4

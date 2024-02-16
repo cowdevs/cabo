@@ -6,9 +6,9 @@
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/buttons.gd" id="4_h7j1g"]
 [ext_resource type="Texture2D" uid="uid://dftov3wyrbusv" path="res://assets/cabo/textures/gui/buttons/selection/max.aseprite" id="6_s5vxr"]
 [ext_resource type="Texture2D" uid="uid://dki1w6rh4lvmo" path="res://assets/cabo/textures/gui/buttons/selection/medium.aseprite" id="7_5ignq"]
-[ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/button.tres" id="7_w3eba"]
 [ext_resource type="Texture2D" uid="uid://v30lmb476rck" path="res://assets/cabo/textures/gui/gui.aseprite" id="8_l7pr3"]
 [ext_resource type="Texture2D" uid="uid://c0s4n1rvl28x0" path="res://assets/cabo/textures/gui/buttons/selection/min.aseprite" id="8_py823"]
+[ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/theme.tres" id="9_nkseg"]
 [ext_resource type="Texture2D" uid="uid://c05j8ia1k4fix" path="res://assets/cabo/textures/gui/turn_indicator0.aseprite" id="9_rpd4j"]
 [ext_resource type="Texture2D" uid="uid://dighr41xbca1k" path="res://assets/cabo/textures/card/card_back.png" id="9_vkr38"]
 [ext_resource type="Texture2D" uid="uid://mgwnan82sr74" path="res://assets/cabo/textures/gui/turn_indicator1.aseprite" id="10_q4u6m"]
@@ -201,14 +201,14 @@ metadata/_edit_group_ = true
 [node name="YesButton" type="Button" parent="Control/ActionButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("7_w3eba")
+theme = ExtResource("9_nkseg")
 text = "YES"
 metadata/_edit_use_anchors_ = true
 
 [node name="NoButton" type="Button" parent="Control/ActionButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("7_w3eba")
+theme = ExtResource("9_nkseg")
 text = "NO"
 metadata/_edit_use_anchors_ = true
 
@@ -219,7 +219,7 @@ offset_top = 27.0
 offset_right = 551.0
 offset_bottom = 131.0
 scale = Vector2(0.75, 0.75)
-theme = ExtResource("7_w3eba")
+theme = ExtResource("9_nkseg")
 theme_override_styles/normal = SubResource("StyleBoxTexture_6ld8t")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6ld8t")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_vt51l")

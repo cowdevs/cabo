@@ -1,21 +1,18 @@
-extends Node
+extends Node2D
 
-var scoreboard: Dictionary
-
-func _ready():
-	scoreboard = {}
+var scoreboard := {}
 
 func get_scoreboard() -> Dictionary:
 	return scoreboard
 
 func get_score(player) -> int:
-	return scoreboard[str(player)]
+	return scoreboard[player]
 
 func set_score(score, player) -> void:
-	scoreboard[str(player)] = score
+	scoreboard[player] = score
 
 func add_score(amount, player) -> void:
-	scoreboard[str(player)] += amount
+	scoreboard[player] += amount	
 
 func is_empty() -> bool:
 	return scoreboard.is_empty()

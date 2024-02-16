@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cik14txembm87"
-path="res://.godot/imported/pressed_speech.aseprite-26bc89cecbdf077b6af060c28603f22e.ctex"
+uid="uid://cbyqu3y4f74t7"
+path="res://.godot/imported/player_icon.aseprite-2706318c06e9017865cc6e9e27347596.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cabo/textures/gui/buttons/speech/pressed_speech.aseprite"
-dest_files=["res://.godot/imported/pressed_speech.aseprite-26bc89cecbdf077b6af060c28603f22e.ctex"]
+source_file="res://assets/cabo/textures/gui/icons/player_icon.aseprite"
+dest_files=["res://.godot/imported/player_icon.aseprite-2706318c06e9017865cc6e9e27347596.ctex"]
 
 [params]
 

@@ -1,43 +1,35 @@
 class_name Player
 extends Node2D
 
+const CARD = preload("res://assets/cabo/scenes/card.tscn")
+
+const ARROW_CURSOR = preload("res://assets/cabo/textures/gui/cursors/normal.aseprite")
+const LENS_CURSOR = preload("res://assets/cabo/textures/gui/cursors/magnifying_glass.aseprite")
+const SWAP_CURSOR = preload("res://assets/cabo/textures/gui/cursors/swap.aseprite")
+
+@onready var deck_node = get_node("/root/Game/Deck")
+@onready var pile_node = get_node("/root/Game/Pile")
+@onready var game_node = get_node("/root/Game")
+
 signal swap(index: int)
 signal cabo_called(player: Player)
 
-var is_human: bool
-var is_main_player: bool
+var is_human := true
+var is_main_player := false
 
-var card_scene = preload("res://assets/cabo/scenes/card.tscn")
+var hand := []
 
-var arrow_cursor = load("res://assets/cabo/textures/gui/cursors/normal.aseprite")
-var lens_cursor = load("res://assets/cabo/textures/gui/cursors/magnifying_glass.aseprite")
-var swap_cursor = load("res://assets/cabo/textures/gui/cursors/swap.aseprite")
+var can_draw := false
+var has_new_card := false
+var doing_action := false
 
-var hand: Array
 var new_card: Card
-var can_draw: bool
-var has_new_card: bool
-var doing_action: bool
-
-@onready var deck_node = get_parent().get_parent().get_node('Deck')
-@onready var pile_node = get_parent().get_parent().get_node('Pile')
-@onready var game_node = get_parent().get_parent()
 
 func _ready():
-	is_human = true
-	is_main_player = false
-	
-	hand = []
-	can_draw = false
-	has_new_card = false
-	doing_action = false
-	
 	setup()
-	
-	disable_cabo_button()
-	$Control.hide_buttons()
 
 func setup() -> void:
+	$"../../EndPanel".connect('new_round', _on_new_round)
 	pile_node.connect('action_confirm', _on_action_confirm)
 	
 	for button in $Control/Buttons.get_children():
@@ -45,7 +37,7 @@ func setup() -> void:
 		button.disabled = true
 	
 	for marker in $Slots.get_children():
-		var card_instance = card_scene.instantiate()
+		var card_instance = CARD.instantiate()
 		card_instance.position = marker.position
 		$Hand.add_child(card_instance)
 	
@@ -53,8 +45,11 @@ func setup() -> void:
 		card.visible = false
 	
 	$TurnIndicator.hide()
+	disable_cabo_button()
+	$Control.hide_action_buttons()
 
 func _process(_delta):
+	print(str(self) + str(hand))
 	$TurnIndicator.play()
 	for button in $Control/Buttons.get_children():
 		if button.is_hovered() and not button.is_disabled():
@@ -67,24 +62,29 @@ func _process(_delta):
 func _to_string():
 	return 'Player'
 
+func _on_new_round():
+	hand.clear()
+	for card in $Hand.get_children():
+		card.flip()
+
 var store_action = null
 
-func _on_action_confirm(action, player):
-	$Control.show_buttons()
+func _on_action_confirm(action, _player):
+	$Control.show_action_buttons()
 	await $Control/ActionButtons/YesButton.pressed
 	store_action = action
 	doing_action = true
 	if action == 'peek' or action == 'spy':
-		Input.set_custom_mouse_cursor(lens_cursor)
+		Input.set_custom_mouse_cursor(LENS_CURSOR)
 	elif action == 'swap':
-		Input.set_custom_mouse_cursor(swap_cursor)
+		Input.set_custom_mouse_cursor(SWAP_CURSOR)
 	if action == 'peek':
 		for button in $Control/Buttons.get_children():
 			button.disabled = false
 
 func _on_button_pressed(i):
-	pile_node.disable(pile_node)
-	deck_node.disable(deck_node)
+	pile_node.disable()
+	deck_node.disable()
 	if not doing_action:
 		exchange_new_card(i, self)
 		game_node.end_turn(self)
@@ -98,7 +98,7 @@ func _on_button_pressed(i):
 			await get_tree().create_timer(3).timeout
 			flipping_card.flip()
 			store_action = null
-			Input.set_custom_mouse_cursor(arrow_cursor)
+			Input.set_custom_mouse_cursor(ARROW_CURSOR)
 			game_node.end_turn(self)
 		elif store_action == 'swap':
 			swap.emit(i)
@@ -117,8 +117,6 @@ func exchange_new_card(i: int, player: Player):
 
 func set_new_card(card):
 	new_card = card
-	pile_node.enable(pile_node)
-	deck_node.disable(pile_node)
 	has_new_card = true
 	for button in $Control/Buttons.get_children():
 		button.disabled = false
