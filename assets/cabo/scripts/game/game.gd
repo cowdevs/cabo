@@ -3,15 +3,22 @@ extends Node2D
 const PLAYER = preload("res://assets/cabo/scenes/player/player.tscn")
 const COMPUTER = preload("res://assets/cabo/scenes/player/computer.tscn")
 
+# PAUSE TIME
+const LONG_LONG = 0.5 # 5
+const LONG = 0.4 # 3
+const MEDIUM = 0.3 # 2
+const SHORT = 0.2 # 1
+const SHORT_SHORT = 0.1 # 0.5
+
 var turn_list := []
 var turn_index := 0
 var cabo_called := false
 var cabo_caller: Player
 
-var num_players = 4
+var num_players = 5
 
 func _ready():
-	$Players.add_child(PLAYER.instantiate())
+	# $Players.add_child(PLAYER.instantiate())
 	for i in range(num_players - 1):
 		$Players.add_child(COMPUTER.instantiate())
 	
@@ -29,9 +36,11 @@ func _ready():
 
 func _process(_delta):
 	if $Deck.cards.size() == 0:
-		$Deck.cards.append_array($Pile.cards)
-		$Pile.cards = $Pile.cards.slice(-1)
+		$Deck.cards = $Pile.cards.slice(1)
+		$Pile.cards = $Pile.cards.slice(0, 1)
 		$Deck.shuffle()
+		$Deck.update()
+		$Pile.update()
 
 func set_player_positions():
 	var positions = [Vector2(800, 1050), Vector2(800, 150)] if $Players.get_child_count() == 2 else [Vector2(800, 1050), Vector2(150, 600), Vector2(800, 150), Vector2(1450, 600)]
@@ -41,6 +50,7 @@ func set_player_positions():
 		$Players.get_child(i).rotation = rotations[i]
 
 func _on_cabo_called(player):
+	print(str(player) + " called CABO!")
 	$Deck.disable()
 	$Pile.disable()
 	cabo_called = true
@@ -51,8 +61,10 @@ func _on_new_round():
 	cabo_called = false
 	start_round()
 
+var start_time := 0
+var elapsed_time := 0
+
 func start_round():
-	
 	$EndPanel.hide()
 	
 	for player in $Players.get_children():
@@ -62,30 +74,32 @@ func start_round():
 	
 	$Players.get_child(0).is_main_player = true
 	
-	var first_card = $Deck.pop_top_card()
-	$Pile.discard(first_card)
+	$Pile.discard($Deck.pop_top_card())
 
 	$Deck.update()
 	$Pile.update()
 	
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(MEDIUM).timeout
 	
 	for player in $Players.get_children():
 		if not player.is_human:
 			for opp in $Players.get_children():
 				player.memory[opp] = [null, null, null, null] if opp != player else [player.hand[0], player.hand[1], null, null]
 		if player.is_main_player:
-			player.get_node('Hand').get_child(0).flip()
-			player.get_node('Hand').get_child(1).flip()
-			await get_tree().create_timer(3).timeout
-			player.get_node('Hand').get_child(0).flip()
-			player.get_node('Hand').get_child(1).flip()
-	await get_tree().create_timer(1).timeout
+			if player.get_node('Hand').get_child(0).face == 'BACK':
+				player.get_node('Hand').get_child(0).flip()
+				player.get_node('Hand').get_child(1).flip()
+				await get_tree().create_timer(LONG).timeout
+				player.get_node('Hand').get_child(0).flip()
+				player.get_node('Hand').get_child(1).flip()
+	await get_tree().create_timer(SHORT).timeout
+	start_time = Time.get_ticks_msec()
 	start_turn(turn_list[turn_index])
 
 var current_player: Player
 
 func start_turn(player):
+	elapsed_time = Time.get_ticks_msec() - start_time
 	current_player = player
 	if player.is_human:
 		$Deck.enable()
@@ -97,7 +111,7 @@ func start_turn(player):
 		player.computer_turn()
 
 func end_turn(player):
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(SHORT_SHORT).timeout
 	player.get_node('TurnIndicator').hide()
 	player.disable_cabo_button()
 	if cabo_called:
@@ -105,17 +119,16 @@ func end_turn(player):
 		if turn_list.size() == 0:
 			end_round()
 			return
-		turn_index += 1
-	else:
-		turn_index = (turn_index + 1) % turn_list.size()
+	turn_index = (turn_index + 1) % $Players.get_child_count()
 	start_turn($Players.get_child(turn_index))
 
 func end_round():
 	for player in $Players.get_children():
 		for card in player.get_node('Hand').get_children():
-			card.flip()
+			if card.face == 'BACK':
+				card.flip()
 	$EndPanel.calculate_scores()
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(LONG_LONG).timeout
 	$EndPanel.display_scoreboard()
 
 func swap(list_a: Array, a_index: int, list_b: Array, b_index: int) -> void:

@@ -1,9 +1,9 @@
 extends AnimatedSprite2D
 
 func _process(_delta):
-	if $"../..".face == 'Front':
+	if $"../..".face == 'FRONT':
 		z_index = 0
 		frame = $"../..".value
-	elif $"../..".face == 'Back':
+	elif $"../..".face == 'BACK':
 		z_index = -1
 

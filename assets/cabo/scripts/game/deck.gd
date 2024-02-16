@@ -15,9 +15,6 @@ func _ready():
 func _to_string():
 	return str(cards)
 
-func _process(_delta):
-	print("DECK: " + str(cards))
-
 func _on_new_round():
 	clear()
 	create_deck()

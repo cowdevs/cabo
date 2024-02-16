@@ -5,4 +5,3 @@
 
 [node name="Computer" instance=ExtResource("1_bnq0o")]
 script = ExtResource("1_j8px4")
-risk_factor = 4

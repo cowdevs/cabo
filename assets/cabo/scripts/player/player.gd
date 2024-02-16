@@ -49,7 +49,6 @@ func setup() -> void:
 	$Control.hide_action_buttons()
 
 func _process(_delta):
-	print(str(self) + str(hand))
 	$TurnIndicator.play()
 	for button in $Control/Buttons.get_children():
 		if button.is_hovered() and not button.is_disabled():
@@ -65,7 +64,8 @@ func _to_string():
 func _on_new_round():
 	hand.clear()
 	for card in $Hand.get_children():
-		card.flip()
+		if card.face == 'BACK':
+			card.flip()
 
 var store_action = null
 
@@ -95,7 +95,7 @@ func _on_button_pressed(i):
 		if store_action == 'peek':
 			var flipping_card = $Hand.get_child(i)
 			flipping_card.flip()
-			await get_tree().create_timer(3).timeout
+			await get_tree().create_timer(game_node.LONG).timeout
 			flipping_card.flip()
 			store_action = null
 			Input.set_custom_mouse_cursor(ARROW_CURSOR)

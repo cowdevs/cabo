@@ -9,7 +9,6 @@ func _ready():
 	update()
 
 func _process(_delta):
-	print("PILE: " + str(cards))
 	if $Button.is_hovered() and not $Button.is_disabled():
 		$Button/ButtonHover.show()
 		$Button/ButtonHover.play()
