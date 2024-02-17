@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://gtj8s4i8ekna"]
+[gd_scene load_steps=14 format=3 uid="uid://gtj8s4i8ekna"]
 
 [ext_resource type="Script" path="res://assets/cabo/scripts/game/end_panel.gd" id="1_1sl7j"]
 [ext_resource type="Texture2D" uid="uid://bhqf4yx6eo13i" path="res://assets/cabo/textures/gui/game_over.aseprite" id="1_sf03d"]
@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/theme.tres" id="3_kl64u"]
 [ext_resource type="Texture2D" uid="uid://b5bmi2eaay756" path="res://assets/cabo/textures/gui/tinted_panel.aseprite" id="4_wslsp"]
 [ext_resource type="Texture2D" uid="uid://dhj1pamat78br" path="res://assets/cabo/textures/gui/icons/computer_icon.aseprite" id="5_bp1sg"]
+[ext_resource type="Texture2D" uid="uid://bion1mkhdaluv" path="res://assets/cabo/textures/gui/icons/message_icon.aseprite" id="5_qyr83"]
 [ext_resource type="Texture2D" uid="uid://x4dhkjfpijhl" path="res://assets/cabo/textures/gui/icons/crown_icon.aseprite" id="7_37og4"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jy2qo"]
@@ -125,7 +126,7 @@ vertical_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 6
 
 [node name="Slots" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -134,7 +135,17 @@ theme_override_constants/separation = 32
 [node name="Slot1" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots"]
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 1
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1"]
+layout_mode = 2
+theme_override_constants/margin_bottom = -20
+
+[node name="CrownIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/MarginContainer"]
+z_index = 1
+layout_mode = 2
+texture = ExtResource("7_37og4")
+stretch_mode = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1"]
 layout_mode = 2
@@ -149,17 +160,67 @@ stretch_mode = 3
 layout_mode = 2
 texture = ExtResource("5_bp1sg")
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1"]
+[node name="CaboIconContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_bottom = 116
+
+[node name="CaboIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/CenterContainer/CaboIconContainer"]
+layout_mode = 2
+texture = ExtResource("5_qyr83")
+
+[node name="NameContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_bottom = 10
+
+[node name="NameLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/CenterContainer/NameContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+theme_override_colors/font_color = Color(0.894118, 0.92549, 0.972549, 1)
+text = "_
+"
+horizontal_alignment = 1
+
+[node name="ScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1"]
+layout_mode = 2
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = -6
+theme_override_constants/margin_bottom = -24
+
+[node name="ScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/ScoreContainer"]
 layout_mode = 2
 theme = ExtResource("3_kl64u")
 theme_override_font_sizes/font_size = 48
 text = "0"
 horizontal_alignment = 1
 
+[node name="AddScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1"]
+layout_mode = 2
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = -16
+
+[node name="AddScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/AddScoreContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+text = "+0"
+horizontal_alignment = 1
+
 [node name="Slot2" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots"]
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 1
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2"]
+layout_mode = 2
+theme_override_constants/margin_bottom = -20
+
+[node name="CrownIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/MarginContainer"]
+z_index = 1
+layout_mode = 2
+texture = ExtResource("7_37og4")
+stretch_mode = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2"]
 layout_mode = 2
@@ -174,17 +235,67 @@ stretch_mode = 3
 layout_mode = 2
 texture = ExtResource("5_bp1sg")
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2"]
+[node name="CaboIconContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_bottom = 116
+
+[node name="CaboIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/CenterContainer/CaboIconContainer"]
+layout_mode = 2
+texture = ExtResource("5_qyr83")
+
+[node name="NameContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_bottom = 10
+
+[node name="NameLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/CenterContainer/NameContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+theme_override_colors/font_color = Color(0.894118, 0.92549, 0.972549, 1)
+text = "_
+"
+horizontal_alignment = 1
+
+[node name="ScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2"]
+layout_mode = 2
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = -6
+theme_override_constants/margin_bottom = -24
+
+[node name="ScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/ScoreContainer"]
 layout_mode = 2
 theme = ExtResource("3_kl64u")
 theme_override_font_sizes/font_size = 48
 text = "0"
 horizontal_alignment = 1
 
+[node name="AddScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2"]
+layout_mode = 2
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = -16
+
+[node name="AddScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/AddScoreContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+text = "+0"
+horizontal_alignment = 1
+
 [node name="Slot3" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots"]
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 1
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3"]
+layout_mode = 2
+theme_override_constants/margin_bottom = -20
+
+[node name="CrownIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/MarginContainer"]
+z_index = 1
+layout_mode = 2
+texture = ExtResource("7_37og4")
+stretch_mode = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3"]
 layout_mode = 2
@@ -199,17 +310,67 @@ stretch_mode = 3
 layout_mode = 2
 texture = ExtResource("5_bp1sg")
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3"]
+[node name="CaboIconContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_bottom = 116
+
+[node name="CaboIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/CenterContainer/CaboIconContainer"]
+layout_mode = 2
+texture = ExtResource("5_qyr83")
+
+[node name="NameContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_bottom = 10
+
+[node name="NameLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/CenterContainer/NameContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+theme_override_colors/font_color = Color(0.894118, 0.92549, 0.972549, 1)
+text = "_
+"
+horizontal_alignment = 1
+
+[node name="ScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3"]
+layout_mode = 2
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = -6
+theme_override_constants/margin_bottom = -24
+
+[node name="ScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/ScoreContainer"]
 layout_mode = 2
 theme = ExtResource("3_kl64u")
 theme_override_font_sizes/font_size = 48
 text = "0"
 horizontal_alignment = 1
 
+[node name="AddScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3"]
+layout_mode = 2
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = -16
+
+[node name="AddScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/AddScoreContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+text = "+0"
+horizontal_alignment = 1
+
 [node name="Slot4" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots"]
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 1
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4"]
+layout_mode = 2
+theme_override_constants/margin_bottom = -20
+
+[node name="CrownIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/MarginContainer"]
+z_index = 1
+layout_mode = 2
+texture = ExtResource("7_37og4")
+stretch_mode = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4"]
 layout_mode = 2
@@ -224,11 +385,51 @@ stretch_mode = 3
 layout_mode = 2
 texture = ExtResource("5_bp1sg")
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4"]
+[node name="CaboIconContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_bottom = 116
+
+[node name="CaboIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/CenterContainer/CaboIconContainer"]
+layout_mode = 2
+texture = ExtResource("5_qyr83")
+
+[node name="NameContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_bottom = 10
+
+[node name="NameLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/CenterContainer/NameContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+theme_override_colors/font_color = Color(0.894118, 0.92549, 0.972549, 1)
+text = "_
+"
+horizontal_alignment = 1
+
+[node name="ScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4"]
+layout_mode = 2
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = -6
+theme_override_constants/margin_bottom = -24
+
+[node name="ScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/ScoreContainer"]
 layout_mode = 2
 theme = ExtResource("3_kl64u")
 theme_override_font_sizes/font_size = 48
 text = "0"
+horizontal_alignment = 1
+
+[node name="AddScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4"]
+layout_mode = 2
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = -16
+
+[node name="AddScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/AddScoreContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+text = "+0"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
@@ -252,9 +453,5 @@ text = "END GAME"
 libraries = {
 "": SubResource("AnimationLibrary_yey5g")
 }
-
-[node name="CrownIcon" type="Sprite2D" parent="."]
-position = Vector2(-380, -144)
-texture = ExtResource("7_37og4")
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/NextRound" to="." method="_on_next_round_pressed"]

@@ -5,7 +5,7 @@ extends Node2D
 @export_enum("FRONT", "BACK") var face: String
 
 func _ready():
-	face = 'FRONT'
+	face = 'BACK'
 
 func _to_string():
 	return str(value)

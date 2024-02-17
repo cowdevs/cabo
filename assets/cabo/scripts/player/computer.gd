@@ -1,8 +1,9 @@
 extends Player
 
+var memory: Dictionary
+var name_label: int
 var exchange_card_risk: int
 var call_cabo_risk: int
-var memory: Dictionary
 
 func _ready():
 	is_human = false
@@ -21,13 +22,16 @@ func _process(_delta):
 		else:
 			button.get_child(0).hide()
 			button.get_child(0).stop()
-	exchange_card_risk = ceil(4.3121 * pow(0.999988, game_node.elapsed_time) - 0.328834)
-	call_cabo_risk = ceil(1.16402 * pow(0.999991, (-0.4 * (game_node.elapsed_time - 0.089))) + 2.70425)
-	print("EXCHANGE RISK: " + str(exchange_card_risk))
-	print("CABO CALL RISK: " + str(call_cabo_risk))
+	exchange_card_risk = ceil(4.17891 * pow(0.954139, 0.639039 * (game_node.turn_count - 1.04579)) - 0.328834)
+	call_cabo_risk = ceil(0.0137406 * pow(0.928744, -0.120108 * (game_node.turn_count + 499.996)) + 2.70425)
+	if not memory.is_empty():
+		for player in memory:
+			for i in range(memory[player].size()):
+				if memory[player][i] != player.hand[i]:
+					memory[player][i] = null
 
 func _to_string():
-	return 'Computer' + str($"..".get_children().find(self))
+	return 'Computer' + str(name_label)
 
 func _on_action_confirm(action, player):
 	await player.get_node('Control/ActionButtons/YesButton').pressed
@@ -68,9 +72,12 @@ func set_new_card(card):
 func clear_new_card():
 	new_card = null
 
-func computer_turn():
-	if game_node.sum(hand) <= call_cabo_risk:
-		cabo_called.emit(self)
+func computer_turn() -> void:
+	if not game_node.cabo_called:
+		if null not in memory[self] and game_node.sum(memory[self]) <= call_cabo_risk:
+			cabo_called.emit(self)
+			game_node.end_turn(self)
+			return
 	
 	# draw from pile if card is 0
 	if pile_node.get_top_card().value == 0:
@@ -96,27 +103,21 @@ func computer_turn():
 			clear_new_card()
 			await get_tree().create_timer(game_node.SHORT).timeout
 			if card.value in range(7, 13):
-				var sorted_memory = game_node.get_sorted_players(memory)
-				if card.value in [7, 8]: # peek
-					print(str(self) + " DISCARDED A PEEK CARD!")
-					if not game_node.cabo_called:
-						var null_in_hand = game_node.value_in_hand(null, memory[self])
-						if null_in_hand[0]:
-							memory[self][null_in_hand[1]] = hand[null_in_hand[1]]
-							print(str(self) + " PEEKED!")
-							await get_tree().create_timer(game_node.LONG).timeout
-				elif card.value in [9, 10]: # spy
-					print(str(self) + " DISCARDED A SPY CARD!")
-					for player in sorted_memory:
+				var sorted_players = game_node.get_sorted_players(memory)
+				if card.value in [7, 8] and not game_node.cabo_called: # peek
+					var null_in_hand = game_node.value_in_hand(null, memory[self])
+					if null_in_hand[0]:
+						memory[self][null_in_hand[1]] = hand[null_in_hand[1]]
+						await get_tree().create_timer(game_node.LONG).timeout
+				elif card.value in [9, 10] and not game_node.cabo_called: # spy
+					for player in sorted_players:
 						if player != self:
 							var null_in_hand = game_node.value_in_hand(null, memory[player])
 							if null_in_hand[0]:
 								memory[player][null_in_hand[1]] = player.hand[null_in_hand[1]]
-								print(str(self) + " SPIED " + str(player) + "!")
 								await get_tree().create_timer(game_node.LONG).timeout
 								break
 				elif card.value in [11, 12]: # swap
-					print(str(self) + " DISCARDED A SWAP CARD!")
 					if game_node.cabo_called:
 						var cabo_caller = game_node.cabo_caller
 						var zero_in_hand = game_node.value_in_hand(0, memory[cabo_caller])
@@ -133,15 +134,12 @@ func computer_turn():
 						await get_tree().create_timer(game_node.LONG).timeout
 					else:
 						var max_index = game_node.maxpos(memory[self])
-						for player in sorted_memory:
+						for player in sorted_players:
 							if player != self:
-								#print('CODE REACHED: ' + str(player) + str(memory[player]))
 								if TYPE_OBJECT in memory[player]:
 									var min_index = game_node.minpos(memory[player])
 									if memory[self][max_index].value > memory[player][min_index].value:
 										game_node.swap(player.hand, min_index, hand, max_index)
-										print(str(self) + " SWAPPED WITH " + str(player) + "!")
 										await get_tree().create_timer(game_node.LONG).timeout
 										break
-								#print('SWAP SKIPPED')
 	game_node.end_turn(self)

@@ -18,6 +18,7 @@ var is_human := true
 var is_main_player := false
 
 var hand := []
+var score_added: int
 
 var can_draw := false
 var has_new_card := false
@@ -64,8 +65,7 @@ func _to_string():
 func _on_new_round():
 	hand.clear()
 	for card in $Hand.get_children():
-		if card.face == 'BACK':
-			card.flip()
+		card.face = 'BACK'
 
 var store_action = null
 
