@@ -40,7 +40,7 @@ If you draw a card with an ability from the deck, you may place it in the discar
 
 ### Round End
 
-The round ends when (1) someone calls CABO and each other player takes one more turn, or (2) the deck is depleted. If the game did not end shuffle the cards and replay the round. The scores in the previous round do not count towards the total scoreboard of the game.
+The round ends when someone calls CABO and each other player takes one more turnd. When the deck is depleted, keep the top card in the pile and shuffle the rest to become the new deck.
 
 ### Scoring
 
