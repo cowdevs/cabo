@@ -25,9 +25,8 @@ Scoreboard="*res://assets/cabo/scripts/game/scoreboard.gd"
 
 [display]
 
-window/size/viewport_width=1600
-window/size/viewport_height=1200
-window/size/resizable=false
+window/size/viewport_width=800
+window/size/viewport_height=600
 window/size/window_width_override=1600
 window/size/window_height_override=1200
 window/stretch/mode="canvas_items"

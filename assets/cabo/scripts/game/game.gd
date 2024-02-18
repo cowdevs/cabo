@@ -3,18 +3,20 @@ extends Node2D
 const PLAYER = preload("res://assets/cabo/scenes/player/player.tscn")
 const COMPUTER = preload("res://assets/cabo/scenes/player/computer.tscn")
 
-# PAUSE TIME
-const LONG_LONG = 5
-const LONG = 3
-const MEDIUM = 2
-const SHORT = 1
-const SHORT_SHORT = 0.5
+@export_group('Pause Time')
+@export var LONG_LONG := 5
+@export var LONG := 3
+@export var MEDIUM := 2
+@export var SHORT := 1
+@export var SHORT_SHORT := 0.5
+@export_group("")
+
 var turn_list := []
 var turn_index: int
 var cabo_called := false
 var cabo_caller: Player
 
-var num_players = 4
+@export var num_players := 4
 
 func _ready():
 	$Players.add_child(PLAYER.instantiate())
@@ -44,11 +46,24 @@ func _process(_delta):
 		$Pile.update()
 
 func set_player_positions():
-	var positions = [Vector2(800, 1050), Vector2(800, 150)] if $Players.get_child_count() == 2 else [ Vector2(800, 1050), Vector2(150, 600), Vector2(800, 150), Vector2(1450, 600)]
-	var rotations = [0, PI] if $Players.get_child_count() == 2 else [0, PI / 2, PI, -(PI / 2)]
+	var positions: Array
+	var rotations: Array
+	var cabo_call_icon_frames: Array
+	var cabo_call_icon_positions = [Vector2(0, -53), Vector2(-11, -71), Vector2(0, -53), Vector2(11, -71)]
+	if $Players.get_child_count() == 2:
+		positions = [Vector2(400, 492), Vector2(400, 108)]
+		rotations = [0, PI]
+		cabo_call_icon_frames = [0, 2]
+	elif $Players.get_child_count() == 4:
+		positions = [Vector2(400, 492), Vector2(152, 300), Vector2(400, 108), Vector2(648, 300)]
+		rotations = [0, PI / 2, PI, -(PI / 2)]
+		cabo_call_icon_frames = [0, 1, 2, 3]
 	for i in range($Players.get_child_count()):
 		$Players.get_child(i).position = positions[i]
 		$Players.get_child(i).rotation = rotations[i]
+		$Players.get_child(i).get_node('CaboCallIcon').position = cabo_call_icon_positions[cabo_call_icon_frames[i]]
+		$Players.get_child(i).get_node('CaboCallIcon').rotation = -rotations[i]
+		$Players.get_child(i).get_node('CaboCallIcon').frame = cabo_call_icon_frames[i]
 
 func _on_cabo_called(player):
 	$Deck.disable()
@@ -85,11 +100,11 @@ func start_round():
 			for opp in $Players.get_children():
 				player.memory[opp] = [null, null, null, null] if opp != player else [player.hand[0], player.hand[1], null, null]
 		if player.is_main_player:
-			player.get_node('Hand').get_child(0).flip()
-			player.get_node('Hand').get_child(1).flip()
+			player.get_node('HandDisplay').get_child(0).flip()
+			player.get_node('HandDisplay').get_child(1).flip()
 			await get_tree().create_timer(LONG).timeout
-			player.get_node('Hand').get_child(0).flip()
-			player.get_node('Hand').get_child(1).flip()
+			player.get_node('HandDisplay').get_child(0).flip()
+			player.get_node('HandDisplay').get_child(1).flip()
 	await get_tree().create_timer(SHORT).timeout
 	start_turn(turn_list[turn_index])
 
@@ -121,7 +136,7 @@ func end_turn(player):
 
 func end_round():
 	for player in $Players.get_children():
-		for card in player.get_node('Hand').get_children():
+		for card in player.get_node('HandDisplay').get_children():
 			card.flip()
 	await get_tree().create_timer(LONG_LONG).timeout
 	$EndPanel.display_scoreboard()

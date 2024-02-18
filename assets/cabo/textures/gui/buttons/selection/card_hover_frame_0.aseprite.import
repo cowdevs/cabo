@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dftov3wyrbusv"
-path="res://.godot/imported/max.aseprite-119b44aa977ee4efd4a808870ca35aa3.ctex"
+uid="uid://bujf2cyst4nkq"
+path="res://.godot/imported/card_hover_frame_0.aseprite-05d670d442024061d7cf01dd405814e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cabo/textures/gui/buttons/selection/max.aseprite"
-dest_files=["res://.godot/imported/max.aseprite-119b44aa977ee4efd4a808870ca35aa3.ctex"]
+source_file="res://assets/cabo/textures/gui/buttons/selection/card_hover_frame_0.aseprite"
+dest_files=["res://.godot/imported/card_hover_frame_0.aseprite-05d670d442024061d7cf01dd405814e0.ctex"]
 
 [params]
 

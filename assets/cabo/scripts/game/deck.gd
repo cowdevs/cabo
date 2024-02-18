@@ -1,5 +1,5 @@
 class_name Deck
-extends Node2D
+extends Control
 
 const CARD = preload("res://assets/cabo/scenes/card.tscn")
 
@@ -80,7 +80,7 @@ func clear() -> void:
 	cards.clear()
 
 func update() -> void:
-	$Texture.frame = ceil(2.0 * type_convert(len(cards), TYPE_FLOAT) / 13.0)
+	$Texture.frame = ceil((3.0 / 26.0) * type_convert(len(cards), TYPE_FLOAT))
 
 func enable() -> void:
 	$Button.disabled = false

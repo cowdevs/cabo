@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkxpsa48qeimu"
-path="res://.godot/imported/deck_stages.png-2194410460d34d090a57faa664d35273.ctex"
+uid="uid://ci4laryy6odxi"
+path="res://.godot/imported/megaphone_icon.aseprite-92d1db43ebe83971d1940d96b1c3c17f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cabo/textures/card/deck_stages.png"
-dest_files=["res://.godot/imported/deck_stages.png-2194410460d34d090a57faa664d35273.ctex"]
+source_file="res://assets/cabo/textures/gui/icons/megaphone_icon.aseprite"
+dest_files=["res://.godot/imported/megaphone_icon.aseprite-92d1db43ebe83971d1940d96b1c3c17f.ctex"]
 
 [params]
 

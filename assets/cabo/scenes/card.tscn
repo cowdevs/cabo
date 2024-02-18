@@ -92,7 +92,6 @@ _data = {
 }
 
 [node name="Card" type="Node2D"]
-scale = Vector2(2.5, 2.5)
 script = ExtResource("1_aau00")
 face = "Back"
 

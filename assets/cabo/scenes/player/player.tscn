@@ -1,129 +1,116 @@
-[gd_scene load_steps=17 format=3 uid="uid://csa3o368n80y4"]
+[gd_scene load_steps=20 format=3 uid="uid://csa3o368n80y4"]
 
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/player.gd" id="1_an0cy"]
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/hand.gd" id="2_l684h"]
+[ext_resource type="PackedScene" uid="uid://bm8fqdf5no5i2" path="res://assets/cabo/scenes/card.tscn" id="3_hywoh"]
 [ext_resource type="Script" path="res://assets/cabo/scripts/game/action_buttons.gd" id="3_p10fl"]
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/buttons.gd" id="4_h7j1g"]
-[ext_resource type="Texture2D" uid="uid://dftov3wyrbusv" path="res://assets/cabo/textures/gui/buttons/selection/max.aseprite" id="6_s5vxr"]
-[ext_resource type="Texture2D" uid="uid://dki1w6rh4lvmo" path="res://assets/cabo/textures/gui/buttons/selection/medium.aseprite" id="7_5ignq"]
-[ext_resource type="Texture2D" uid="uid://v30lmb476rck" path="res://assets/cabo/textures/gui/gui.aseprite" id="8_l7pr3"]
-[ext_resource type="Texture2D" uid="uid://c0s4n1rvl28x0" path="res://assets/cabo/textures/gui/buttons/selection/min.aseprite" id="8_py823"]
+[ext_resource type="Texture2D" uid="uid://dw7lfmqi3qdy8" path="res://assets/cabo/textures/gui/buttons/selection/card_hover_animation.tres" id="5_qblcg"]
 [ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/theme.tres" id="9_nkseg"]
-[ext_resource type="Texture2D" uid="uid://c05j8ia1k4fix" path="res://assets/cabo/textures/gui/turn_indicator0.aseprite" id="9_rpd4j"]
-[ext_resource type="Texture2D" uid="uid://dighr41xbca1k" path="res://assets/cabo/textures/card/card_back.png" id="9_vkr38"]
-[ext_resource type="Texture2D" uid="uid://mgwnan82sr74" path="res://assets/cabo/textures/gui/turn_indicator1.aseprite" id="10_q4u6m"]
+[ext_resource type="Texture2D" uid="uid://ci4laryy6odxi" path="res://assets/cabo/textures/gui/icons/megaphone_icon.aseprite" id="10_kd4bd"]
+[ext_resource type="Texture2D" uid="uid://cfgxfpo25vp1e" path="res://assets/cabo/textures/gui/icons/cabo_icon_spritesheet.aseprite" id="11_47lny"]
+[ext_resource type="Texture2D" uid="uid://c05j8ia1k4fix" path="res://assets/cabo/textures/gui/turn_indicator_spritesheet.aseprite" id="11_rgoe5"]
+[ext_resource type="Texture2D" uid="uid://rvregqpgf5gu" path="res://assets/cabo/textures/gui/icons/megaphone_with_sound_icon.aseprite" id="11_wd4gx"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_p0o4k"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("6_s5vxr")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_5ignq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_py823")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_5ignq")
-}],
-"loop": true,
-"name": &"default",
-"speed": 6.0
-}]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qn3jb"]
+atlas = ExtResource("11_rgoe5")
+region = Rect2(0, 0, 10, 7)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6ld8t"]
-content_margin_left = 20.0
-content_margin_top = 20.0
-content_margin_right = 16.0
-content_margin_bottom = 40.0
-texture = ExtResource("8_l7pr3")
-texture_margin_left = 11.7564
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 43.6758
-region_rect = Rect2(0, 128, 128, 84)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vt51l"]
-content_margin_left = 20.0
-content_margin_top = 24.0
-content_margin_right = 16.0
-content_margin_bottom = 36.0
-texture = ExtResource("8_l7pr3")
-texture_margin_left = 12.0
-texture_margin_top = 15.9188
-texture_margin_right = 12.0
-texture_margin_bottom = 40.0
-region_rect = Rect2(192, 128, 128, 84)
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gk27"]
+atlas = ExtResource("11_rgoe5")
+region = Rect2(10, 0, 10, 7)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fmcp0"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("9_rpd4j")
+"texture": SubResource("AtlasTexture_qn3jb")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_q4u6m")
+"texture": SubResource("AtlasTexture_4gk27")
 }],
 "loop": true,
 "name": &"default",
 "speed": 3.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsfqq"]
+atlas = ExtResource("11_47lny")
+region = Rect2(0, 24, 54, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqf8j"]
+atlas = ExtResource("11_47lny")
+region = Rect2(0, 0, 54, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hn15"]
+atlas = ExtResource("11_47lny")
+region = Rect2(56, 24, 54, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jrjjt"]
+atlas = ExtResource("11_47lny")
+region = Rect2(56, 0, 54, 22)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jvyae"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsfqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqf8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0hn15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jrjjt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Player" type="Node2D"]
 script = ExtResource("1_an0cy")
 
-[node name="Hand" type="Node2D" parent="."]
+[node name="HandDisplay" type="Node2D" parent="."]
 script = ExtResource("2_l684h")
-
-[node name="FakeCards" type="Node2D" parent="."]
-
-[node name="FakeCard1" type="Sprite2D" parent="FakeCards"]
-texture_filter = 1
-position = Vector2(-345, -105)
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("9_vkr38")
-centered = false
-
-[node name="FakeCard2" type="Sprite2D" parent="FakeCards"]
-texture_filter = 1
-position = Vector2(-165, -105)
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("9_vkr38")
-centered = false
-
-[node name="FakeCard3" type="Sprite2D" parent="FakeCards"]
-texture_filter = 1
-position = Vector2(15, -105)
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("9_vkr38")
-centered = false
-
-[node name="FakeCard4" type="Sprite2D" parent="FakeCards"]
-texture_filter = 1
-position = Vector2(195, -105)
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("9_vkr38")
-centered = false
 
 [node name="Slots" type="Node2D" parent="."]
 
 [node name="Slot1" type="Marker2D" parent="Slots"]
-position = Vector2(-270, -7.62939e-06)
-scale = Vector2(2.5, 2.5)
+position = Vector2(-102, 0)
 
 [node name="Slot2" type="Marker2D" parent="Slots"]
-position = Vector2(-90, -7.62939e-06)
+position = Vector2(-34, 0)
 
 [node name="Slot3" type="Marker2D" parent="Slots"]
-position = Vector2(90, -7.62939e-06)
+position = Vector2(34, 0)
 
 [node name="Slot4" type="Marker2D" parent="Slots"]
-position = Vector2(270, -7.62939e-06)
+position = Vector2(102, 0)
 
 [node name="NewCard" type="Marker2D" parent="Slots"]
-position = Vector2(0, -225)
+position = Vector2(0, -96)
+
+[node name="PlaceholderCards" type="Node2D" parent="."]
+visible = false
+metadata/_edit_lock_ = true
+
+[node name="Card1" parent="PlaceholderCards" instance=ExtResource("3_hywoh")]
+position = Vector2(-34, 0)
+
+[node name="Card2" parent="PlaceholderCards" instance=ExtResource("3_hywoh")]
+position = Vector2(-102, 0)
+
+[node name="Card3" parent="PlaceholderCards" instance=ExtResource("3_hywoh")]
+position = Vector2(34, 0)
+
+[node name="Card4" parent="PlaceholderCards" instance=ExtResource("3_hywoh")]
+position = Vector2(102, 0)
+
+[node name="NewCard" parent="PlaceholderCards" instance=ExtResource("3_hywoh")]
+position = Vector2(0, -96)
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -132,104 +119,88 @@ script = ExtResource("3_p10fl")
 
 [node name="Buttons" type="HBoxContainer" parent="Control"]
 layout_mode = 0
-offset_left = -345.0
-offset_top = -105.0
-offset_right = 345.0
-offset_bottom = 105.0
-theme_override_constants/separation = 30
+offset_left = -135.0
+offset_top = -45.0
+offset_right = 132.0
+offset_bottom = 45.0
+theme_override_constants/separation = 2
 alignment = 1
 metadata/_edit_group_ = true
 
-[node name="Button1" type="TextureButton" parent="Control/Buttons"]
+[node name="Button" type="TextureButton" parent="Control/Buttons"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
-disabled = true
+texture_hover = ExtResource("5_qblcg")
 script = ExtResource("4_h7j1g")
-metadata/_edit_use_anchors_ = true
-
-[node name="ButtonHover" type="AnimatedSprite2D" parent="Control/Buttons/Button1"]
-position = Vector2(75, 105)
-scale = Vector2(2.57576, 2.55556)
-sprite_frames = SubResource("SpriteFrames_p0o4k")
 
 [node name="Button2" type="TextureButton" parent="Control/Buttons"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
+texture_hover = ExtResource("5_qblcg")
 script = ExtResource("4_h7j1g")
-metadata/_edit_use_anchors_ = true
-
-[node name="ButtonHover" type="AnimatedSprite2D" parent="Control/Buttons/Button2"]
-position = Vector2(75, 105)
-scale = Vector2(2.57576, 2.55556)
-sprite_frames = SubResource("SpriteFrames_p0o4k")
 
 [node name="Button3" type="TextureButton" parent="Control/Buttons"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
+texture_hover = ExtResource("5_qblcg")
 script = ExtResource("4_h7j1g")
-metadata/_edit_use_anchors_ = true
-
-[node name="ButtonHover" type="AnimatedSprite2D" parent="Control/Buttons/Button3"]
-position = Vector2(75, 105)
-scale = Vector2(2.57576, 2.55556)
-sprite_frames = SubResource("SpriteFrames_p0o4k")
 
 [node name="Button4" type="TextureButton" parent="Control/Buttons"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
+texture_pressed = ExtResource("5_qblcg")
 script = ExtResource("4_h7j1g")
-metadata/_edit_use_anchors_ = true
 
-[node name="ButtonHover" type="AnimatedSprite2D" parent="Control/Buttons/Button4"]
-position = Vector2(75, 105)
-scale = Vector2(2.57576, 2.55556)
-sprite_frames = SubResource("SpriteFrames_p0o4k")
-
-[node name="ActionButtons" type="HBoxContainer" parent="Control"]
+[node name="ActionButtons" type="VBoxContainer" parent="Control"]
 layout_mode = 0
-offset_left = -135.0
-offset_top = -337.0
-offset_right = 135.0
-offset_bottom = -257.0
-theme_override_constants/separation = 10
+offset_left = -72.0
+offset_top = -236.0
+offset_right = -38.0
+offset_bottom = -148.0
+theme = ExtResource("9_nkseg")
+theme_override_constants/separation = 8
 metadata/_edit_group_ = true
 
 [node name="YesButton" type="Button" parent="Control/ActionButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("9_nkseg")
-text = "YES"
+theme_type_variation = &"Normal"
+text = "Y
+"
 metadata/_edit_use_anchors_ = true
 
 [node name="NoButton" type="Button" parent="Control/ActionButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("9_nkseg")
-text = "NO"
+theme_type_variation = &"Normal"
+text = "N"
 metadata/_edit_use_anchors_ = true
 
-[node name="CaboButton" type="Button" parent="Control"]
+[node name="CaboButton" type="TextureButton" parent="Control"]
 layout_mode = 2
-offset_left = 375.0
-offset_top = 27.0
-offset_right = 551.0
-offset_bottom = 131.0
-scale = Vector2(0.75, 0.75)
+offset_left = 140.0
+offset_top = -3.0
+offset_right = 172.0
+offset_bottom = 42.0
 theme = ExtResource("9_nkseg")
-theme_override_styles/normal = SubResource("StyleBoxTexture_6ld8t")
-theme_override_styles/hover = SubResource("StyleBoxTexture_6ld8t")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_vt51l")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_6ld8t")
-text = "CABO!"
+texture_normal = ExtResource("10_kd4bd")
+texture_hover = ExtResource("11_wd4gx")
 
 [node name="TurnIndicator" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 126)
+position = Vector2(0, 53)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_fmcp0")
-frame_progress = 0.882993
+frame_progress = 0.927242
+
+[node name="CaboCallIcon" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -53)
+sprite_frames = SubResource("SpriteFrames_jvyae")
 
 [connection signal="pressed" from="Control/ActionButtons/YesButton" to="Control" method="_on_yes_button_pressed"]
 [connection signal="pressed" from="Control/ActionButtons/NoButton" to="Control" method="_on_no_button_pressed"]

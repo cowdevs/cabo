@@ -4,34 +4,34 @@
 [ext_resource type="Texture2D" uid="uid://v30lmb476rck" path="res://assets/cabo/textures/gui/gui.aseprite" id="2_cae1h"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u0135"]
-content_margin_left = 20.0
-content_margin_top = 20.0
-content_margin_right = 16.0
-content_margin_bottom = 16.0
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
 texture = ExtResource("2_cae1h")
-texture_margin_left = 20.0
-texture_margin_top = 24.0
-texture_margin_right = 20.0
-texture_margin_bottom = 24.2706
-region_rect = Rect2(0, 0, 128, 64)
+texture_margin_left = 6.216
+texture_margin_top = 5.81061
+texture_margin_right = 6.08087
+texture_margin_bottom = 11.7564
+region_rect = Rect2(0, 0, 64, 32)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tindf"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l3k8r"]
-content_margin_left = 20.0
-content_margin_top = 24.0
-content_margin_right = 16.0
-content_margin_bottom = 12.0
+content_margin_left = 10.0
+content_margin_top = 12.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
 texture = ExtResource("2_cae1h")
-texture_margin_left = 12.0
-texture_margin_top = 16.0
-texture_margin_right = 12.0
-texture_margin_bottom = 19.8376
-region_rect = Rect2(192, 0, 128, 64)
+texture_margin_left = 6.0
+texture_margin_top = 8.0
+texture_margin_right = 6.0
+texture_margin_bottom = 10.0
+region_rect = Rect2(80, 0, 64, 32)
 
 [resource]
 default_font = ExtResource("1_5eccp")
-default_font_size = 32
+default_font_size = 16
 Button/colors/font_color = Color(0.894118, 0.92549, 0.972549, 1)
 Button/colors/font_focus_color = Color(0.894118, 0.92549, 0.972549, 1)
 Button/colors/font_hover_color = Color(1, 1, 1, 1)

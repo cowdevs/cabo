@@ -16,8 +16,8 @@ anchors_preset = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="Control"]
 layout_mode = 0
-offset_right = 1600.0
-offset_bottom = 1200.0
+offset_right = 800.0
+offset_bottom = 600.0
 theme_override_constants/margin_bottom = 75
 
 [node name="VBoxContainer" type="GridContainer" parent="Control/MarginContainer"]

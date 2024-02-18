@@ -12,7 +12,7 @@ func update():
 	# new card
 	var newcard_display = get_child(4)
 	if $"..".is_human:
-		newcard_display.face = 'Front'
+		newcard_display.face = 'FRONT'
 	if $"..".new_card != null:
 		newcard_display.show()
 		newcard_display.value = $"..".new_card.value

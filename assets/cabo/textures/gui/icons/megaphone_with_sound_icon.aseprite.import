@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bion1mkhdaluv"
-path="res://.godot/imported/message_icon.aseprite-44068d2e940148ed6ed167e268bbc723.ctex"
+uid="uid://rvregqpgf5gu"
+path="res://.godot/imported/megaphone_with_sound_icon.aseprite-cddda0a2e5a1479043c36fbdd62ca38d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cabo/textures/gui/icons/message_icon.aseprite"
-dest_files=["res://.godot/imported/message_icon.aseprite-44068d2e940148ed6ed167e268bbc723.ctex"]
+source_file="res://assets/cabo/textures/gui/icons/megaphone_with_sound_icon.aseprite"
+dest_files=["res://.godot/imported/megaphone_with_sound_icon.aseprite-cddda0a2e5a1479043c36fbdd62ca38d.ctex"]
 
 [params]
 

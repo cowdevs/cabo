@@ -1,33 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://obslegcoymti"]
+[gd_scene load_steps=4 format=3 uid="uid://obslegcoymti"]
 
 [ext_resource type="Script" path="res://assets/cabo/scripts/game/pile.gd" id="1_od0lv"]
 [ext_resource type="SpriteFrames" uid="uid://dj0gy4h2owm8e" path="res://assets/cabo/textures/card/card_frames.tres" id="2_ce5m7"]
-[ext_resource type="Texture2D" uid="uid://dftov3wyrbusv" path="res://assets/cabo/textures/gui/buttons/selection/max.aseprite" id="3_4mdo6"]
-[ext_resource type="Texture2D" uid="uid://dki1w6rh4lvmo" path="res://assets/cabo/textures/gui/buttons/selection/medium.aseprite" id="4_6n7oa"]
-[ext_resource type="Texture2D" uid="uid://c0s4n1rvl28x0" path="res://assets/cabo/textures/gui/buttons/selection/min.aseprite" id="5_ha2up"]
+[ext_resource type="Texture2D" uid="uid://dw7lfmqi3qdy8" path="res://assets/cabo/textures/gui/buttons/selection/card_hover_animation.tres" id="3_k5ogg"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_obaoj"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_4mdo6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_6n7oa")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_ha2up")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_6n7oa")
-}],
-"loop": true,
-"name": &"default",
-"speed": 6.0
-}]
-
-[node name="Pile" type="Node2D"]
-scale = Vector2(2.5, 2.5)
+[node name="Pile" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_od0lv")
 
 [node name="Texture" type="AnimatedSprite2D" parent="."]
@@ -35,14 +14,18 @@ sprite_frames = ExtResource("2_ce5m7")
 
 [node name="Button" type="TextureButton" parent="."]
 texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -33.0
 offset_top = -45.0
 offset_right = 33.0
 offset_bottom = 45.0
-
-[node name="ButtonHover" type="AnimatedSprite2D" parent="Button"]
-position = Vector2(33, 45)
-scale = Vector2(1.0303, 1.02222)
-sprite_frames = SubResource("SpriteFrames_obaoj")
+grow_horizontal = 2
+grow_vertical = 2
+texture_hover = ExtResource("3_k5ogg")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

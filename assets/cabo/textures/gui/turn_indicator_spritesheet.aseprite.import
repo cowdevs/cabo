@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dki1w6rh4lvmo"
-path="res://.godot/imported/medium.aseprite-5a9a3bc53d43cd4d812e274028767497.ctex"
+uid="uid://c05j8ia1k4fix"
+path="res://.godot/imported/turn_indicator_spritesheet.aseprite-64049f4f4bcb1d4aa02ecdf525c5c7bc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cabo/textures/gui/buttons/selection/medium.aseprite"
-dest_files=["res://.godot/imported/medium.aseprite-5a9a3bc53d43cd4d812e274028767497.ctex"]
+source_file="res://assets/cabo/textures/gui/turn_indicator_spritesheet.aseprite"
+dest_files=["res://.godot/imported/turn_indicator_spritesheet.aseprite-64049f4f4bcb1d4aa02ecdf525c5c7bc.ctex"]
 
 [params]
 

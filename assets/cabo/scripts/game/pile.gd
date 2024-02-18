@@ -7,14 +7,6 @@ func _ready():
 	$"../EndPanel".connect('new_round', _on_new_round)
 	disable()
 	update()
-
-func _process(_delta):
-	if $Button.is_hovered() and not $Button.is_disabled():
-		$Button/ButtonHover.show()
-		$Button/ButtonHover.play()
-	else:
-		$Button/ButtonHover.hide()
-		$Button/ButtonHover.stop()
 	
 func _on_new_round():
 	clear()

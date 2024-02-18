@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mgwnan82sr74"
-path="res://.godot/imported/turn_indicator1.aseprite-4b51c377d41dc9d0e484a4fcc6e93eed.ctex"
+uid="uid://ex35oawrmbnw"
+path="res://.godot/imported/deck_stages.aseprite-1bac1a28f6581b86b8338c6780c209d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cabo/textures/gui/turn_indicator1.aseprite"
-dest_files=["res://.godot/imported/turn_indicator1.aseprite-4b51c377d41dc9d0e484a4fcc6e93eed.ctex"]
+source_file="res://assets/cabo/textures/card/deck_stages.aseprite"
+dest_files=["res://.godot/imported/deck_stages.aseprite-1bac1a28f6581b86b8338c6780c209d2.ctex"]
 
 [params]
 
