@@ -2,8 +2,7 @@ extends AnimatedSprite2D
 
 func _process(_delta):
 	if $"../..".face == 'FRONT':
-		z_index = 0
 		frame = $"../..".value
+		$".".show()
 	elif $"../..".face == 'BACK':
-		z_index = -1
-
+		$".".hide()

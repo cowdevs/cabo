@@ -84,6 +84,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 0, -1, -1]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CardBack/CardFront:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.14, 0.16, 0.29),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, true, false, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y0ul4"]
 _data = {
@@ -91,16 +103,18 @@ _data = {
 "flip": SubResource("Animation_wr0nj")
 }
 
-[node name="Card" type="Node2D"]
+[node name="Card" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_aau00")
 face = "Back"
 
 [node name="CardBack" type="Sprite2D" parent="."]
-z_index = -1
 texture_filter = 1
 texture = ExtResource("2_84mqv")
 
 [node name="CardFront" type="AnimatedSprite2D" parent="CardBack"]
+visible = false
 texture_filter = 1
 sprite_frames = ExtResource("3_l05rs")
 script = ExtResource("4_gmqd8")

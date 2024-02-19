@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dcbclwsjjgdkg"]
+[gd_scene load_steps=12 format=3 uid="uid://dcbclwsjjgdkg"]
 
 [ext_resource type="Script" path="res://assets/cabo/scripts/game/deck.gd" id="1_fjbb1"]
 [ext_resource type="Texture2D" uid="uid://ex35oawrmbnw" path="res://assets/cabo/textures/card/deck_stages.aseprite" id="2_n3sbh"]
 [ext_resource type="Texture2D" uid="uid://dw7lfmqi3qdy8" path="res://assets/cabo/textures/gui/buttons/selection/card_hover_animation.tres" id="3_cipso"]
+[ext_resource type="PackedScene" uid="uid://bm8fqdf5no5i2" path="res://assets/cabo/scenes/card.tscn" id="4_t76gd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sgapq"]
 atlas = ExtResource("2_n3sbh")
@@ -62,6 +63,8 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_fjbb1")
 
+[node name="Card" parent="." instance=ExtResource("4_t76gd")]
+
 [node name="Texture" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, -10)
@@ -76,9 +79,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -33.0
-offset_top = -45.0
+offset_top = -65.0
 offset_right = 33.0
-offset_bottom = 45.0
+offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_hover = ExtResource("3_cipso")

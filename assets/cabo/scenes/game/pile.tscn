@@ -27,5 +27,6 @@ offset_bottom = 45.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_hover = ExtResource("3_k5ogg")
+metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

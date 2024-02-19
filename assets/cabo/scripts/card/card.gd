@@ -1,11 +1,8 @@
 class_name Card
-extends Node2D
+extends Control
 
 @export var value: int
-@export_enum("FRONT", "BACK") var face: String
-
-func _ready():
-	face = 'BACK'
+@export_enum("FRONT", "BACK") var face := "BACK"
 
 func _to_string():
 	return str(value)

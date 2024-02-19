@@ -37,7 +37,7 @@ func _ready():
 	
 	start_round()
 
-func _process(_delta):	
+func _process(_delta):
 	if %Deck.cards.size() == 0:
 		%Deck.cards = %Pile.cards.slice(1)
 		%Pile.cards = %Pile.cards.slice(0, 1)
@@ -77,30 +77,28 @@ func _on_new_round():
 func start_round():
 	%EndPanel.hide()
 	
-	for player in %Players.get_children():
-		turn_list.append(player)
-		for i in range(4):
-			%Deck.deal_card(player)
+	%Deck.deal_cards()
+	
+	await %Deck.ready_to_start
 	
 	%Pile.discard(%Deck.pop_top_card())
-
-	%Deck.update()
-	%Pile.update()
 	
-	turn_index = randi_range(0, %Players.get_child_count() - 1)
+	for player in %Players.get_children():
+		turn_list.append(player)
+	turn_index = 0 # randi_range(0, %Players.get_child_count() - 1)	
 	
 	await get_tree().create_timer(MEDIUM).timeout
 	
 	for player in %Players.get_children():
 		if not player.is_human:
 			for opp in %Players.get_children():
-				player.memory[opp] = [null, null, null, null] if opp != player else [player.hand[0], player.hand[1], null, null]
+				player.memory[opp] = [null, null, null, null] if opp != player else [player.get_hand()[0], player.get_hand()[1], null, null]
 		if player.is_main_player:
-			player.get_node('HandDisplay').get_child(0).flip()
-			player.get_node('HandDisplay').get_child(1).flip()
+			player.get_node('Hand').get_child(0).flip()
+			player.get_node('Hand').get_child(1).flip()
 			await get_tree().create_timer(LONG).timeout
-			player.get_node('HandDisplay').get_child(0).flip()
-			player.get_node('HandDisplay').get_child(1).flip()
+			player.get_node('Hand').get_child(0).flip()
+			player.get_node('Hand').get_child(1).flip()
 	await get_tree().create_timer(SHORT).timeout
 	start_turn(turn_list[turn_index])
 
@@ -132,7 +130,7 @@ func end_turn(player):
 
 func end_round():
 	for player in %Players.get_children():
-		for card in player.get_node('HandDisplay').get_children():
+		for card in player.get_node('Hand').get_children():
 			card.flip()
 	await get_tree().create_timer(LONG_LONG).timeout
 	%EndPanel.display_scoreboard()

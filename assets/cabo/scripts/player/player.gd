@@ -17,14 +17,11 @@ signal cabo_called(player: Player)
 var is_human := true
 var is_main_player := false
 
-var hand := []
 var score_added: int
 
 var can_draw := false
 var has_new_card := false
 var doing_action := false
-
-var new_card: Card
 
 func _ready():
 	setup()
@@ -35,26 +32,20 @@ func setup() -> void:
 	
 	for button in $CardButtons.get_children():
 		button.connect('pressed_button', _on_button_pressed)
-		button.disabled = true
-	
-	for marker in $Slots.get_children():
-		var card_instance = CARD.instantiate()
-		card_instance.position = marker.position
-		$HandDisplay.add_child(card_instance)
-	
+
 	$CaboCallIcon.hide()
 	$TurnIndicator.play()
 	$TurnIndicator.hide()
 	disable_cabo_button()
+	disable_card_buttons()
 	$ActionButtons.hide_action_buttons()
 
 func _to_string():
 	return 'Player'
 
 func _on_new_round():
-	hand.clear()
-	for card in $HandDisplay.get_children():
-		card.face = 'BACK'
+	for card in $Hand.get_children():
+		card.queue_free()
 
 var store_action = null
 
@@ -68,21 +59,17 @@ func _on_action_confirm(action, _player):
 	elif action == 'swap':
 		Input.set_custom_mouse_cursor(SWAP_CURSOR)
 	if action == 'peek':
-		for button in $CardButtons.get_children():
-			button.disabled = false
+		enable_card_buttons()
 
 func _on_button_pressed(i):
-	PILE.disable()
-	DECK.disable()
+	disable_card_buttons()
 	if not doing_action:
 		exchange_new_card(i, self)
 		GAME.end_turn(self)
 	else:
 		doing_action = false
-		for button in $CardButtons.get_children():
-			button.disabled = true
 		if store_action == 'peek':
-			var flipping_card = $HandDisplay.get_child(i)
+			var flipping_card = $Hand.get_child(i)
 			flipping_card.flip()
 			await get_tree().create_timer(GAME.LONG).timeout
 			flipping_card.flip()
@@ -100,28 +87,51 @@ func _on_cabo_button_pressed():
 	cabo_called.emit(self)
 	GAME.end_turn(self)
 
-func exchange_new_card(i: int, player: Player):
-	PILE.discard(player.hand[i])
-	player.hand[i] = player.new_card
+func exchange_new_card(i: int, player: Player) -> void:
+	PILE.discard(player.get_hand()[i])
+	player.get_hand()[i] = player.get_new_card()
 	if not player.is_human:
-		player.memory[player][i] = player.new_card
-	clear_new_card()
+		player.memory[player][i] = player.get_new_card()
+	player.clear_new_card()
+
+func discard_new_card() -> void:
+	PILE.discard(get_new_card())
 
 func set_new_card(card):
-	new_card = card
-	has_new_card = true
-	for button in $CardButtons.get_children():
-		button.disabled = false
+	$NewCard.add_child(card)
+	if is_human:
+		has_new_card = true
+		enable_card_buttons()
 	
 func clear_new_card():
-	new_card = null
-	has_new_card = false
-	for button in $CardButtons.get_children():
-		button.disabled = true
+	$NewCard.remove_child(get_new_card())
+	if is_human:
+		has_new_card = true
+		disable_card_buttons()
+
+func add_hand(card: Card) -> void:
+	$Hand.add_child(card)
+
+func get_hand() -> Array:
+	return $Hand.get_children()
+
+func get_new_card() -> Card:
+	if $NewCard.get_child_count() > 0:
+		return $NewCard.get_child(0)
+	else:
+		return null
 
 func enable_cabo_button() -> void:
 	$CaboButton.disabled = false
 	$CaboButton.show()
+
+func enable_card_buttons() -> void:
+	for button in $CardButtons.get_children():
+		button.disabled = false
+
+func disable_card_buttons() -> void:
+	for button in $CardButtons.get_children():
+		button.disabled = true
 
 func disable_cabo_button() -> void:
 	$CaboButton.disabled = true

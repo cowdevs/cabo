@@ -7,7 +7,7 @@ func _ready():
 	$"../EndPanel".connect('new_round', _on_new_round)
 	disable()
 	update()
-	
+
 func _on_new_round():
 	clear()
 	disable()
@@ -23,7 +23,7 @@ func _on_button_pressed():
 			disable()
 		elif player.has_new_card:
 			disable()
-			var card = player.new_card
+			var card = player.get_new_card()
 			discard(card)
 			player.clear_new_card()
 			if card.value in range(7, 13):
