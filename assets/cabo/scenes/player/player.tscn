@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://csa3o368n80y4"]
+[gd_scene load_steps=25 format=3 uid="uid://csa3o368n80y4"]
 
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/player.gd" id="1_an0cy"]
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/hand.gd" id="2_l684h"]
@@ -6,11 +6,31 @@
 [ext_resource type="Script" path="res://assets/cabo/scripts/game/action_buttons.gd" id="3_p10fl"]
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/buttons.gd" id="4_h7j1g"]
 [ext_resource type="Texture2D" uid="uid://dw7lfmqi3qdy8" path="res://assets/cabo/textures/gui/buttons/selection/card_hover_animation.tres" id="5_qblcg"]
+[ext_resource type="Texture2D" uid="uid://v30lmb476rck" path="res://assets/cabo/textures/gui/gui.aseprite" id="8_rauwt"]
 [ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/theme.tres" id="9_nkseg"]
-[ext_resource type="Texture2D" uid="uid://ci4laryy6odxi" path="res://assets/cabo/textures/gui/icons/megaphone_icon.aseprite" id="10_kd4bd"]
+[ext_resource type="Texture2D" uid="uid://rvregqpgf5gu" path="res://assets/cabo/textures/gui/icons/megaphone_icon.aseprite" id="10_kd4bd"]
 [ext_resource type="Texture2D" uid="uid://cfgxfpo25vp1e" path="res://assets/cabo/textures/gui/icons/cabo_icon_spritesheet.aseprite" id="11_47lny"]
 [ext_resource type="Texture2D" uid="uid://c05j8ia1k4fix" path="res://assets/cabo/textures/gui/turn_indicator_spritesheet.aseprite" id="11_rgoe5"]
-[ext_resource type="Texture2D" uid="uid://rvregqpgf5gu" path="res://assets/cabo/textures/gui/icons/megaphone_with_sound_icon.aseprite" id="11_wd4gx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqn4c"]
+atlas = ExtResource("8_rauwt")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dg81"]
+atlas = ExtResource("8_rauwt")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7oehq"]
+atlas = ExtResource("8_rauwt")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yh4cp"]
+atlas = ExtResource("8_rauwt")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6llh"]
+atlas = ExtResource("10_kd4bd")
+region = Rect2(0, 0, 32, 45)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qn3jb"]
 atlas = ExtResource("11_rgoe5")
@@ -91,7 +111,7 @@ position = Vector2(34, 0)
 position = Vector2(102, 0)
 
 [node name="NewCard" type="Marker2D" parent="Slots"]
-position = Vector2(0, -96)
+position = Vector2(0, -92)
 
 [node name="PlaceholderCards" type="Node2D" parent="."]
 visible = false
@@ -110,98 +130,91 @@ position = Vector2(34, 0)
 position = Vector2(102, 0)
 
 [node name="NewCard" parent="PlaceholderCards" instance=ExtResource("3_hywoh")]
-position = Vector2(0, -96)
+position = Vector2(0, -92)
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("3_p10fl")
-
-[node name="Buttons" type="HBoxContainer" parent="Control"]
-layout_mode = 0
+[node name="CardButtons" type="HBoxContainer" parent="."]
 offset_left = -135.0
 offset_top = -45.0
-offset_right = 132.0
+offset_right = 135.0
 offset_bottom = 45.0
 theme_override_constants/separation = 2
 alignment = 1
 metadata/_edit_group_ = true
 
-[node name="Button" type="TextureButton" parent="Control/Buttons"]
+[node name="Button1" type="TextureButton" parent="CardButtons"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
 texture_hover = ExtResource("5_qblcg")
 script = ExtResource("4_h7j1g")
 
-[node name="Button2" type="TextureButton" parent="Control/Buttons"]
+[node name="Button2" type="TextureButton" parent="CardButtons"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
 texture_hover = ExtResource("5_qblcg")
 script = ExtResource("4_h7j1g")
 
-[node name="Button3" type="TextureButton" parent="Control/Buttons"]
+[node name="Button3" type="TextureButton" parent="CardButtons"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
 texture_hover = ExtResource("5_qblcg")
 script = ExtResource("4_h7j1g")
 
-[node name="Button4" type="TextureButton" parent="Control/Buttons"]
+[node name="Button4" type="TextureButton" parent="CardButtons"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
-texture_pressed = ExtResource("5_qblcg")
+texture_hover = ExtResource("5_qblcg")
 script = ExtResource("4_h7j1g")
 
-[node name="ActionButtons" type="VBoxContainer" parent="Control"]
-layout_mode = 0
-offset_left = -72.0
-offset_top = -236.0
-offset_right = -38.0
-offset_bottom = -148.0
+[node name="ActionButtons" type="HBoxContainer" parent="."]
+offset_left = -24.0
+offset_top = -138.0
+offset_right = 24.0
+offset_bottom = -122.0
 theme = ExtResource("9_nkseg")
-theme_override_constants/separation = 8
+theme_override_constants/separation = 16
+script = ExtResource("3_p10fl")
 metadata/_edit_group_ = true
 
-[node name="YesButton" type="Button" parent="Control/ActionButtons"]
+[node name="YesButton" type="TextureButton" parent="ActionButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("9_nkseg")
 theme_type_variation = &"Normal"
-text = "Y
-"
+texture_normal = SubResource("AtlasTexture_uqn4c")
+texture_pressed = SubResource("AtlasTexture_7dg81")
 metadata/_edit_use_anchors_ = true
 
-[node name="NoButton" type="Button" parent="Control/ActionButtons"]
+[node name="NoButton" type="TextureButton" parent="ActionButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("9_nkseg")
 theme_type_variation = &"Normal"
-text = "N"
+texture_normal = SubResource("AtlasTexture_7oehq")
+texture_pressed = SubResource("AtlasTexture_yh4cp")
 metadata/_edit_use_anchors_ = true
 
-[node name="CaboButton" type="TextureButton" parent="Control"]
-layout_mode = 2
+[node name="CaboButton" type="TextureButton" parent="."]
 offset_left = 140.0
 offset_top = -3.0
 offset_right = 172.0
 offset_bottom = 42.0
 theme = ExtResource("9_nkseg")
-texture_normal = ExtResource("10_kd4bd")
-texture_hover = ExtResource("11_wd4gx")
+texture_normal = SubResource("AtlasTexture_u6llh")
+texture_hover = ExtResource("10_kd4bd")
 
 [node name="TurnIndicator" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 53)
+position = Vector2(0, 51)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_fmcp0")
 frame_progress = 0.927242
 
 [node name="CaboCallIcon" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -53)
+visible = false
+position = Vector2(0, -57)
 sprite_frames = SubResource("SpriteFrames_jvyae")
 
-[connection signal="pressed" from="Control/ActionButtons/YesButton" to="Control" method="_on_yes_button_pressed"]
-[connection signal="pressed" from="Control/ActionButtons/NoButton" to="Control" method="_on_no_button_pressed"]
-[connection signal="pressed" from="Control/CaboButton" to="." method="_on_cabo_button_pressed"]
+[connection signal="pressed" from="CaboButton" to="." method="_on_cabo_button_pressed"]

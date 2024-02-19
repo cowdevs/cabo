@@ -19,55 +19,51 @@ var cabo_caller: Player
 @export var num_players := 4
 
 func _ready():
-	$Players.add_child(PLAYER.instantiate())
+	%Players.add_child(PLAYER.instantiate())
 	for i in range(num_players - 1):
 		var computer = COMPUTER.instantiate()
-		$Players.add_child(computer)
+		%Players.add_child(computer)
 		computer.name_label = i + 1
 
 	set_player_positions()
 	
-	$Players.get_child(0).is_main_player = true
+	%Players.get_child(0).is_main_player = true
 	
-	$EndPanel.connect('new_round', _on_new_round)
+	%EndPanel.connect('new_round', _on_new_round)
 	
-	for player in $Players.get_children():
+	for player in %Players.get_children():
 		Scoreboard.set_score(0, player)
 		player.connect('cabo_called', _on_cabo_called)
 	
 	start_round()
 
 func _process(_delta):	
-	if $Deck.cards.size() == 0:
-		$Deck.cards = $Pile.cards.slice(1)
-		$Pile.cards = $Pile.cards.slice(0, 1)
-		$Deck.shuffle()
-		$Deck.update()
-		$Pile.update()
+	if %Deck.cards.size() == 0:
+		%Deck.cards = %Pile.cards.slice(1)
+		%Pile.cards = %Pile.cards.slice(0, 1)
+		%Deck.shuffle()
+		%Deck.update()
+		%Pile.update()
 
 func set_player_positions():
-	var positions: Array
-	var rotations: Array
-	var cabo_call_icon_frames: Array
-	var cabo_call_icon_positions = [Vector2(0, -53), Vector2(-11, -71), Vector2(0, -53), Vector2(11, -71)]
-	if $Players.get_child_count() == 2:
-		positions = [Vector2(400, 492), Vector2(400, 108)]
-		rotations = [0, PI]
-		cabo_call_icon_frames = [0, 2]
-	elif $Players.get_child_count() == 4:
-		positions = [Vector2(400, 492), Vector2(152, 300), Vector2(400, 108), Vector2(648, 300)]
-		rotations = [0, PI / 2, PI, -(PI / 2)]
-		cabo_call_icon_frames = [0, 1, 2, 3]
-	for i in range($Players.get_child_count()):
-		$Players.get_child(i).position = positions[i]
-		$Players.get_child(i).rotation = rotations[i]
-		$Players.get_child(i).get_node('CaboCallIcon').position = cabo_call_icon_positions[cabo_call_icon_frames[i]]
-		$Players.get_child(i).get_node('CaboCallIcon').rotation = -rotations[i]
-		$Players.get_child(i).get_node('CaboCallIcon').frame = cabo_call_icon_frames[i]
+	var positions := [Vector2(0, 184), Vector2(-248, 0), Vector2(0, -184), Vector2(248, 0)]
+	var cabo_call_icon_positions = [Vector2(0, -57), Vector2(-11, -71), Vector2(0, -57), Vector2(11, -71)]
+	var rotations := [0, PI / 2, PI, -(PI / 2)]
+	var indexes
+	if %Players.get_child_count() == 2:
+		indexes = [0, 2]
+	elif %Players.get_child_count() == 4:
+		indexes = [0, 1, 2, 3]
+	for i in range(%Players.get_child_count()):
+		%Players.get_child(i).position = positions[indexes[i]]
+		%Players.get_child(i).rotation = rotations[indexes[i]]
+		%Players.get_child(i).get_node('CaboCallIcon').position = cabo_call_icon_positions[indexes[i]]
+		%Players.get_child(i).get_node('CaboCallIcon').rotation = -rotations[indexes[i]]
+		%Players.get_child(i).get_node('CaboCallIcon').frame = indexes[i]
 
 func _on_cabo_called(player):
-	$Deck.disable()
-	$Pile.disable()
+	%Deck.disable()
+	%Pile.disable()
 	cabo_called = true
 	cabo_caller = player
 
@@ -79,25 +75,25 @@ func _on_new_round():
 	start_round()
 
 func start_round():
-	$EndPanel.hide()
+	%EndPanel.hide()
 	
-	for player in $Players.get_children():
+	for player in %Players.get_children():
 		turn_list.append(player)
 		for i in range(4):
-			$Deck.deal_card(player)
+			%Deck.deal_card(player)
 	
-	$Pile.discard($Deck.pop_top_card())
+	%Pile.discard(%Deck.pop_top_card())
 
-	$Deck.update()
-	$Pile.update()
+	%Deck.update()
+	%Pile.update()
 	
-	turn_index = randi_range(0, $Players.get_child_count() - 1)
+	turn_index = randi_range(0, %Players.get_child_count() - 1)
 	
 	await get_tree().create_timer(MEDIUM).timeout
 	
-	for player in $Players.get_children():
+	for player in %Players.get_children():
 		if not player.is_human:
-			for opp in $Players.get_children():
+			for opp in %Players.get_children():
 				player.memory[opp] = [null, null, null, null] if opp != player else [player.hand[0], player.hand[1], null, null]
 		if player.is_main_player:
 			player.get_node('HandDisplay').get_child(0).flip()
@@ -114,8 +110,8 @@ func start_turn(player):
 	turn_count += 1
 	current_player = player
 	if player.is_human:
-		$Deck.enable()
-		$Pile.enable()
+		%Deck.enable()
+		%Pile.enable()
 		player.enable_cabo_button()
 	player.can_draw = true
 	player.get_node('TurnIndicator').show()
@@ -127,19 +123,19 @@ func end_turn(player):
 	player.get_node('TurnIndicator').hide()
 	player.disable_cabo_button()
 	if cabo_called:
-		turn_list.erase($Players.get_child(turn_index))
+		turn_list.erase(%Players.get_child(turn_index))
 		if turn_list.size() == 0:
 			end_round()
 			return
-	turn_index = (turn_index + 1) % $Players.get_child_count()
-	start_turn($Players.get_child(turn_index))
+	turn_index = (turn_index + 1) % %Players.get_child_count()
+	start_turn(%Players.get_child(turn_index))
 
 func end_round():
-	for player in $Players.get_children():
+	for player in %Players.get_children():
 		for card in player.get_node('HandDisplay').get_children():
 			card.flip()
 	await get_tree().create_timer(LONG_LONG).timeout
-	$EndPanel.display_scoreboard()
+	%EndPanel.display_scoreboard()
 
 func swap(list_a: Array, a_index: int, list_b: Array, b_index: int) -> void:
 	var temp = list_a[a_index]

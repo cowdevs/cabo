@@ -14,7 +14,7 @@ func _on_new_round():
 	update()
 
 func _on_button_pressed():
-	var player = $"..".current_player
+	var player = $"../..".current_player
 	if player.is_human:
 		if player.can_draw:
 			draw_card(player)
@@ -34,7 +34,7 @@ func _on_button_pressed():
 				elif card.value in [11, 12]:
 					action_confirm.emit('swap', player)
 			else:
-				$"..".end_turn(player)
+				$"../..".end_turn(player)
 
 func discard(card) -> void:
 	add_card(card) 

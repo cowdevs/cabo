@@ -8,11 +8,11 @@ func _on_no_button_pressed():
 	get_node('/root/Game').end_turn($"..")
 		
 func hide_action_buttons():
-	for button in $ActionButtons.get_children():
+	for button in get_children():
 		button.hide()
 		button.disabled = true
 
 func show_action_buttons():
-	for button in $ActionButtons.get_children():
+	for button in get_children():
 		button.show()
 		button.disabled = false

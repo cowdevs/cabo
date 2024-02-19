@@ -28,13 +28,13 @@ func _to_string():
 func _on_action_confirm(action, player):
 	await player.get_node('Control/ActionButtons/YesButton').pressed
 	if action != 'peek':
-		for button in $Control/Buttons.get_children():
+		for button in $CardButtons.get_children():
 			button.disabled = false
 
 func _on_button_pressed(i):
 	for player in $"..".get_children():
 		if player.is_human and player.doing_action:
-			for button in $Control/Buttons.get_children():
+			for button in $CardButtons.get_children():
 				button.disabled = true
 			if player.store_action == 'spy':
 				var flipping_card = $HandDisplay.get_child(i)

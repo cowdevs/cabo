@@ -6,7 +6,7 @@ const CARD = preload("res://assets/cabo/scenes/card.tscn")
 @export var cards: Array[Card] = []
 
 func _ready():
-	$"../EndPanel".connect('new_round', _on_new_round)
+	$"../../EndPanel".connect('new_round', _on_new_round)
 	create_deck()
 	shuffle()
 	disable()
@@ -23,7 +23,7 @@ func _on_new_round():
 	update()
 
 func _on_button_pressed():
-	var player = $"..".current_player
+	var player = $"../../..".current_player
 	if player.is_human:
 		if player.can_draw:
 			draw_card(player)

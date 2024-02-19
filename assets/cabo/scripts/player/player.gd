@@ -7,8 +7,8 @@ const ARROW_CURSOR = preload("res://assets/cabo/textures/gui/cursors/normal.asep
 const LENS_CURSOR = preload("res://assets/cabo/textures/gui/cursors/magnifying_glass.aseprite")
 const SWAP_CURSOR = preload("res://assets/cabo/textures/gui/cursors/swap.aseprite")
 
-@onready var DECK = get_node("/root/Game/Deck")
-@onready var PILE = get_node("/root/Game/Pile")
+@onready var DECK = get_node("/root/Game/CenterContainer/MarginContainer/Deck")
+@onready var PILE = get_node("/root/Game/CenterContainer/Pile")
 @onready var GAME = get_node("/root/Game")
 
 signal swap(index: int)
@@ -33,7 +33,7 @@ func setup() -> void:
 	$"../../EndPanel".connect('new_round', _on_new_round)
 	PILE.connect('action_confirm', _on_action_confirm)
 	
-	for button in $Control/Buttons.get_children():
+	for button in $CardButtons.get_children():
 		button.connect('pressed_button', _on_button_pressed)
 		button.disabled = true
 	
@@ -46,7 +46,7 @@ func setup() -> void:
 	$TurnIndicator.play()
 	$TurnIndicator.hide()
 	disable_cabo_button()
-	$Control.hide_action_buttons()
+	$ActionButtons.hide_action_buttons()
 
 func _to_string():
 	return 'Player'
@@ -59,8 +59,8 @@ func _on_new_round():
 var store_action = null
 
 func _on_action_confirm(action, _player):
-	$Control.show_action_buttons()
-	await $Control/ActionButtons/YesButton.pressed
+	$ActionButtons.show_action_buttons()
+	await $ActionButtons/YesButton.pressed
 	store_action = action
 	doing_action = true
 	if action == 'peek' or action == 'spy':
@@ -68,7 +68,7 @@ func _on_action_confirm(action, _player):
 	elif action == 'swap':
 		Input.set_custom_mouse_cursor(SWAP_CURSOR)
 	if action == 'peek':
-		for button in $Control/Buttons.get_children():
+		for button in $CardButtons.get_children():
 			button.disabled = false
 
 func _on_button_pressed(i):
@@ -79,7 +79,7 @@ func _on_button_pressed(i):
 		GAME.end_turn(self)
 	else:
 		doing_action = false
-		for button in $Control/Buttons.get_children():
+		for button in $CardButtons.get_children():
 			button.disabled = true
 		if store_action == 'peek':
 			var flipping_card = $HandDisplay.get_child(i)
@@ -110,19 +110,19 @@ func exchange_new_card(i: int, player: Player):
 func set_new_card(card):
 	new_card = card
 	has_new_card = true
-	for button in $Control/Buttons.get_children():
+	for button in $CardButtons.get_children():
 		button.disabled = false
 	
 func clear_new_card():
 	new_card = null
 	has_new_card = false
-	for button in $Control/Buttons.get_children():
+	for button in $CardButtons.get_children():
 		button.disabled = true
 
 func enable_cabo_button() -> void:
-	$Control/CaboButton.disabled = false
-	$Control/CaboButton.show()
+	$CaboButton.disabled = false
+	$CaboButton.show()
 
 func disable_cabo_button() -> void:
-	$Control/CaboButton.disabled = true
-	$Control/CaboButton.hide()
+	$CaboButton.disabled = true
+	$CaboButton.hide()
