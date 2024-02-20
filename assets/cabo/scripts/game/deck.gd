@@ -74,7 +74,7 @@ func deal_cards() -> void:
 				deal_card_tween.tween_property(card, 'global_position', player.global_position, 0.25)
 				await deal_card_tween.finished
 				remove_child(card)
-				player.add_hand(card)
+				player.add_hand(card, -1)
 		emit_signal('ready_to_start')
 
 func draw_card(player) -> void:

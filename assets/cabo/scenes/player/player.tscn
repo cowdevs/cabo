@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://csa3o368n80y4"]
+[gd_scene load_steps=25 format=3 uid="uid://csa3o368n80y4"]
 
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/player.gd" id="1_an0cy"]
 [ext_resource type="PackedScene" uid="uid://bm8fqdf5no5i2" path="res://assets/cabo/scenes/card.tscn" id="3_hywoh"]
@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://rvregqpgf5gu" path="res://assets/cabo/textures/gui/icons/megaphone_icon.aseprite" id="10_kd4bd"]
 [ext_resource type="Texture2D" uid="uid://cfgxfpo25vp1e" path="res://assets/cabo/textures/gui/icons/cabo_icon_spritesheet.aseprite" id="11_47lny"]
 [ext_resource type="Texture2D" uid="uid://c05j8ia1k4fix" path="res://assets/cabo/textures/gui/turn_indicator_spritesheet.aseprite" id="11_rgoe5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0yoql"]
+size = Vector2(280, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uqn4c"]
 atlas = ExtResource("8_rauwt")
@@ -102,6 +105,7 @@ offset_left = -102.0
 offset_right = 102.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 68
 alignment = 1
 
@@ -133,17 +137,29 @@ offset_right = 102.0
 offset_top = -92.0
 offset_bottom = -92.0
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_0yoql")
+
 [node name="CardButtons" type="HBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -135.0
 offset_top = -45.0
 offset_right = 135.0
 offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 2
 alignment = 1
 metadata/_edit_group_ = true
 
 [node name="Button1" type="TextureButton" parent="CardButtons"]
-texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
 texture_hover = ExtResource("5_qblcg")
@@ -218,6 +234,8 @@ visible = false
 position = Vector2(0, -57)
 sprite_frames = SubResource("SpriteFrames_jvyae")
 
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
 [connection signal="pressed" from="ActionButtons/YesButton" to="ActionButtons" method="_on_yes_button_pressed"]
 [connection signal="pressed" from="ActionButtons/NoButton" to="ActionButtons" method="_on_no_button_pressed"]
 [connection signal="pressed" from="CaboButton" to="." method="_on_cabo_button_pressed"]

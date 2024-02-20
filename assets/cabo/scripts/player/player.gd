@@ -32,7 +32,8 @@ func setup() -> void:
 	
 	for button in $CardButtons.get_children():
 		button.connect('pressed_button', _on_button_pressed)
-
+		button.connect('hovered_button', _on_button_hovered)
+	
 	$CaboCallIcon.hide()
 	$TurnIndicator.play()
 	$TurnIndicator.hide()
@@ -79,6 +80,11 @@ func _on_button_pressed(i):
 		elif store_action == 'swap':
 			swap.emit(i)
 
+func _on_button_hovered(i):
+	if get_new_card():
+		var tween = create_tween()
+		tween.tween_property(get_new_card(), 'position', Vector2($Hand.get_child(i).position.x - 102, 0), 0.25)
+
 func _on_cabo_button_pressed():
 	disable_cabo_button()
 	$CaboCallIcon.show()
@@ -88,11 +94,21 @@ func _on_cabo_button_pressed():
 	GAME.end_turn(self)
 
 func exchange_new_card(i: int, player: Player) -> void:
-	PILE.discard(player.get_hand()[i])
-	player.get_hand()[i] = player.get_new_card()
-	if not player.is_human:
-		player.memory[player][i] = player.get_new_card()
-	player.clear_new_card()
+	if get_new_card():
+		var new_card = get_new_card()
+		var exchange_card = get_hand()[i]
+		var tween = create_tween()
+		tween.tween_property(new_card, 'position', Vector2($Hand.get_child(i).position.x - 102, 88), 0.25)
+		new_card.flip()
+		clear_new_card()
+		remove_hand(exchange_card)
+		new_card.position = Vector2.ZERO
+		add_hand(new_card, i)
+		#PILE.discard(player.get_hand()[i])
+		#player.get_hand()[i] = player.get_new_card()
+		#if not player.is_human:
+			#player.memory[player][i] = player.get_new_card()
+		#player.clear_new_card()
 
 func discard_new_card() -> void:
 	PILE.discard(get_new_card())
@@ -109,8 +125,12 @@ func clear_new_card():
 		has_new_card = true
 		disable_card_buttons()
 
-func add_hand(card: Card) -> void:
+func add_hand(card: Card, index: int) -> void:
 	$Hand.add_child(card)
+	$Hand.move_child(card, index)
+
+func remove_hand(card: Card) -> void:
+	$Hand.remove_child(card)
 
 func get_hand() -> Array:
 	return $Hand.get_children()

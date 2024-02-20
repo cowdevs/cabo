@@ -15,11 +15,11 @@ func _ready():
 func _process(_delta):
 	exchange_card_risk = ceil(4.17891 * pow(0.954139, 0.639039 * (GAME.turn_count - 1.04579)) - 0.328834)
 	call_cabo_risk = ceil(0.0137406 * pow(0.928744, -0.120108 * (GAME.turn_count + 499.996)) + 2.70425)
-	if not memory.is_empty():
-		for player in memory:
-			for i in range(memory[player].size()):
-				if memory[player][i] != player.get_hand()[i]:
-					memory[player][i] = null
+	#if not memory.is_empty():
+		#for player in memory:
+			#for i in range(memory[player].size()):
+				#if memory[player][i] != player.get_hand()[i]:
+					#memory[player][i] = null
 
 func _to_string():
 	return 'Computer' + str(name_label)
