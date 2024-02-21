@@ -2,6 +2,7 @@ class_name Pile
 extends Deck
 
 signal action_confirm(action, player)
+signal button_hovered(bool)
 
 func _ready():
 	$"../EndPanel".connect('new_round', _on_new_round)
@@ -36,9 +37,17 @@ func _on_button_pressed():
 			else:
 				$"../..".end_turn(player)
 
+func _on_button_mouse_entered():
+	button_hovered.emit(true)
+
+func _on_button_mouse_exited():
+	button_hovered.emit(false)
+
 func discard(card) -> void:
 	add_card(card) 
 	update()
 
 func update() -> void:
 	$Texture.frame = get_top_card().value if cards.size() > 0 else 15
+
+

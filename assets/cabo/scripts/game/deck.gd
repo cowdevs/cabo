@@ -5,7 +5,7 @@ signal ready_to_start
 
 const CARD = preload("res://assets/cabo/scenes/card.tscn")
 
-@export var cards: Array[Card] = []
+var cards: Array[Card] = []
 
 func _ready():
 	$"../../EndPanel".connect('new_round', _on_new_round)
@@ -71,7 +71,7 @@ func deal_cards() -> void:
 				card.position = Vector2(0, min(0, -4 * ($Texture.get_frame() - 1)))
 				add_child(card)
 				var deal_card_tween = create_tween()
-				deal_card_tween.tween_property(card, 'global_position', player.global_position, 0.25)
+				deal_card_tween.tween_property(card, 'global_position', player.global_position, $"../../..".CARD_MOVEMENT_SPEED)
 				await deal_card_tween.finished
 				remove_child(card)
 				player.add_hand(card, -1)
@@ -83,7 +83,7 @@ func draw_card(player) -> void:
 		card.position = Vector2(0, min(0, -4 * ($Texture.get_frame() - 1)))
 		add_child(card)
 		var draw_card_tween = create_tween()
-		draw_card_tween.tween_property(card, 'global_position', player.get_node('NewCard').global_position, 0.25)
+		draw_card_tween.tween_property(card, 'global_position', player.get_node('NewCard').global_position, $"../../..".CARD_MOVEMENT_SPEED)
 		if player.is_human:
 			card.flip()
 		await draw_card_tween.finished

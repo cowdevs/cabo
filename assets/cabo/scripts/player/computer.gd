@@ -73,11 +73,11 @@ func computer_turn() -> void:
 	# play best card
 	var has_unknown_card = GAME.value_in_hand(null, memory[self])
 	if get_new_card().value in range(exchange_card_risk + 1) and has_unknown_card[0]:
-		exchange_new_card(has_unknown_card[1], self)
+		exchange_new_card(has_unknown_card[1])
 	else:
 		var maxpos = GAME.maxpos(memory[self])
 		if (memory[self][maxpos].value > get_new_card().value) and not ((get_new_card().value in [7, 8] and null in memory[self]) and (abs(memory[self][maxpos].value - get_new_card().value) <= 2)):
-			exchange_new_card(maxpos, self)
+			exchange_new_card(maxpos)
 		else:
 			var card = get_new_card()
 			discard_new_card()
@@ -123,4 +123,4 @@ func computer_turn() -> void:
 										GAME.swap(player.get_hand(), min_index, get_hand(), max_index)
 										await get_tree().create_timer(GAME.LONG).timeout
 										break
-	GAME.end_turn(self)
+			GAME.end_turn(self)

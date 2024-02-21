@@ -11,6 +11,8 @@ const COMPUTER = preload("res://assets/cabo/scenes/player/computer.tscn")
 @export var SHORT_SHORT := 0.5
 @export_group("")
 
+@export var CARD_MOVEMENT_SPEED := 0.25
+
 var turn_list := []
 var turn_index: int
 var cabo_called := false
