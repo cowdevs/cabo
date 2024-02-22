@@ -89,10 +89,10 @@ func start_round():
 		turn_list.append(player)
 	turn_index = 0 # randi_range(0, %Players.get_child_count() - 1)	
 	
-	await get_tree().create_timer(MEDIUM).timeout
+	await get_tree().create_timer(SHORT).timeout
 	
 	for player in %Players.get_children():
-		if not player.is_human:
+		if player.is_computer:
 			for opp in %Players.get_children():
 				player.memory[opp] = [null, null, null, null] if opp != player else [player.get_hand()[0], player.get_hand()[1], null, null]
 		if player.is_main_player:
@@ -109,13 +109,13 @@ var current_player: Player
 func start_turn(player):
 	turn_count += 1
 	current_player = player
-	if player.is_human:
+	if player.is_player:
 		%Deck.enable()
 		%Pile.enable()
 		player.enable_cabo_button()
 	player.can_draw = true
 	player.get_node('TurnIndicator').show()
-	if not player.is_human:
+	if player.is_computer:
 		player.computer_turn()
 
 func end_turn(player):

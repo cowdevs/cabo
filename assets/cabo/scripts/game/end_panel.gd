@@ -26,27 +26,27 @@ func popup() -> void:
 func declare_winner(player: Player) -> void:
 	$PanelContainer/MarginContainer/VBoxContainer/Label.text = str(player) + " WAS CLOSEST TO CABO!"
 
-func display_scoreboard() -> void:	
+func display_scoreboard() -> void:
 	# find player with smallest hand
 	var min_sum = INF
 	var lowest_hand = null
-	for i in range(GAME.get_node('CenterContainer/Players').get_child_count()):
+	for i in range(GAME.get_node('GameContainer/Players').get_child_count()):
 		SLOTS.get_child(i).show()
-		var player = GAME.get_node('CenterContainer/Players').get_child(i)
-		var player_sum = GAME.sum(player.hand)
+		var player = GAME.get_node('GameContainer/Players').get_child(i)
+		var player_sum = GAME.sum(player.get_hand)
 		if player_sum < min_sum:
 			min_sum = player_sum
 			lowest_hand = player
 			
 	# calculate and display scores
-	for player in GAME.get_node('CenterContainer/Players').get_children():
+	for player in GAME.get_node('GameContainer/Players').get_children():
 		if player == GAME.cabo_caller:
 			if player == lowest_hand:
 				player.score_added = 0
 			else:
-				player.score_added = Scoreboard.add_score(10 + GAME.sum(player.hand), player)
+				player.score_added = Scoreboard.add_score(10 + GAME.sum(player.get_hand), player)
 		else:
-			player.score_added = Scoreboard.add_score(GAME.sum(player.hand), player)
+			player.score_added = Scoreboard.add_score(GAME.sum(player.get_hand), player)
 	
 	var sorted_players = GAME.get_sorted_players(Scoreboard.get_scoreboard())
 	for i in range(sorted_players.size()):
@@ -54,7 +54,7 @@ func display_scoreboard() -> void:
 		SLOTS.get_child(i).get_node('ScoreContainer/ScoreLabel').text = str(Scoreboard.get_score(player))
 		SLOTS.get_child(i).get_node('AddScoreContainer/AddScoreLabel').text = "+" + str(player.score_added)
 		
-		if player.is_human:
+		if player.player:
 			SLOTS.get_child(i).get_node('CenterContainer/Icon').texture = PLAYER_ICON
 			SLOTS.get_child(i).get_node('CenterContainer/NameContainer/NameLabel').text = ''
 		else:

@@ -7,18 +7,19 @@ const ARROW_CURSOR = preload("res://assets/cabo/textures/gui/cursors/normal.asep
 const LENS_CURSOR = preload("res://assets/cabo/textures/gui/cursors/magnifying_glass.aseprite")
 const SWAP_CURSOR = preload("res://assets/cabo/textures/gui/cursors/swap.aseprite")
 
-@onready var DECK = get_node("/root/Game/CenterContainer/MarginContainer/Deck")
-@onready var PILE = get_node("/root/Game/CenterContainer/Pile")
+@onready var DECK = get_node("/root/Game/GameContainer/DeckContainer/Deck")
+@onready var PILE = get_node("/root/Game/GameContainer/Pile")
 @onready var GAME = get_node("/root/Game")
 
 signal swap(index: int)
 signal cabo_called(player: Player)
 
-var is_human := true
-var is_main_player := false
+var is_player := true
+var is_computer := false
 
 var score_added: int
 
+var is_main_player := false
 var can_draw := false
 var has_new_card := false
 var doing_action := false
@@ -87,7 +88,7 @@ func _on_pile_button_hovered(yes):
 			button_hover.tween_property(get_new_card(), 'global_position', PILE.global_position + Vector2(0, -28), GAME.CARD_MOVEMENT_SPEED)
 		else:
 			button_hover.tween_property(get_new_card(), 'scale', Vector2(1, 1), GAME.CARD_MOVEMENT_SPEED / 2)
-			button_hover.tween_property(get_new_card(), 'position', Vector2.ZERO, GAME.CARD_MOVEMENT_SPEED / 1.5)
+			button_hover.tween_property(get_new_card(), 'position', Vector2.ZERO, GAME.CARD_MOVEMENT_SPEED / 2)
 
 func _on_cabo_button_pressed():
 	disable_cabo_button()
@@ -104,7 +105,7 @@ func exchange_new_card(i: int) -> void:
 		
 		var exchange_card_tween_a = create_tween()
 		exchange_card_tween_a.tween_property(new_card, 'position', Vector2($Hand.get_child(i).position.x - 102, 92), GAME.CARD_MOVEMENT_SPEED)
-		if is_human:
+		if is_player:
 			new_card.flip()
 		await exchange_card_tween_a.finished
 		
@@ -117,22 +118,31 @@ func exchange_new_card(i: int) -> void:
 		add_hand(new_card, i)
 		remove_hand(exchange_card)
 		PILE.discard(exchange_card)
-		if not is_human:
+		if is_computer:
 			self.memory[self][i] = new_card
 		GAME.end_turn(self)
 
 func discard_new_card() -> void:
-	PILE.discard(get_new_card())
+	if get_new_card():
+		var new_card = get_new_card()
+		if is_computer:
+			var discard_card = create_tween()
+			discard_card.tween_property(new_card, 'global_position', PILE.global_position, GAME.CARD_MOVEMENT_SPEED)
+			new_card.flip()
+			await discard_card.finished
+		clear_new_card()
+		PILE.discard(new_card)
+		GAME.end_turn(self)
 
 func set_new_card(card):
 	$NewCard.add_child(card)
-	if is_human:
+	if is_player:
 		has_new_card = true
 		enable_card_buttons()
 	
 func clear_new_card():
 	$NewCard.remove_child(get_new_card())
-	if is_human:
+	if is_player:
 		has_new_card = false
 		disable_card_buttons()
 

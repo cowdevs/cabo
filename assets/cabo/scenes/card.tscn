@@ -109,6 +109,11 @@ anchors_preset = 0
 script = ExtResource("1_aau00")
 face = "Back"
 
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_y0ul4")
+}
+
 [node name="CardBack" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_84mqv")
@@ -118,8 +123,3 @@ visible = false
 texture_filter = 1
 sprite_frames = ExtResource("3_l05rs")
 script = ExtResource("4_gmqd8")
-
-[node name="Animation" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_y0ul4")
-}

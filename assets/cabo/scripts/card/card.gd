@@ -2,7 +2,7 @@ class_name Card
 extends Control
 
 @export var value: int
-@export_enum("FRONT", "BACK") var face := "BACK"
+@export_enum("FRONT", "BACK") var face := "FRONT"
 
 func _to_string():
 	return str(value)

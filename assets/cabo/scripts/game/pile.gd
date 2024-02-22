@@ -5,6 +5,8 @@ signal action_confirm(action, player)
 signal button_hovered(bool)
 
 func _ready():
+	deck = false
+	pile = true
 	$"../EndPanel".connect('new_round', _on_new_round)
 	disable()
 	update()
@@ -16,9 +18,9 @@ func _on_new_round():
 
 func _on_button_pressed():
 	var player = $"../..".current_player
-	if player.is_human:
+	if player.is_player:
 		if player.can_draw:
-			draw_card(player)
+			draw_from_pile(player)
 			player.disable_cabo_button()
 			update()
 			disable()
@@ -38,10 +40,27 @@ func _on_button_pressed():
 				$"../..".end_turn(player)
 
 func _on_button_mouse_entered():
-	button_hovered.emit(true)
+	if is_enabled():
+		button_hovered.emit(true)
 
 func _on_button_mouse_exited():
-	button_hovered.emit(false)
+	if is_enabled():
+		button_hovered.emit(false)
+
+func draw_from_pile(player) -> void:
+	if cards.size() > 0:
+		var card = pop_top_card()
+		add_child(card)
+		var draw_card_tween = create_tween()
+		draw_card_tween.tween_property(card, 'global_position', player.get_node('NewCard').global_position, GAME.CARD_MOVEMENT_SPEED)
+		card.face = 'FRONT'
+		await draw_card_tween.finished
+		card.position = Vector2.ZERO
+		if player.is_player:
+			player.disable_cabo_button()
+		remove_child(card)
+		player.set_new_card(card)
+		player.can_draw = false
 
 func discard(card) -> void:
 	add_card(card) 
