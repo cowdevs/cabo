@@ -1,10 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://csa3o368n80y4"]
+[gd_scene load_steps=22 format=3 uid="uid://csa3o368n80y4"]
 
 [ext_resource type="Script" path="res://assets/cabo/scripts/player/player.gd" id="1_an0cy"]
 [ext_resource type="PackedScene" uid="uid://bm8fqdf5no5i2" path="res://assets/cabo/scenes/card.tscn" id="3_hywoh"]
 [ext_resource type="Script" path="res://assets/cabo/scripts/game/action_buttons.gd" id="3_p10fl"]
-[ext_resource type="Script" path="res://assets/cabo/scripts/player/card_button.gd" id="4_x2wrw"]
-[ext_resource type="Texture2D" uid="uid://dw7lfmqi3qdy8" path="res://assets/cabo/textures/gui/buttons/selection/card_hover_animation.tres" id="5_qblcg"]
 [ext_resource type="Texture2D" uid="uid://v30lmb476rck" path="res://assets/cabo/textures/gui/gui.aseprite" id="8_rauwt"]
 [ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/cabo/textures/gui/buttons/theme.tres" id="9_nkseg"]
 [ext_resource type="Texture2D" uid="uid://rvregqpgf5gu" path="res://assets/cabo/textures/gui/icons/megaphone_icon.aseprite" id="10_kd4bd"]
@@ -137,51 +135,6 @@ offset_bottom = -92.0
 [node name="Pile" parent="PlaceholderCards" instance=ExtResource("3_hywoh")]
 offset_top = -184.0
 offset_bottom = -184.0
-
-[node name="CardButtons" type="HBoxContainer" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -135.0
-offset_top = -45.0
-offset_right = 135.0
-offset_bottom = 45.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = 2
-alignment = 1
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
-
-[node name="Button1" type="TextureButton" parent="CardButtons"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture_hover = ExtResource("5_qblcg")
-script = ExtResource("4_x2wrw")
-
-[node name="Button2" type="TextureButton" parent="CardButtons"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 3
-texture_hover = ExtResource("5_qblcg")
-script = ExtResource("4_x2wrw")
-
-[node name="Button3" type="TextureButton" parent="CardButtons"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 3
-texture_hover = ExtResource("5_qblcg")
-script = ExtResource("4_x2wrw")
-
-[node name="Button4" type="TextureButton" parent="CardButtons"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 3
-texture_hover = ExtResource("5_qblcg")
-script = ExtResource("4_x2wrw")
 
 [node name="ActionButtons" type="HBoxContainer" parent="."]
 offset_left = -24.0

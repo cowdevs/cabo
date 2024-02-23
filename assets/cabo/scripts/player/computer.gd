@@ -26,8 +26,7 @@ func _to_string():
 func _on_action_confirm(action, player):
 	await player.get_node('ActionButtons/YesButton').pressed
 	if action != 'peek':
-		for button in $CardButtons.get_children():
-			button.disabled = false
+		player.disable_card_buttons()
 
 func _on_button_pressed(i):
 	var player = GAME.current_player

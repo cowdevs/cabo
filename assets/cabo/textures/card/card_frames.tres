@@ -103,9 +103,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qi2o5")
-}, {
-"duration": 1.0,
-"texture": null
 }],
 "loop": true,
 "name": &"default",

@@ -25,15 +25,11 @@ var has_new_card := false
 var doing_action := false
 
 func _ready():
-	PILE.connect('button_hovered', _on_pile_button_hovered)
 	setup()
 
 func setup() -> void:
 	$"../../EndPanel".connect('new_round', _on_new_round)
 	PILE.connect('action_confirm', _on_action_confirm)
-	
-	for button in $CardButtons.get_children():
-		button.connect('pressed_button', _on_button_pressed)
 	
 	$CaboCallIcon.hide()
 	$TurnIndicator.play()
@@ -41,6 +37,12 @@ func setup() -> void:
 	disable_cabo_button()
 	disable_card_buttons()
 	$ActionButtons.hide_action_buttons()
+	
+	await DECK.ready_to_start
+	
+	for card in get_hand():
+		card.connect('card_pressed', _on_card_pressed)
+		card.connect('card_hovered', _on_card_hovered)
 
 func _to_string():
 	return 'Player'
@@ -63,32 +65,32 @@ func _on_action_confirm(action, _player):
 	if action == 'peek':
 		enable_card_buttons()
 
-func _on_button_pressed(i):
-	disable_card_buttons()
-	if not doing_action:
-		exchange_new_card(i)
-	else:
-		doing_action = false
-		if store_action == 'peek':
-			var flipping_card = $Hand.get_child(i)
-			flipping_card.flip()
-			await get_tree().create_timer(GAME.LONG).timeout
-			flipping_card.flip()
-			store_action = null
-			Input.set_custom_mouse_cursor(ARROW_CURSOR)
-			GAME.end_turn(self)
-		elif store_action == 'swap':
-			swap.emit(i)
-
-func _on_pile_button_hovered(yes):
+func _on_card_pressed(i):
 	if get_new_card():
-		var button_hover = create_tween().set_parallel()
-		if yes:
-			button_hover.tween_property(get_new_card(), 'scale', Vector2(1.1, 1.1), GAME.CARD_MOVEMENT_SPEED / 2)
-			button_hover.tween_property(get_new_card(), 'global_position', PILE.global_position + Vector2(0, -28), GAME.CARD_MOVEMENT_SPEED)
+		print('CODE REACHED PT. 2')
+		disable_card_buttons()
+		if not doing_action:
+			exchange_new_card(i)
 		else:
-			button_hover.tween_property(get_new_card(), 'scale', Vector2(1, 1), GAME.CARD_MOVEMENT_SPEED / 2)
-			button_hover.tween_property(get_new_card(), 'position', Vector2.ZERO, GAME.CARD_MOVEMENT_SPEED / 2)
+			doing_action = false
+			if store_action == 'peek':
+				var flipping_card = $Hand.get_child(i)
+				flipping_card.flip()
+				await get_tree().create_timer(GAME.LONG).timeout
+				flipping_card.flip()
+				store_action = null
+				Input.set_custom_mouse_cursor(ARROW_CURSOR)
+				GAME.end_turn(self)
+			elif store_action == 'swap':
+				swap.emit(i)
+
+func _on_card_hovered(i, is_hovered):
+	if get_new_card():
+		var button_hover = create_tween()
+		if is_hovered:
+			button_hover.tween_property(get_new_card(), 'global_position', get_hand()[i].global_position + Vector2(0, -92), GAME.CARD_MOVEMENT_SPEED)
+		else:
+			button_hover.tween_property(get_new_card(), 'position', Vector2.ZERO, GAME.CARD_MOVEMENT_SPEED / 1.5)
 
 func _on_cabo_button_pressed():
 	disable_cabo_button()
@@ -138,6 +140,7 @@ func set_new_card(card):
 	$NewCard.add_child(card)
 	if is_player:
 		has_new_card = true
+		print('CODE REACHED')
 		enable_card_buttons()
 	
 func clear_new_card():
@@ -167,12 +170,14 @@ func enable_cabo_button() -> void:
 	$CaboButton.show()
 
 func enable_card_buttons() -> void:
-	for button in $CardButtons.get_children():
-		button.disabled = false
+	print('CODE REACHED YAYYY')
+	for card in get_hand():
+		print(card)
+		card.enable_button()
 
 func disable_card_buttons() -> void:
-	for button in $CardButtons.get_children():
-		button.disabled = true
+	for card in get_hand():
+		card.disable_button()
 
 func disable_cabo_button() -> void:
 	$CaboButton.disabled = true

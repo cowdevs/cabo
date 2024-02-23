@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bm8fqdf5no5i2"]
+[gd_scene load_steps=9 format=3 uid="uid://bm8fqdf5no5i2"]
 
 [ext_resource type="Script" path="res://assets/cabo/scripts/card/card.gd" id="1_aau00"]
 [ext_resource type="Texture2D" uid="uid://dighr41xbca1k" path="res://assets/cabo/textures/card/card_back.png" id="2_84mqv"]
 [ext_resource type="SpriteFrames" uid="uid://dj0gy4h2owm8e" path="res://assets/cabo/textures/card/card_frames.tres" id="3_l05rs"]
 [ext_resource type="Script" path="res://assets/cabo/scripts/card/card_texture.gd" id="4_gmqd8"]
+[ext_resource type="Texture2D" uid="uid://dw7lfmqi3qdy8" path="res://assets/cabo/textures/gui/buttons/selection/card_hover_animation.tres" id="5_1ly4r"]
 
 [sub_resource type="Animation" id="Animation_qwqef"]
 length = 0.001
@@ -123,3 +124,23 @@ visible = false
 texture_filter = 1
 sprite_frames = ExtResource("3_l05rs")
 script = ExtResource("4_gmqd8")
+
+[node name="CardButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.0
+offset_top = -45.0
+offset_right = 33.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+texture_hover = ExtResource("5_1ly4r")
+
+[connection signal="mouse_entered" from="CardButton" to="." method="_on_card_button_mouse_entered"]
+[connection signal="mouse_exited" from="CardButton" to="." method="_on_card_button_mouse_exited"]
+[connection signal="pressed" from="CardButton" to="." method="_on_card_button_pressed"]

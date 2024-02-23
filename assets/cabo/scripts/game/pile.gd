@@ -8,6 +8,9 @@ func _ready():
 	deck = false
 	pile = true
 	$"../EndPanel".connect('new_round', _on_new_round)
+	$Card.connect('card_pressed', _on_card_pressed)
+	$Card.connect('card_hovered', _on_card_hovered)
+	$Card.face = 'FRONT'
 	disable()
 	update()
 
@@ -16,8 +19,8 @@ func _on_new_round():
 	disable()
 	update()
 
-func _on_button_pressed():
-	var player = $"../..".current_player
+func _on_card_pressed(_i):
+	var player = GAME.current_player
 	if player.is_player:
 		if player.can_draw:
 			draw_from_pile(player)
@@ -37,15 +40,19 @@ func _on_button_pressed():
 				elif card.value in [11, 12]:
 					action_confirm.emit('swap', player)
 			else:
-				$"../..".end_turn(player)
+				GAME.end_turn(player)
 
-func _on_button_mouse_entered():
-	if is_enabled():
-		button_hovered.emit(true)
-
-func _on_button_mouse_exited():
-	if is_enabled():
-		button_hovered.emit(false)
+func _on_card_hovered(_i, is_hovered):
+	var player = GAME.current_player
+	if player:
+		if player.get_new_card():
+			var button_hover = create_tween().set_parallel()
+			if is_hovered:
+				button_hover.tween_property(player.get_new_card(), 'scale', Vector2(1.1, 1.1), GAME.CARD_MOVEMENT_SPEED / 2)
+				button_hover.tween_property(player.get_new_card(), 'global_position', global_position + Vector2(0, -28), GAME.CARD_MOVEMENT_SPEED)
+			else:
+				button_hover.tween_property(player.get_new_card(), 'scale', Vector2(1, 1), GAME.CARD_MOVEMENT_SPEED / 2)
+				button_hover.tween_property(player.get_new_card(), 'position', Vector2.ZERO, GAME.CARD_MOVEMENT_SPEED / 2)
 
 func draw_from_pile(player) -> void:
 	if cards.size() > 0:
@@ -67,6 +74,8 @@ func discard(card) -> void:
 	update()
 
 func update() -> void:
-	$Texture.frame = get_top_card().value if cards.size() > 0 else 15
-
-
+	if cards.size() > 0:
+		$Card.show()
+		$Card.value = get_top_card().value
+	else:
+		$Card.hide()

@@ -15,6 +15,7 @@ var cards: Array[Card] = []
 
 func _ready():
 	GAME_CONTAINER.get_node('EndPanel').connect('new_round', _on_new_round)
+	$Card.connect('card_pressed', _on_card_pressed)
 	create_deck()
 	shuffle()
 	disable()
@@ -33,14 +34,15 @@ func _on_new_round():
 	disable()
 	update()
 
-func _on_button_pressed():
+func _on_card_pressed(_i):
 	var player = GAME.current_player
-	if player.is_player:
-		if player.can_draw:
-			draw_from_deck(player)
-			player.disable_cabo_button()
-			update()
-			disable()
+	if player:
+		if player.is_player:
+			if player.can_draw:
+				draw_from_deck(player)
+				player.disable_cabo_button()
+				update()
+				disable()
 
 func create_deck() -> void:
 	cards.clear()
@@ -81,6 +83,18 @@ func deal_cards() -> void:
 				await deal_card_tween.finished
 				remove_child(card)
 				player.add_hand(card, -1)
+		
+		await get_tree().create_timer(GAME.SHORT).timeout
+		
+		var first_card = pop_top_card()
+		first_card.position = Vector2(0, min(0, -4 * ($Texture.get_frame() - 1)))
+		add_child(first_card)
+		var first_card_tween = create_tween()
+		first_card_tween.tween_property(first_card, 'global_position', %Pile.global_position, GAME.CARD_MOVEMENT_SPEED)
+		first_card.flip()
+		await first_card_tween.finished
+		remove_child(first_card)
+		%Pile.discard(first_card)
 		emit_signal('ready_to_start')
 
 func draw_from_deck(player) -> void:
@@ -111,16 +125,16 @@ func clear() -> void:
 
 func update() -> void:
 	$Texture.frame = ceil((3.0 / 26.0) * type_convert(len(cards), TYPE_FLOAT))
-	$Button.position = Vector2(-33, min(0, -4 * ($Texture.get_frame() - 1) - 45))
+	$Card.position = Vector2(0, min(0, -4 * ($Texture.get_frame() - 1)))
 
 func enable() -> void:
-	$Button.disabled = false
+	$Card.enable_button()
 	
 func disable() -> void:
-	$Button.disabled = true
+	$Card.disable_button()
 
 func is_enabled() -> bool:
-	return not $Button.disabled
+	return not $Card.disabled
 	
 func is_disabled() -> bool:
-	return $Button.disabled
+	return $Card.disabled

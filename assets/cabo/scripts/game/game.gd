@@ -83,8 +83,6 @@ func start_round():
 	
 	await %Deck.ready_to_start
 	
-	%Pile.discard(%Deck.pop_top_card())
-	
 	for player in %Players.get_children():
 		turn_list.append(player)
 	turn_index = 0 # randi_range(0, %Players.get_child_count() - 1)	
