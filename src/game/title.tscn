@@ -1,14 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2acmuwthr7g8"]
+[gd_scene load_steps=4 format=3 uid="uid://c2acmuwthr7g8"]
 
 [ext_resource type="Script" path="res://src/game/title.gd" id="1_dt83l"]
-[ext_resource type="PackedScene" uid="uid://e5m4bhuc5ogf" path="res://src/game/background.tscn" id="2_h27m2"]
 [ext_resource type="Texture2D" uid="uid://nkhhils8ods8" path="res://assets/textures/gui/title/title.aseprite" id="3_tvkl4"]
 [ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/textures/gui/buttons/theme.tres" id="4_cxdcy"]
 
 [node name="TitleScreen" type="Node2D"]
 script = ExtResource("1_dt83l")
-
-[node name="Background" parent="." instance=ExtResource("2_h27m2")]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 offset_right = 640.0

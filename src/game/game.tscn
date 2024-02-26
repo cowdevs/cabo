@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://c32hx6uv3o45"]
+[gd_scene load_steps=6 format=3 uid="uid://c32hx6uv3o45"]
 
 [ext_resource type="Script" path="res://src/game/game.gd" id="1_o85uf"]
-[ext_resource type="PackedScene" uid="uid://e5m4bhuc5ogf" path="res://src/game/background.tscn" id="2_6rewp"]
 [ext_resource type="PackedScene" uid="uid://dcbclwsjjgdkg" path="res://src/game/components/deck.tscn" id="3_j87sg"]
 [ext_resource type="PackedScene" uid="uid://obslegcoymti" path="res://src/game/components/pile.tscn" id="4_qrnmo"]
 [ext_resource type="AudioStream" uid="uid://c1xnhb82e52kd" path="res://assets/sounds/music/game.ogg" id="6_ytswx"]
@@ -10,8 +9,6 @@
 [node name="Game" type="Node2D"]
 script = ExtResource("1_o85uf")
 num_players = 4
-
-[node name="Background" parent="." instance=ExtResource("2_6rewp")]
 
 [node name="GameContainer" type="CenterContainer" parent="."]
 offset_right = 640.0
