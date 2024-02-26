@@ -33,7 +33,7 @@ func display_scoreboard() -> void:
 	for i in range(GAME.get_node('GameContainer/Players').get_child_count()):
 		SLOTS.get_child(i).show()
 		var player = GAME.get_node('GameContainer/Players').get_child(i)
-		var player_sum = GAME.sum(player.get_hand)
+		var player_sum = GAME.sum(player.get_hand())
 		if player_sum < min_sum:
 			min_sum = player_sum
 			lowest_hand = player

@@ -140,6 +140,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 texture_hover = ExtResource("5_1ly4r")
+texture_focused = ExtResource("5_1ly4r")
 
 [connection signal="mouse_entered" from="CardButton" to="." method="_on_card_button_mouse_entered"]
 [connection signal="mouse_exited" from="CardButton" to="." method="_on_card_button_mouse_exited"]

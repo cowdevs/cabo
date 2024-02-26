@@ -6,6 +6,7 @@
 [node name="Pile" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 1
 script = ExtResource("1_od0lv")
 
 [node name="Card" parent="." instance=ExtResource("2_10tnr")]

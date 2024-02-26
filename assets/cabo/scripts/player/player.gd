@@ -11,8 +11,9 @@ const SWAP_CURSOR = preload("res://assets/cabo/textures/gui/cursors/swap.aseprit
 @onready var PILE = get_node("/root/Game/GameContainer/Pile")
 @onready var GAME = get_node("/root/Game")
 
-signal swap(index: int)
 signal cabo_called(player: Player)
+signal index_selected(i)
+signal action_confirmed(bool)
 
 var is_player := true
 var is_computer := false
@@ -22,14 +23,13 @@ var score_added: int
 var is_main_player := false
 var can_draw := false
 var has_new_card := false
-var doing_action := false
 
 func _ready():
 	setup()
 
 func setup() -> void:
 	$"../../EndPanel".connect('new_round', _on_new_round)
-	PILE.connect('action_confirm', _on_action_confirm)
+	PILE.connect('action', _on_action)
 	
 	$CaboCallIcon.hide()
 	$TurnIndicator.play()
@@ -39,10 +39,13 @@ func setup() -> void:
 	$ActionButtons.hide_action_buttons()
 	
 	await DECK.ready_to_start
-	
+
+func _process(_delta):
 	for card in get_hand():
-		card.connect('card_pressed', _on_card_pressed)
-		card.connect('card_hovered', _on_card_hovered)
+		if not card.card_pressed.is_connected(_on_card_pressed):
+			card.connect('card_pressed', _on_card_pressed)
+		if not card.card_hovered.is_connected(_on_card_hovered):
+			card.connect('card_hovered', _on_card_hovered)
 
 func _to_string():
 	return 'Player'
@@ -51,42 +54,36 @@ func _on_new_round():
 	for card in $Hand.get_children():
 		card.queue_free()
 
-var store_action = null
-
-func _on_action_confirm(action, _player):
+func _on_action(action, player):
 	$ActionButtons.show_action_buttons()
-	await $ActionButtons/YesButton.pressed
-	store_action = action
-	doing_action = true
-	if action == 'peek' or action == 'spy':
-		Input.set_custom_mouse_cursor(LENS_CURSOR)
-	elif action == 'swap':
-		Input.set_custom_mouse_cursor(SWAP_CURSOR)
-	if action == 'peek':
-		enable_card_buttons()
+	var confirmed = await player.action_confirmed
+	if confirmed:
+		if action == 'peek' or action == 'spy':
+			Input.set_custom_mouse_cursor(LENS_CURSOR)
+		else:
+			Input.set_custom_mouse_cursor(SWAP_CURSOR)
+		
+		if action == 'peek':
+			enable_card_buttons()
+			var selected_index = await index_selected
+			disable_card_buttons()
+			var flipping_card = $Hand.get_child(selected_index)
+			flipping_card.flip()
+			await get_tree().create_timer(GAME.LONG).timeout
+			flipping_card.flip()
+			Input.set_custom_mouse_cursor(ARROW_CURSOR)
+			GAME.end_turn(self)
 
 func _on_card_pressed(i):
+	index_selected.emit(i)
 	if get_new_card():
-		print('CODE REACHED PT. 2')
+		PILE.disable()
 		disable_card_buttons()
-		if not doing_action:
-			exchange_new_card(i)
-		else:
-			doing_action = false
-			if store_action == 'peek':
-				var flipping_card = $Hand.get_child(i)
-				flipping_card.flip()
-				await get_tree().create_timer(GAME.LONG).timeout
-				flipping_card.flip()
-				store_action = null
-				Input.set_custom_mouse_cursor(ARROW_CURSOR)
-				GAME.end_turn(self)
-			elif store_action == 'swap':
-				swap.emit(i)
+		exchange_new_card(i)
 
 func _on_card_hovered(i, is_hovered):
 	if get_new_card():
-		var button_hover = create_tween()
+		var button_hover = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		if is_hovered:
 			button_hover.tween_property(get_new_card(), 'global_position', get_hand()[i].global_position + Vector2(0, -92), GAME.CARD_MOVEMENT_SPEED)
 		else:
@@ -105,13 +102,13 @@ func exchange_new_card(i: int) -> void:
 		var new_card = get_new_card()
 		var exchange_card = get_hand()[i]
 		
-		var exchange_card_tween_a = create_tween()
+		var exchange_card_tween_a = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		exchange_card_tween_a.tween_property(new_card, 'position', Vector2($Hand.get_child(i).position.x - 102, 92), GAME.CARD_MOVEMENT_SPEED)
 		if is_player:
 			new_card.flip()
 		await exchange_card_tween_a.finished
 		
-		var exchange_card_tween_b = create_tween()
+		var exchange_card_tween_b = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		exchange_card_tween_b.tween_property(exchange_card, 'global_position', PILE.global_position, GAME.CARD_MOVEMENT_SPEED)
 		exchange_card.flip()
 		await exchange_card_tween_b.finished
@@ -128,7 +125,7 @@ func discard_new_card() -> void:
 	if get_new_card():
 		var new_card = get_new_card()
 		if is_computer:
-			var discard_card = create_tween()
+			var discard_card = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 			discard_card.tween_property(new_card, 'global_position', PILE.global_position, GAME.CARD_MOVEMENT_SPEED)
 			new_card.flip()
 			await discard_card.finished
@@ -159,6 +156,9 @@ func remove_hand(card: Card) -> void:
 func get_hand() -> Array:
 	return $Hand.get_children()
 
+func get_hand_index(i: int) -> Card:
+	return get_hand()[i]
+
 func get_new_card() -> Card:
 	if $NewCard.get_child_count() > 0:
 		return $NewCard.get_child(0)
@@ -170,9 +170,7 @@ func enable_cabo_button() -> void:
 	$CaboButton.show()
 
 func enable_card_buttons() -> void:
-	print('CODE REACHED YAYYY')
 	for card in get_hand():
-		print(card)
 		card.enable_button()
 
 func disable_card_buttons() -> void:

@@ -19,34 +19,42 @@ func _process(_delta):
 			for i in range(memory[player].size()):
 				if memory[player][i] != player.get_hand()[i]:
 					memory[player][i] = null
+	for card in get_hand():
+		if not card.card_pressed.is_connected(_on_card_pressed):
+			card.connect('card_pressed', _on_card_pressed)
+		if not card.card_hovered.is_connected(_on_card_hovered):
+			card.connect('card_hovered', _on_card_hovered)
 
 func _to_string():
 	return 'Computer' + str(name_label)
 
-func _on_action_confirm(action, player):
-	await player.get_node('ActionButtons/YesButton').pressed
-	if action != 'peek':
-		player.disable_card_buttons()
+func _on_action(action, player):
+	var confirmed = await player.action_confirmed
+	if confirmed:
+		if action != 'peek':
+			enable_card_buttons()
+			var selected_index = await index_selected
+			for i in range(get_hand().size()):
+				if i != selected_index:
+					get_hand()[i].disable_button()
+			if action == 'spy':
+				disable_card_buttons()
+				var flipping_card = $Hand.get_child(selected_index)
+				flipping_card.flip()
+				await get_tree().create_timer(GAME.LONG).timeout
+				flipping_card.flip()
+			elif action == 'swap':
+				get_hand()[selected_index].get_node('CardButton').show()
+				player.enable_card_buttons()
+				var swap_index = await player.index_selected
+				player.disable_card_buttons()
+				GAME.swap_card(self, selected_index, player, swap_index)
+				disable_card_buttons()
+			Input.set_custom_mouse_cursor(ARROW_CURSOR)
+			GAME.end_turn(player)
 
-func _on_button_pressed(i):
-	var player = GAME.current_player
-	if player.is_player and player.doing_action:
-		for button in $CardButtons.get_children():
-			button.disabled = true
-		if player.store_action == 'spy':
-			var flipping_card = $Hand.get_child(i)
-			flipping_card.flip()
-			await get_tree().create_timer(GAME.LONG).timeout
-			flipping_card.flip()
-		elif player.store_action == 'swap':
-			$CardButtons.get_child(i).texture_focused = $CardButtons.get_child(i).texture_hover
-			for button in player.get_node('CardButtons').get_children():
-				button.disabled = false
-			var index = await player.swap
-			GAME.swap(get_hand(), i, player.get_hand(), index)
-		player.store_action = null
-		Input.set_custom_mouse_cursor(ARROW_CURSOR)
-		GAME.end_turn(player)
+func _on_card_pressed(i):
+	index_selected.emit(i)
 
 func computer_turn() -> void:
 	if not GAME.cabo_called:
@@ -61,10 +69,8 @@ func computer_turn() -> void:
 	# draw from pile if card is 0
 	if PILE.get_top_card().value == 0:
 		PILE.draw_from_pile(self)
-		PILE.update()
 	else:
 		DECK.draw_from_deck(self)
-		DECK.update()
 
 	await get_tree().create_timer(GAME.MEDIUM).timeout
 	
@@ -74,8 +80,9 @@ func computer_turn() -> void:
 		exchange_new_card(has_unknown_card[1])
 	else:
 		var maxpos = GAME.maxpos(memory[self])
-		if (memory[self][maxpos].value > get_new_card().value) and not ((get_new_card().value in [7, 8] and null in memory[self]) and (abs(memory[self][maxpos].value - get_new_card().value) <= 2)):
-			exchange_new_card(maxpos)
+		if (memory[self][maxpos].value > get_new_card().value):
+			if not ((get_new_card().value in [7, 8] and null in memory[self]) and (abs(memory[self][maxpos].value - get_new_card().value) <= 2)):
+				exchange_new_card(maxpos)
 		else:
 			var new_card = get_new_card()
 			discard_new_card()
@@ -101,14 +108,14 @@ func computer_turn() -> void:
 						var zero_in_hand = GAME.value_in_hand(0, memory[cabo_caller])
 						var null_in_hand = GAME.value_in_hand(null, memory[cabo_caller])
 						if zero_in_hand[0]: # if player has 0
-							GAME.swap(cabo_caller.get_hand(), zero_in_hand[1], get_hand(), GAME.maxpos(memory[self])) # swap with 0
+							GAME.swap_card(cabo_caller, zero_in_hand[1], self, GAME.maxpos(memory[self])) # swap with 0
 						elif null_in_hand[0]: # if there is an unknown card
 							if memory[cabo_caller].count(null) >= cabo_caller.get_hand().size() / 2: # if there are more unknown cards than not
-								GAME.swap(cabo_caller.get_hand(), null_in_hand[1], get_hand(), GAME.maxpos(memory[self])) # swap with first unknown card
+								GAME.swap_card(cabo_caller, null_in_hand[1], self, GAME.maxpos(memory[self])) # swap with first unknown card
 							else:
-								GAME.swap(cabo_caller.get_hand(), GAME.minpos(memory[cabo_caller]), get_hand(), GAME.maxpos(memory[self])) # swap with min known card
+								GAME.swap_card(cabo_caller, GAME.minpos(memory[cabo_caller]), self, GAME.maxpos(memory[self])) # swap with min known card
 						else: # if all cards are known
-							GAME.swap(cabo_caller.get_hand(), GAME.minpos(memory[cabo_caller]), get_hand(), GAME.maxpos(memory[self])) # swap with min known card
+							GAME.swap_card(cabo_caller, GAME.minpos(memory[cabo_caller]), self, GAME.maxpos(memory[self])) # swap with min known card
 						await get_tree().create_timer(GAME.LONG).timeout
 					else:
 						var max_index = GAME.maxpos(memory[self])
@@ -117,6 +124,6 @@ func computer_turn() -> void:
 								if TYPE_OBJECT in memory[player]:
 									var min_index = GAME.minpos(memory[player])
 									if memory[self][max_index].value > memory[player][min_index].value:
-										GAME.swap(player.get_hand(), min_index, get_hand(), max_index)
+										GAME.swap_card(player, min_index, self, max_index)
 										await get_tree().create_timer(GAME.LONG).timeout
 										break

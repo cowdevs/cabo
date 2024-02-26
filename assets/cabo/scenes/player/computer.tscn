@@ -5,3 +5,6 @@
 
 [node name="Computer" instance=ExtResource("1_bnq0o")]
 script = ExtResource("1_j8px4")
+
+[node name="CaboCallIcon" parent="." index="6"]
+visible = true

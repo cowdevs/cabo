@@ -16,6 +16,7 @@ var cards: Array[Card] = []
 func _ready():
 	GAME_CONTAINER.get_node('EndPanel').connect('new_round', _on_new_round)
 	$Card.connect('card_pressed', _on_card_pressed)
+	$Card.face = 'BACK'
 	create_deck()
 	shuffle()
 	disable()
@@ -78,7 +79,7 @@ func deal_cards() -> void:
 				var card = pop_top_card()
 				card.position = Vector2(0, min(0, -4 * ($Texture.get_frame() - 1)))
 				add_child(card)
-				var deal_card_tween = create_tween()
+				var deal_card_tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 				deal_card_tween.tween_property(card, 'global_position', player.global_position, GAME.CARD_MOVEMENT_SPEED / 2)
 				await deal_card_tween.finished
 				remove_child(card)
@@ -89,7 +90,7 @@ func deal_cards() -> void:
 		var first_card = pop_top_card()
 		first_card.position = Vector2(0, min(0, -4 * ($Texture.get_frame() - 1)))
 		add_child(first_card)
-		var first_card_tween = create_tween()
+		var first_card_tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		first_card_tween.tween_property(first_card, 'global_position', %Pile.global_position, GAME.CARD_MOVEMENT_SPEED)
 		first_card.flip()
 		await first_card_tween.finished
@@ -102,16 +103,18 @@ func draw_from_deck(player) -> void:
 		var card = pop_top_card()
 		card.position = Vector2(0, min(0, -4 * ($Texture.get_frame() - 1)))
 		add_child(card)
-		var draw_card_tween = create_tween()
+		var draw_card_tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		draw_card_tween.tween_property(card, 'global_position', player.get_node('NewCard').global_position, GAME.CARD_MOVEMENT_SPEED)
 		if player.is_player:
-			card.flip()
+			if card.face == 'BACK':
+				card.flip()
 		await draw_card_tween.finished
 		card.position = Vector2.ZERO
 		if player.is_player:
 			player.disable_cabo_button()
 		remove_child(card)
 		player.set_new_card(card)
+		update()
 		player.can_draw = false
 
 func empty() -> bool:

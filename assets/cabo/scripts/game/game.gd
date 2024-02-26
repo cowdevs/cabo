@@ -4,10 +4,10 @@ const PLAYER = preload("res://assets/cabo/scenes/player/player.tscn")
 const COMPUTER = preload("res://assets/cabo/scenes/player/computer.tscn")
 
 @export_group('Pause Time')
-@export var LONG_LONG := 5
-@export var LONG := 3
-@export var MEDIUM := 2
-@export var SHORT := 1
+@export var LONG_LONG := 5.0
+@export var LONG := 3.0
+@export var MEDIUM := 2.0
+@export var SHORT := 1.0
 @export var SHORT_SHORT := 0.5
 @export_group("")
 
@@ -18,7 +18,7 @@ var turn_index: int
 var cabo_called := false
 var cabo_caller: Player
 
-@export var num_players := 4
+@export var num_players: int
 
 func _ready():
 	%Players.add_child(PLAYER.instantiate())
@@ -135,10 +135,17 @@ func end_round():
 	await get_tree().create_timer(LONG_LONG).timeout
 	%EndPanel.display_scoreboard()
 
-func swap(list_a: Array, a_index: int, list_b: Array, b_index: int) -> void:
-	var temp = list_a[a_index]
-	list_a[a_index] = list_b[b_index]
-	list_b[b_index] = temp
+func swap_card(player_a: Player, index_a: int, player_b: Player, index_b: int) -> void:
+	var card_a = player_a.get_hand_index(index_a)
+	var card_b = player_b.get_hand_index(index_b)
+	var swap_card_tween = create_tween().set_parallel().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+	swap_card_tween.tween_property(card_a, 'global_position', card_b.global_position, CARD_MOVEMENT_SPEED)
+	swap_card_tween.tween_property(card_b, 'global_position', card_a.global_position, CARD_MOVEMENT_SPEED)
+	await swap_card_tween.finished
+	player_a.remove_hand(card_a)
+	player_b.remove_hand(card_b)
+	player_a.add_hand(card_b, index_a)
+	player_b.add_hand(card_a, index_b)
 
 # RETURN METHODS
 func sum(list) -> int:
@@ -184,3 +191,6 @@ func get_sorted_players(dict: Dictionary) -> Array:
 				break
 		arr.append(n)
 	return players
+
+func get_players() -> Array:
+	return %Players.get_children()
