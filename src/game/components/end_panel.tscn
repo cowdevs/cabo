@@ -1,0 +1,457 @@
+[gd_scene load_steps=13 format=3 uid="uid://gtj8s4i8ekna"]
+
+[ext_resource type="Script" path="res://src/game/components/end_panel.gd" id="1_1sl7j"]
+[ext_resource type="Texture2D" uid="uid://bhqf4yx6eo13i" path="res://assets/textures/gui/game_over.aseprite" id="1_sf03d"]
+[ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/textures/gui/buttons/theme.tres" id="3_kl64u"]
+[ext_resource type="Texture2D" uid="uid://b5bmi2eaay756" path="res://assets/textures/gui/tinted_panel.aseprite" id="4_wslsp"]
+[ext_resource type="Texture2D" uid="uid://dhj1pamat78br" path="res://assets/textures/gui/icons/computer_icon.aseprite" id="5_bp1sg"]
+[ext_resource type="Texture2D" uid="uid://x4dhkjfpijhl" path="res://assets/textures/gui/icons/crown_icon.aseprite" id="7_37og4"]
+[ext_resource type="Texture2D" uid="uid://cfgxfpo25vp1e" path="res://assets/textures/gui/icons/cabo_icon_spritesheet.aseprite" id="7_yqomr"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jy2qo"]
+texture = ExtResource("1_sf03d")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxjxr"]
+atlas = ExtResource("7_yqomr")
+region = Rect2(0, 0, 54, 22)
+
+[sub_resource type="Animation" id="Animation_xtvhp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_vc3io"]
+resource_name = "popup"
+length = 0.35
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.35),
+"transitions": PackedFloat32Array(0.5, 2.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yey5g"]
+_data = {
+"RESET": SubResource("Animation_xtvhp"),
+"popup": SubResource("Animation_vc3io")
+}
+
+[node name="EndPanel" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1sl7j")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+texture_filter = 1
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -200.0
+offset_right = 256.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_jy2qo")
+metadata/_edit_group_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+text = "___ WAS CLOSEST TO CABO!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="Slots" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Slot1" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1"]
+layout_mode = 2
+theme_override_constants/margin_bottom = -10
+
+[node name="CrownIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/MarginContainer"]
+z_index = 1
+layout_mode = 2
+texture = ExtResource("7_37og4")
+stretch_mode = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1"]
+layout_mode = 2
+
+[node name="PanelTint" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_wslsp")
+stretch_mode = 3
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("5_bp1sg")
+
+[node name="CaboIconContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 46
+theme_override_constants/margin_bottom = 64
+
+[node name="CaboIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/CenterContainer/CaboIconContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_fxjxr")
+
+[node name="NameContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="NameLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/CenterContainer/NameContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+theme_override_colors/font_color = Color(0.894118, 0.92549, 0.972549, 1)
+text = "_
+"
+horizontal_alignment = 1
+
+[node name="ScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = -3
+theme_override_constants/margin_bottom = -12
+
+[node name="ScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/ScoreContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+
+[node name="AddScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1"]
+layout_mode = 2
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = -8
+
+[node name="AddScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot1/AddScoreContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+text = "+0"
+horizontal_alignment = 1
+
+[node name="Slot2" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2"]
+layout_mode = 2
+theme_override_constants/margin_bottom = -10
+
+[node name="CrownIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/MarginContainer"]
+z_index = 1
+layout_mode = 2
+texture = ExtResource("7_37og4")
+stretch_mode = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2"]
+layout_mode = 2
+
+[node name="PanelTint" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_wslsp")
+stretch_mode = 3
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("5_bp1sg")
+
+[node name="CaboIconContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 46
+theme_override_constants/margin_bottom = 64
+
+[node name="CaboIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/CenterContainer/CaboIconContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_fxjxr")
+
+[node name="NameContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="NameLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/CenterContainer/NameContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+theme_override_colors/font_color = Color(0.894118, 0.92549, 0.972549, 1)
+text = "_
+"
+horizontal_alignment = 1
+
+[node name="ScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = -3
+theme_override_constants/margin_bottom = -12
+
+[node name="ScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/ScoreContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+
+[node name="AddScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2"]
+layout_mode = 2
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = -8
+
+[node name="AddScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot2/AddScoreContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+text = "+0"
+horizontal_alignment = 1
+
+[node name="Slot3" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3"]
+layout_mode = 2
+theme_override_constants/margin_bottom = -10
+
+[node name="CrownIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/MarginContainer"]
+z_index = 1
+layout_mode = 2
+texture = ExtResource("7_37og4")
+stretch_mode = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3"]
+layout_mode = 2
+
+[node name="PanelTint" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_wslsp")
+stretch_mode = 3
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("5_bp1sg")
+
+[node name="CaboIconContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 46
+theme_override_constants/margin_bottom = 64
+
+[node name="CaboIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/CenterContainer/CaboIconContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_fxjxr")
+
+[node name="NameContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="NameLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/CenterContainer/NameContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+theme_override_colors/font_color = Color(0.894118, 0.92549, 0.972549, 1)
+text = "_
+"
+horizontal_alignment = 1
+
+[node name="ScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = -3
+theme_override_constants/margin_bottom = -12
+
+[node name="ScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/ScoreContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+
+[node name="AddScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3"]
+layout_mode = 2
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = -8
+
+[node name="AddScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot3/AddScoreContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+text = "+0"
+horizontal_alignment = 1
+
+[node name="Slot4" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4"]
+layout_mode = 2
+theme_override_constants/margin_bottom = -10
+
+[node name="CrownIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/MarginContainer"]
+z_index = 1
+layout_mode = 2
+texture = ExtResource("7_37og4")
+stretch_mode = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4"]
+layout_mode = 2
+
+[node name="PanelTint" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_wslsp")
+stretch_mode = 3
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("5_bp1sg")
+
+[node name="CaboIconContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 46
+theme_override_constants/margin_bottom = 64
+
+[node name="CaboIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/CenterContainer/CaboIconContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_fxjxr")
+
+[node name="NameContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="NameLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/CenterContainer/NameContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+theme_override_colors/font_color = Color(0.894118, 0.92549, 0.972549, 1)
+text = "_
+"
+horizontal_alignment = 1
+
+[node name="ScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = -3
+theme_override_constants/margin_bottom = -12
+
+[node name="ScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/ScoreContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+
+[node name="AddScoreContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4"]
+layout_mode = 2
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = -8
+
+[node name="AddScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Slots/Slot4/AddScoreContainer"]
+layout_mode = 2
+theme = ExtResource("3_kl64u")
+text = "+0"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="NextRound" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_kl64u")
+text = "NEXT ROUND"
+
+[node name="EndGame" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_kl64u")
+text = "END GAME"
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yey5g")
+}
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/NextRound" to="." method="_on_next_round_pressed"]

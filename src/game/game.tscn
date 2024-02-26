@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://c32hx6uv3o45"]
+
+[ext_resource type="Script" path="res://src/game/game.gd" id="1_o85uf"]
+[ext_resource type="PackedScene" uid="uid://e5m4bhuc5ogf" path="res://src/game/background.tscn" id="2_6rewp"]
+[ext_resource type="PackedScene" uid="uid://dcbclwsjjgdkg" path="res://src/game/components/deck.tscn" id="3_j87sg"]
+[ext_resource type="PackedScene" uid="uid://obslegcoymti" path="res://src/game/components/pile.tscn" id="4_qrnmo"]
+[ext_resource type="AudioStream" uid="uid://c1xnhb82e52kd" path="res://assets/sounds/music/game.ogg" id="6_ytswx"]
+[ext_resource type="PackedScene" uid="uid://gtj8s4i8ekna" path="res://src/game/components/end_panel.tscn" id="8_qhpc2"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_o85uf")
+num_players = 4
+
+[node name="Background" parent="." instance=ExtResource("2_6rewp")]
+
+[node name="GameContainer" type="CenterContainer" parent="."]
+offset_right = 640.0
+offset_bottom = 512.0
+
+[node name="Pile" parent="GameContainer" instance=ExtResource("4_qrnmo")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DeckContainer" type="MarginContainer" parent="GameContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 136
+
+[node name="Deck" parent="GameContainer/DeckContainer" instance=ExtResource("3_j87sg")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Players" type="Control" parent="GameContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="EndPanel" parent="GameContainer" instance=ExtResource("8_qhpc2")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_ytswx")
+volume_db = -5.0
+autoplay = true
+bus = &"Music"

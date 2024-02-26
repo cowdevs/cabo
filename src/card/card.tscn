@@ -1,0 +1,153 @@
+[gd_scene load_steps=10 format=3 uid="uid://bm8fqdf5no5i2"]
+
+[ext_resource type="Script" path="res://src/card/card.gd" id="1_7cj04"]
+[ext_resource type="Texture2D" uid="uid://dighr41xbca1k" path="res://assets/textures/card/card_back.png" id="2_yx5si"]
+[ext_resource type="SpriteFrames" uid="uid://dj0gy4h2owm8e" path="res://assets/textures/card/card_frames.tres" id="3_taj00"]
+[ext_resource type="Script" path="res://src/card/card_texture.gd" id="4_c3ek5"]
+[ext_resource type="Texture2D" uid="uid://dw7lfmqi3qdy8" path="res://assets/textures/gui/buttons/selection/card_hover_animation.tres" id="5_wijv2"]
+[ext_resource type="AudioStream" uid="uid://d4lngmspkpi26" path="res://assets/sounds/sfx/card.ogg" id="6_bcuvc"]
+
+[sub_resource type="Animation" id="Animation_qwqef"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardBack:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:face")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Back"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CardBack/CardFront:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_wr0nj"]
+resource_name = "flip"
+length = 0.4
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardBack:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:face")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.14, 0.16),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["FRONT", "BACK"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CardBack/CardFront:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.01, 0.14, 0.16, 0.29),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, -1, -1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CardBack/CardFront:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.14, 0.16, 0.29),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, true, false, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y0ul4"]
+_data = {
+"RESET": SubResource("Animation_qwqef"),
+"flip": SubResource("Animation_wr0nj")
+}
+
+[node name="Card" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7cj04")
+face = "Back"
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_y0ul4")
+}
+
+[node name="CardBack" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_yx5si")
+
+[node name="CardFront" type="AnimatedSprite2D" parent="CardBack"]
+visible = false
+texture_filter = 1
+sprite_frames = ExtResource("3_taj00")
+script = ExtResource("4_c3ek5")
+
+[node name="CardButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.0
+offset_top = -45.0
+offset_right = 33.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+texture_hover = ExtResource("5_wijv2")
+texture_focused = ExtResource("5_wijv2")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_bcuvc")
+volume_db = 5.0
+bus = &"SFX"
+
+[connection signal="mouse_entered" from="CardButton" to="." method="_on_card_button_mouse_entered"]
+[connection signal="mouse_exited" from="CardButton" to="." method="_on_card_button_mouse_exited"]
+[connection signal="pressed" from="CardButton" to="." method="_on_card_button_pressed"]

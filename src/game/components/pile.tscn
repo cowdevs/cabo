@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://obslegcoymti"]
+
+[ext_resource type="Script" path="res://src/game/components/pile.gd" id="1_od0lv"]
+[ext_resource type="PackedScene" uid="uid://bm8fqdf5no5i2" path="res://src/card/card.tscn" id="2_1jedc"]
+
+[node name="Pile" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_od0lv")
+
+[node name="Card" parent="." instance=ExtResource("2_1jedc")]

@@ -11,9 +11,9 @@ config_version=5
 [application]
 
 config/name="Cabo"
-run/main_scene="res://assets/cabo/scenes/title.tscn"
+run/main_scene="res://src/game/title.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-boot_splash/image="res://assets/cabo/textures/gui/boot_splash.png"
+boot_splash/image="res://assets/textures/gui/boot_splash.png"
 
 [aseprite_importers]
 
@@ -21,7 +21,8 @@ aseprite_executable_path="C:/aseprite/build/bin/aseprite.exe"
 
 [autoload]
 
-Scoreboard="*res://assets/cabo/scripts/game/scoreboard.gd"
+Scoreboard="*res://src/game/scoreboard.gd"
+Transition="*res://src/game/transition.tscn"
 
 [display]
 
@@ -30,7 +31,6 @@ window/size/viewport_height=512
 window/size/window_width_override=1500
 window/size/window_height_override=1200
 window/stretch/mode="canvas_items"
-mouse_cursor/custom_image="res://assets/cabo/textures/gui/cursors/normal.png"
 window/canvas_textures/default_texture_filter=1
 
 [editor_plugins]

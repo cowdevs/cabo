@@ -1,0 +1,16 @@
+[gd_resource type="AnimatedTexture" load_steps=4 format=3 uid="uid://dw7lfmqi3qdy8"]
+
+[ext_resource type="Texture2D" uid="uid://bujf2cyst4nkq" path="res://assets/textures/gui/buttons/selection/card_hover_frame_0.aseprite" id="1_24ytc"]
+[ext_resource type="Texture2D" uid="uid://dbvygba3ra07q" path="res://assets/textures/gui/buttons/selection/card_hover_frame_1.aseprite" id="2_tak7v"]
+[ext_resource type="Texture2D" uid="uid://b2ixkluq48wnf" path="res://assets/textures/gui/buttons/selection/card_hover_frame_2.aseprite" id="3_qor53"]
+
+[resource]
+frames = 4
+frame_0/texture = ExtResource("1_24ytc")
+frame_0/duration = 0.2
+frame_1/texture = ExtResource("2_tak7v")
+frame_1/duration = 0.2
+frame_2/texture = ExtResource("3_qor53")
+frame_2/duration = 0.2
+frame_3/texture = ExtResource("2_tak7v")
+frame_3/duration = 0.2
