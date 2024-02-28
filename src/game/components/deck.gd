@@ -4,19 +4,15 @@ extends Control
 const CARD = preload("res://src/card/card.tscn")
 
 @onready var GAME = get_node("/root/Game")
+@export var game_data: GameData
 @onready var GAME_CONTAINER = get_node("/root/Game/GameContainer")
 
-var deck := true
-var pile := false
-
-var cards: Array[Card] = []
-
 func _ready():
-	GAME_CONTAINER.get_node('EndPanel').connect('new_round', _on_new_round)
+	$"../../EndPanel".connect('new_round', _on_new_round)
 	$Card.connect('card_pressed', _on_card_pressed)
 	$Card.face = 'BACK'
-	create_deck()
-	shuffle()
+	game_data.create_deck()
+	game_data.deck.shuffle()
 	disable()
 	update()
 
@@ -24,12 +20,11 @@ func _process(_delta):
 	update()
 
 func _to_string():
-	return str(cards)
+	return str(game_data.deck)
 
 func _on_new_round():
-	clear()
-	create_deck()
-	shuffle()
+	game_data.create_deck()
+	game_data.deck.shuffle()
 	disable()
 	update()
 
@@ -43,65 +38,39 @@ func _on_card_pressed(_i):
 				update()
 				disable()
 
-func create_deck() -> void:
-	cards.clear()
-	for value in [0, 13]:
-		for i in range(2):
-			var card_instance = CARD.instantiate()
-			card_instance.value = value
-			cards.append(card_instance)
-	
-	for value in range(1, 13):
-		for i in range(4):
-			var card_instance = CARD.instantiate()
-			card_instance.value = value
-			cards.append(card_instance)
-
-# METHODS
-func get_top_card() -> Card:
-	var card = cards.front()
-	return card
-
-func pop_top_card() -> Card:
-	var card = cards.pop_front()
-	return card
-
-func add_card(card) -> void:
-	cards.push_front(card)
-
 func discard_first_card() -> void:
-	if cards.size() >= 1:
-		var first_card = pop_top_card()
+	if game_data.deck.size() >= 1:
+		var first_card = game_data.deck.pop_front()
 		first_card.position = Vector2(0, min(0, -4 * ($Texture.get_frame() - 1)))
 		add_child(first_card)
 		first_card.play_sound()
 		var first_card_tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
-		first_card_tween.tween_property(first_card, 'global_position', %Pile.global_position, GAME.CARD_MOVEMENT_SPEED)
+		first_card_tween.tween_property(first_card, 'global_position', %Pile.global_position, game_data.card_movement_speed)
 		first_card.flip()
 		await first_card_tween.finished
 		remove_child(first_card)
 		%Pile.discard(first_card)
 
 func deal_card(player) -> void:
-	if cards.size() >= 1:
-		var card = pop_top_card()
+	if game_data.deck.size() >= 1:
+		var card = game_data.deck.pop_front()
 		card.position = Vector2(0, min(0, -4 * ($Texture.get_frame() - 1)))
 		add_child(card)
 		card.play_sound()
 		var deal_card_tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
-		deal_card_tween.tween_property(card, 'global_position', player.global_position, GAME.CARD_MOVEMENT_SPEED / 3)
+		deal_card_tween.tween_property(card, 'global_position', player.global_position, game_data.card_movement_speed / 3)
 		await deal_card_tween.finished
 		remove_child(card)
 		player.add_hand(card, -1)
 
 func draw_from_deck(player) -> void:
-	if cards.size() > 0:
-		var card = pop_top_card()
+	if game_data.deck.size() > 0:
+		var card = game_data.deck.pop_front()
 		card.position = Vector2(0, min(0, -4 * ($Texture.get_frame() - 1)))
 		add_child(card)
 		card.play_sound()
 		var draw_card_tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
-		draw_card_tween.tween_property(card, 'global_position', player.get_node('NewCard').global_position, GAME.CARD_MOVEMENT_SPEED)
+		draw_card_tween.tween_property(card, 'global_position', player.get_node('NewCard').global_position, game_data.card_movement_speed)
 		if player.is_player:
 			if card.face == 'BACK':
 				card.flip()
@@ -114,17 +83,8 @@ func draw_from_deck(player) -> void:
 		update()
 		player.can_draw = false
 
-func empty() -> bool:
-	return cards.is_empty()
-
-func shuffle() -> void:
-	cards.shuffle()
-
-func clear() -> void:
-	cards.clear()
-
 func update() -> void:
-	$Texture.frame = ceil((3.0 / 26.0) * type_convert(len(cards), TYPE_FLOAT))
+	$Texture.frame = ceil((3.0 / 26.0) * type_convert(game_data.deck.size(), TYPE_FLOAT))
 	$Card.position = Vector2(0, min(0, -4 * ($Texture.get_frame() - 1)))
 
 func enable() -> void:

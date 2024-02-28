@@ -1,12 +1,14 @@
 class_name Pile
-extends Deck
+extends Control
+
+@export var game_data: GameData
+
+@onready var GAME = get_node("/root/Game")
 
 signal action(action, player)
 signal button_hovered(bool)
 
 func _ready():
-	deck = false
-	pile = true
 	$"../EndPanel".connect('new_round', _on_new_round)
 	$Card.connect('card_pressed', _on_card_pressed)
 	$Card.connect('card_hovered', _on_card_hovered)
@@ -15,7 +17,7 @@ func _ready():
 	update()
 
 func _on_new_round():
-	clear()
+	game_data.pile.clear()
 	disable()
 	update()
 
@@ -48,21 +50,21 @@ func _on_card_hovered(_i, is_hovered):
 		if player.get_new_card():
 			var button_hover = create_tween().set_parallel().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 			if is_hovered:
-				button_hover.tween_property(player.get_new_card(), 'scale', Vector2(1.1, 1.1), GAME.CARD_MOVEMENT_SPEED / 2)
-				button_hover.tween_property(player.get_new_card(), 'global_position', global_position + Vector2(0, -28), GAME.CARD_MOVEMENT_SPEED)
+				button_hover.tween_property(player.get_new_card(), 'scale', Vector2(1.1, 1.1), game_data.card_movement_speed / 2)
+				button_hover.tween_property(player.get_new_card(), 'global_position', global_position + Vector2(0, -28), game_data.card_movement_speed)
 			else:
-				button_hover.tween_property(player.get_new_card(), 'scale', Vector2(1, 1), GAME.CARD_MOVEMENT_SPEED / 2)
-				button_hover.tween_property(player.get_new_card(), 'position', Vector2.ZERO, GAME.CARD_MOVEMENT_SPEED / 2)
+				button_hover.tween_property(player.get_new_card(), 'scale', Vector2(1, 1), game_data.card_movement_speed / 2)
+				button_hover.tween_property(player.get_new_card(), 'position', Vector2.ZERO, game_data.card_movement_speed / 2)
 
 func draw_from_pile(player) -> void:
-	if cards.size() > 0:
-		var card = pop_top_card()
+	if game_data.pile.size() > 0:
+		var card = game_data.pile.pop_front()
 		card.position = Vector2.ZERO
 		card.face = 'FRONT'
 		add_child(card)
 		card.play_sound()
 		var draw_card_tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
-		draw_card_tween.tween_property(card, 'global_position', player.get_node('NewCard').global_position, GAME.CARD_MOVEMENT_SPEED)
+		draw_card_tween.tween_property(card, 'global_position', player.get_node('NewCard').global_position, game_data.card_movement_speed)
 		if player.is_computer:
 			card.flip()
 		await draw_card_tween.finished
@@ -75,12 +77,18 @@ func draw_from_pile(player) -> void:
 		player.can_draw = false
 
 func discard(card) -> void:
-	add_card(card) 
+	game_data.pile.push_front(card)
 	update()
 
 func update() -> void:
-	if cards.size() > 0:
+	if game_data.pile.size() > 0:
 		$Card.show()
-		$Card.value = get_top_card().value
+		$Card.value = game_data.pile.front().value
 	else:
 		$Card.hide()
+
+func enable() -> void:
+	$Card.enable_button()
+	
+func disable() -> void:
+	$Card.disable_button()

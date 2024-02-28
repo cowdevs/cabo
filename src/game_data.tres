@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GameData" load_steps=2 format=3 uid="uid://cjp6btmy1q1sy"]
+
+[ext_resource type="Script" path="res://src/game_data.gd" id="1_jk8di"]
+
+[resource]
+script = ExtResource("1_jk8di")
+players = []
+num_players = 4
+card_movement_speed = 0.25
+deck = []
+pile = []
+very_long_delay = 5.0
+long_delay = 3.0
+medium_delay = 2.0
+short_delay = 1.0
+very_short_delay = 0.5

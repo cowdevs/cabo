@@ -21,9 +21,9 @@ aseprite_executable_path="C:/aseprite/build/bin/aseprite.exe"
 
 [autoload]
 
-Scoreboard="*res://src/game/scoreboard.gd"
 Transition="*res://src/game/transition.tscn"
 Background="*res://src/game/background.tscn"
+Scoreboard="*res://src/game/scoreboard.gd"
 
 [display]
 

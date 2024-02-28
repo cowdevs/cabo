@@ -15,10 +15,12 @@ func _ready():
 		slot.get_node('CenterContainer/CaboIconContainer/CaboIcon').hide()
 
 func _on_next_round_pressed():
+	await Transition.fade_in()
 	new_round.emit()
 	for slot in SLOTS.get_children():
 		slot.get_node('MarginContainer/CrownIcon').hide()
 		slot.get_node('CenterContainer/CaboIconContainer/CaboIcon').hide()
+	Transition.fade_out()
 
 func popup() -> void:
 	$Animation.play('popup')
@@ -44,9 +46,9 @@ func display_scoreboard() -> void:
 			if player == lowest_hand:
 				player.score_added = 0
 			else:
-				player.score_added = Scoreboard.add_score(10 + GAME.sum(player.get_hand), player)
+				player.score_added = Scoreboard.add_score(10 + GAME.sum(player.get_hand()), player)
 		else:
-			player.score_added = Scoreboard.add_score(GAME.sum(player.get_hand), player)
+			player.score_added = Scoreboard.add_score(GAME.sum(player.get_hand()), player)
 	
 	var sorted_players = GAME.get_sorted_players(Scoreboard.get_scoreboard())
 	for i in range(sorted_players.size()):
@@ -54,7 +56,7 @@ func display_scoreboard() -> void:
 		SLOTS.get_child(i).get_node('ScoreContainer/ScoreLabel').text = str(Scoreboard.get_score(player))
 		SLOTS.get_child(i).get_node('AddScoreContainer/AddScoreLabel').text = "+" + str(player.score_added)
 		
-		if player.player:
+		if player.is_player:
 			SLOTS.get_child(i).get_node('CenterContainer/Icon').texture = PLAYER_ICON
 			SLOTS.get_child(i).get_node('CenterContainer/NameContainer/NameLabel').text = ''
 		else:

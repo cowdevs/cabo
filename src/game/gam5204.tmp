@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c32hx6uv3o45"]
 
 [ext_resource type="Script" path="res://src/game/game.gd" id="1_o85uf"]
-[ext_resource type="Resource" uid="uid://cjp6btmy1q1sy" path="res://src/game_data.tres" id="2_xpurk"]
+[ext_resource type="Resource" uid="uid://cjp6btmy1q1sy" path="res://src/test_resource.tres" id="2_xpurk"]
 [ext_resource type="PackedScene" uid="uid://dcbclwsjjgdkg" path="res://src/game/components/deck.tscn" id="3_j87sg"]
 [ext_resource type="PackedScene" uid="uid://obslegcoymti" path="res://src/game/components/pile.tscn" id="4_qrnmo"]
 [ext_resource type="AudioStream" uid="uid://c1xnhb82e52kd" path="res://assets/sounds/music/game.ogg" id="6_ytswx"]

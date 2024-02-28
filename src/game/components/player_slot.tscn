@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=3 uid="uid://cndr7cev52spl"]
+
+[ext_resource type="Texture2D" uid="uid://x4dhkjfpijhl" path="res://assets/textures/gui/icons/crown_icon.aseprite" id="1_m4rvc"]
+[ext_resource type="Texture2D" uid="uid://b5bmi2eaay756" path="res://assets/textures/gui/tinted_panel.aseprite" id="2_7obu8"]
+[ext_resource type="Texture2D" uid="uid://dhj1pamat78br" path="res://assets/textures/gui/icons/computer_icon.aseprite" id="3_n0yky"]
+[ext_resource type="Texture2D" uid="uid://cfgxfpo25vp1e" path="res://assets/textures/gui/icons/cabo_icon_spritesheet.aseprite" id="4_824kq"]
+[ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/textures/gui/buttons/theme.tres" id="5_bw556"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxjxr"]
+atlas = ExtResource("4_824kq")
+region = Rect2(0, 0, 54, 22)
+
+[node name="Slot1" type="VBoxContainer"]
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_bottom = -10
+
+[node name="CrownIcon" type="TextureRect" parent="MarginContainer"]
+z_index = 1
+layout_mode = 2
+texture = ExtResource("1_m4rvc")
+stretch_mode = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="PanelTint" type="TextureRect" parent="CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_7obu8")
+stretch_mode = 3
+
+[node name="Icon" type="TextureRect" parent="CenterContainer"]
+layout_mode = 2
+texture = ExtResource("3_n0yky")
+
+[node name="CaboIconContainer" type="MarginContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 46
+theme_override_constants/margin_bottom = 64
+
+[node name="CaboIcon" type="TextureRect" parent="CenterContainer/CaboIconContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_fxjxr")
+
+[node name="NameContainer" type="MarginContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="NameLabel" type="Label" parent="CenterContainer/NameContainer"]
+layout_mode = 2
+theme = ExtResource("5_bw556")
+theme_override_colors/font_color = Color(0.894118, 0.92549, 0.972549, 1)
+text = "_
+"
+horizontal_alignment = 1
+
+[node name="ScoreContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = -3
+theme_override_constants/margin_bottom = -12
+
+[node name="ScoreLabel" type="Label" parent="ScoreContainer"]
+layout_mode = 2
+theme = ExtResource("5_bw556")
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+
+[node name="AddScoreContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = -8
+
+[node name="AddScoreLabel" type="Label" parent="AddScoreContainer"]
+layout_mode = 2
+theme = ExtResource("5_bw556")
+text = "+0"
+horizontal_alignment = 1

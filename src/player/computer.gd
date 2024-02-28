@@ -34,7 +34,7 @@ func _on_action(action, player):
 			if action == 'spy':
 				var flipping_card = $Hand.get_child(selected_index)
 				flipping_card.flip()
-				await get_tree().create_timer(GAME.LONG).timeout
+				await get_tree().create_timer(game_data.long_delay).timeout
 				flipping_card.flip()
 			elif action == 'swap':
 				player.enable_card_buttons()
@@ -47,7 +47,7 @@ func _on_action(action, player):
 func _on_card_pressed(i):
 	index_selected.emit(i)
 
-func computer_turn() -> void:
+func turn() -> void:
 	for player in memory:
 		for i in range(memory[player].size()):
 			if memory[player][i] != player.get_hand()[i]:
@@ -56,19 +56,19 @@ func computer_turn() -> void:
 	if not GAME.cabo_called:
 		if null not in memory[self] and GAME.sum(memory[self]) <= call_cabo_risk:
 			$CaboCallIcon.show()
-			await get_tree().create_timer(GAME.LONG).timeout
+			await get_tree().create_timer(game_data.long_delay).timeout
 			$CaboCallIcon.hide()
 			cabo_called.emit(self)
 			GAME.end_turn()
 			return
 	
 	# draw from pile if card is 0
-	if PILE.get_top_card().value == 0:
+	if game_data.pile.front().value == 0:
 		PILE.draw_from_pile(self)
 	else:
 		DECK.draw_from_deck(self)
 
-	await get_tree().create_timer(GAME.MEDIUM).timeout
+	await get_tree().create_timer(game_data.medium_delay).timeout
 	
 	# play best card
 	var has_unknown_card = GAME.value_in_hand(null, memory[self])
@@ -82,21 +82,21 @@ func computer_turn() -> void:
 		else:
 			var new_card = get_new_card()
 			discard_new_card()
-			await get_tree().create_timer(GAME.SHORT).timeout
+			await get_tree().create_timer(game_data.short_delay).timeout
 			if new_card.value in range(7, 13):
 				var sorted_players = GAME.get_sorted_players(memory)
 				if new_card.value in [7, 8] and not GAME.cabo_called: # peek
 					var null_in_hand = GAME.value_in_hand(null, memory[self])
 					if null_in_hand[0]:
 						memory[self][null_in_hand[1]] = get_hand()[null_in_hand[1]]
-						await get_tree().create_timer(GAME.LONG).timeout
+						await get_tree().create_timer(game_data.long_delay).timeout
 				elif new_card.value in [9, 10] and not GAME.cabo_called: # spy
 					for player in sorted_players:
 						if player != self:
 							var null_in_hand = GAME.value_in_hand(null, memory[player])
 							if null_in_hand[0]:
 								memory[player][null_in_hand[1]] = player.get_hand()[null_in_hand[1]]
-								await get_tree().create_timer(GAME.LONG).timeout
+								await get_tree().create_timer(game_data.long_delay).timeout
 								break
 				elif new_card.value in [11, 12]: # swap
 					if GAME.cabo_called:
@@ -112,7 +112,7 @@ func computer_turn() -> void:
 								GAME.swap_card(cabo_caller, GAME.minpos(memory[cabo_caller]), self, GAME.maxpos(memory[self])) # swap with min known card
 						else: # if all cards are known
 							GAME.swap_card(cabo_caller, GAME.minpos(memory[cabo_caller]), self, GAME.maxpos(memory[self])) # swap with min known card
-						await get_tree().create_timer(GAME.LONG).timeout
+						await get_tree().create_timer(game_data.long_delay).timeout
 					else:
 						var max_index = GAME.maxpos(memory[self])
 						for player in sorted_players:
@@ -121,5 +121,5 @@ func computer_turn() -> void:
 									var min_index = GAME.minpos(memory[player])
 									if memory[self][max_index].value > memory[player][min_index].value:
 										GAME.swap_card(player, min_index, self, max_index)
-										await get_tree().create_timer(GAME.LONG).timeout
+										await get_tree().create_timer(game_data.long_delay).timeout
 										break

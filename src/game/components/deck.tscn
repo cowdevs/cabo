@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://dcbclwsjjgdkg"]
+[gd_scene load_steps=12 format=3 uid="uid://dcbclwsjjgdkg"]
 
 [ext_resource type="Script" path="res://src/game/components/deck.gd" id="1_fjbb1"]
+[ext_resource type="Resource" uid="uid://cjp6btmy1q1sy" path="res://src/game_data.tres" id="2_dwpkr"]
 [ext_resource type="Texture2D" uid="uid://ex35oawrmbnw" path="res://assets/textures/card/deck_stages.aseprite" id="2_n3sbh"]
 [ext_resource type="PackedScene" uid="uid://bm8fqdf5no5i2" path="res://src/card/card.tscn" id="3_rfxam"]
 
@@ -61,6 +62,7 @@ animations = [{
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_fjbb1")
+game_data = ExtResource("2_dwpkr")
 
 [node name="Texture" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://csa3o368n80y4"]
+[gd_scene load_steps=23 format=3 uid="uid://csa3o368n80y4"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_sxs2y"]
 [ext_resource type="PackedScene" uid="uid://bm8fqdf5no5i2" path="res://src/card/card.tscn" id="2_ua4h1"]
+[ext_resource type="Resource" uid="uid://cjp6btmy1q1sy" path="res://src/game_data.tres" id="2_yth8n"]
 [ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/textures/gui/buttons/theme.tres" id="3_1ke4u"]
 [ext_resource type="Script" path="res://src/game/action_buttons.gd" id="4_nd7d8"]
 [ext_resource type="Texture2D" uid="uid://v30lmb476rck" path="res://assets/textures/gui/gui.aseprite" id="5_6cjke"]
@@ -89,6 +90,7 @@ animations = [{
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_sxs2y")
+game_data = ExtResource("2_yth8n")
 
 [node name="Hand" type="HBoxContainer" parent="."]
 anchors_preset = 8

@@ -7,26 +7,16 @@ const ARROW_CURSOR = preload("res://assets/textures/gui/cursors/normal.aseprite"
 const LENS_CURSOR = preload("res://assets/textures/gui/cursors/magnifying_glass.aseprite")
 const SWAP_CURSOR = preload("res://assets/textures/gui/cursors/swap.aseprite")
 
-@export_group('Pause Time')
-@export var LONG_LONG := 5.0
-@export var LONG := 3.0
-@export var MEDIUM := 2.0
-@export var SHORT := 1.0
-@export var SHORT_SHORT := 0.5
-@export_group("")
-
-@export var CARD_MOVEMENT_SPEED := 0.25
+@export var game_data: GameData
 
 var turn_list := []
 var turn_index: int
 var cabo_called := false
 var cabo_caller: Player
 
-@export var num_players: int
-
 func _ready():
 	%Players.add_child(PLAYER.instantiate())
-	for i in range(num_players - 1):
+	for i in range(game_data.num_players - 1):
 		var computer = COMPUTER.instantiate()
 		%Players.add_child(computer)
 		computer.name_label = i + 1
@@ -44,10 +34,10 @@ func _ready():
 	start_round()
 
 func _process(_delta):
-	if %Deck.cards.size() == 0:
-		%Deck.cards = %Pile.cards.slice(1)
-		%Pile.cards = %Pile.cards.slice(0, 1)
-		%Deck.shuffle()
+	if game_data.deck.size() == 0:
+		game_data.deck = game_data.pile.slice(1)
+		game_data.pile = game_data.pile.slice(0, 1)
+		game_data.deck.shuffle()
 		%Deck.update()
 		%Pile.update()
 
@@ -83,7 +73,7 @@ func _on_new_round():
 func start_round():
 	%EndPanel.hide()
 
-	await get_tree().create_timer(SHORT_SHORT).timeout
+	await get_tree().create_timer(game_data.very_short_delay).timeout
 	
 	var main_player: Player
 	for player in get_players():
@@ -99,19 +89,19 @@ func start_round():
 		if player.is_main_player:
 			main_player = player
 	
-	await get_tree().create_timer(SHORT).timeout
+	await get_tree().create_timer(game_data.short_delay).timeout
 	
 	main_player.get_node('Hand').get_child(0).flip()
 	main_player.get_node('Hand').get_child(1).flip()
-	await get_tree().create_timer(LONG).timeout
+	await get_tree().create_timer(game_data.long_delay).timeout
 	main_player.get_node('Hand').get_child(0).flip()
 	main_player.get_node('Hand').get_child(1).flip()
 	
-	await get_tree().create_timer(SHORT).timeout
+	await get_tree().create_timer(game_data.short_delay).timeout
 	
 	%Deck.discard_first_card()
 	
-	await get_tree().create_timer(SHORT).timeout
+	await get_tree().create_timer(game_data.short_delay).timeout
 	
 	turn_index = 0 # randi_range(0, %Players.get_child_count() - 1)
 	start_turn(turn_list[turn_index])
@@ -128,11 +118,11 @@ func start_turn(player):
 	player.can_draw = true
 	player.get_node('TurnIndicator').show()
 	if player.is_computer:
-		player.computer_turn()
+		player.turn()
 
 func end_turn():
 	Input.set_custom_mouse_cursor(ARROW_CURSOR)
-	await get_tree().create_timer(SHORT_SHORT).timeout
+	await get_tree().create_timer(game_data.very_short_delay).timeout
 	current_player.get_node('TurnIndicator').hide()
 	current_player.disable_cabo_button()
 	if cabo_called:
@@ -147,15 +137,15 @@ func end_round():
 	for player in %Players.get_children():
 		for card in player.get_node('Hand').get_children():
 			card.flip()
-	await get_tree().create_timer(LONG_LONG).timeout
+	await get_tree().create_timer(game_data.very_long_delay).timeout
 	%EndPanel.display_scoreboard()
 
 func swap_card(player_a: Player, index_a: int, player_b: Player, index_b: int) -> void:
 	var card_a = player_a.get_hand_index(index_a)
 	var card_b = player_b.get_hand_index(index_b)
 	var swap_card_tween = create_tween().set_parallel().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
-	swap_card_tween.tween_property(card_a, 'global_position', card_b.global_position, CARD_MOVEMENT_SPEED)
-	swap_card_tween.tween_property(card_b, 'global_position', card_a.global_position, CARD_MOVEMENT_SPEED)
+	swap_card_tween.tween_property(card_a, 'global_position', card_b.global_position, game_data.card_movement_speed)
+	swap_card_tween.tween_property(card_b, 'global_position', card_a.global_position, game_data.card_movement_speed)
 	await swap_card_tween.finished
 	player_a.remove_hand(card_a)
 	player_b.remove_hand(card_b)

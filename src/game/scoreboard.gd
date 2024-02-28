@@ -1,6 +1,6 @@
-extends Node2D
+extends Node
 
-var scoreboard := {}
+@export var scoreboard: Dictionary = {}
 
 func get_scoreboard() -> Dictionary:
 	return scoreboard

@@ -7,6 +7,8 @@ const CARD = preload("res://src/card/card.tscn")
 @onready var PILE = get_node("/root/Game/GameContainer/Pile")
 @onready var GAME = get_node("/root/Game")
 
+@export var game_data: GameData
+
 signal cabo_called(player: Player)
 signal index_selected(i)
 signal action_confirmed(bool)
@@ -78,9 +80,9 @@ func _on_card_hovered(i, is_hovered):
 	if get_new_card():
 		var button_hover = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 		if is_hovered:
-			button_hover.tween_property(get_new_card(), 'global_position', get_hand()[i].global_position + Vector2(0, -92), GAME.CARD_MOVEMENT_SPEED)
+			button_hover.tween_property(get_new_card(), 'global_position', get_hand()[i].global_position + Vector2(0, -92), game_data.card_movement_speed)
 		else:
-			button_hover.tween_property(get_new_card(), 'position', Vector2.ZERO, GAME.CARD_MOVEMENT_SPEED / 1.5)
+			button_hover.tween_property(get_new_card(), 'position', Vector2.ZERO, game_data.card_movement_speed / 1.5)
 
 func _on_cabo_button_pressed():
 	disable_cabo_button()
@@ -88,7 +90,7 @@ func _on_cabo_button_pressed():
 	await get_tree().create_timer(GAME.LONG).timeout
 	$CaboCallIcon.hide()
 	cabo_called.emit(self)
-	GAME.end_turn(self)
+	GAME.end_turn()
 
 func exchange_new_card(i: int) -> void:
 	if get_new_card():
@@ -97,14 +99,14 @@ func exchange_new_card(i: int) -> void:
 		
 		new_card.play_sound()
 		var exchange_card_tween_a = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
-		exchange_card_tween_a.tween_property(new_card, 'position', Vector2($Hand.get_child(i).position.x - 102, 92), GAME.CARD_MOVEMENT_SPEED)
+		exchange_card_tween_a.tween_property(new_card, 'position', Vector2($Hand.get_child(i).position.x - 102, 92), game_data.card_movement_speed)
 		if is_player:
 			new_card.flip()
 		await exchange_card_tween_a.finished
 		
 		exchange_card.play_sound()
 		var exchange_card_tween_b = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
-		exchange_card_tween_b.tween_property(exchange_card, 'global_position', PILE.global_position, GAME.CARD_MOVEMENT_SPEED)
+		exchange_card_tween_b.tween_property(exchange_card, 'global_position', PILE.global_position, game_data.card_movement_speed)
 		exchange_card.flip()
 		await exchange_card_tween_b.finished
 		
@@ -122,12 +124,15 @@ func discard_new_card() -> void:
 		new_card.play_sound()
 		if is_computer:
 			var discard_card = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
-			discard_card.tween_property(new_card, 'global_position', PILE.global_position, GAME.CARD_MOVEMENT_SPEED)
+			discard_card.tween_property(new_card, 'global_position', PILE.global_position, game_data.card_movement_speed)
 			new_card.flip()
 			await discard_card.finished
 		clear_new_card()
 		PILE.discard(new_card)
 		GAME.end_turn()
+
+func turn():
+	pass
 
 func set_new_card(card):
 	$NewCard.add_child(card)
