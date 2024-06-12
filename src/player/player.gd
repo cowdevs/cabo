@@ -65,7 +65,7 @@ func _on_action(action, player):
 			disable_card_buttons()
 			var flipping_card = $Hand.get_child(selected_index)
 			flipping_card.flip()
-			await get_tree().create_timer(GAME.LONG).timeout
+			await get_tree().create_timer(game_data.long_delay).timeout
 			flipping_card.flip()
 			GAME.end_turn()
 
@@ -87,7 +87,7 @@ func _on_card_hovered(i, is_hovered):
 func _on_cabo_button_pressed():
 	disable_cabo_button()
 	$CaboCallIcon.show()
-	await get_tree().create_timer(GAME.LONG).timeout
+	await get_tree().create_timer(game_data.long_delay).timeout
 	$CaboCallIcon.hide()
 	cabo_called.emit(self)
 	GAME.end_turn()

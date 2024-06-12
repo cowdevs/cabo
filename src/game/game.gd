@@ -42,7 +42,7 @@ func _process(_delta):
 		%Pile.update()
 
 func set_player_positions():
-	var positions := [Vector2(0, 184), Vector2(-248, 0), Vector2(0, -184), Vector2(248, 0)]
+	var positions := [Vector2(0, 184), Vector2(-234, 0), Vector2(0, -184), Vector2(234, 0)]
 	var cabo_call_icon_positions = [Vector2(0, -57), Vector2(-11, -71), Vector2(0, -57), Vector2(11, -71)]
 	var rotations := [0, PI / 2, PI, -(PI / 2)]
 	var indexes

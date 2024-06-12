@@ -12,8 +12,8 @@ script = ExtResource("1_o85uf")
 game_data = ExtResource("2_xpurk")
 
 [node name="GameContainer" type="CenterContainer" parent="."]
-offset_right = 640.0
-offset_bottom = 512.0
+offset_right = 500.0
+offset_bottom = 400.0
 
 [node name="Pile" parent="GameContainer" instance=ExtResource("4_qrnmo")]
 unique_name_in_owner = true

@@ -4,18 +4,26 @@
 [ext_resource type="Texture2D" uid="uid://nkhhils8ods8" path="res://assets/textures/gui/title/title.aseprite" id="3_tvkl4"]
 [ext_resource type="Theme" uid="uid://nvvji4kitupw" path="res://assets/textures/gui/buttons/theme.tres" id="4_cxdcy"]
 
-[node name="TitleScreen" type="Node2D"]
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_dt83l")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-offset_right = 640.0
-offset_bottom = 512.0
-theme_override_constants/margin_bottom = 75
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 400.0
+size_flags_vertical = 3
 
-[node name="VBoxContainer" type="GridContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 96
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Title" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+[node name="Title" type="TextureRect" parent="CenterContainer/VBoxContainer/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
@@ -23,28 +31,19 @@ size_flags_vertical = 3
 texture = ExtResource("3_tvkl4")
 stretch_mode = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+theme = ExtResource("4_cxdcy")
+text = "The Elusive Unicorn Card Game"
+horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer"]
-layout_mode = 2
-theme_override_constants/separation = 16
-
-[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+[node name="PlayButton" type="Button" parent="CenterContainer/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme = ExtResource("4_cxdcy")
 text = "PLAY"
 alignment = 0
 
-[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("4_cxdcy")
-text = "quit"
-alignment = 0
-
-[connection signal="pressed" from="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

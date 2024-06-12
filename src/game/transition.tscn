@@ -8,8 +8,8 @@ visible = false
 script = ExtResource("1_y5hqi")
 
 [node name="Row" type="HBoxContainer" parent="."]
-offset_right = 640.0
-offset_bottom = 512.0
+offset_right = 500.0
+offset_bottom = 400.0
 mouse_filter = 2
 
 [node name="Column1" parent="Row" instance=ExtResource("2_s8trn")]

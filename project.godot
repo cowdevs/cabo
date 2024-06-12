@@ -27,8 +27,8 @@ Scoreboard="*res://src/game/scoreboard.gd"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=512
+window/size/viewport_width=500
+window/size/viewport_height=400
 window/size/window_width_override=1500
 window/size/window_height_override=1200
 window/stretch/mode="canvas_items"
